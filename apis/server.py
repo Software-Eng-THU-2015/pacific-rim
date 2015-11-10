@@ -4,11 +4,16 @@ __author__ = 'XP'
 
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+import json
 from apis import tools
 from wechatpy import parse_message, create_reply
 
 @csrf_exempt
+
 def handle(request):
+    menu_file = file("apis/menu.json")
+    menu_json = json.load(menu_file)
+    tools.menuCreate(menu_json);
     if request.method == "GET":
         if not tools.checkSignature(request):
             return HttpResponse("invalid signature")
