@@ -1,6 +1,8 @@
 from django.conf.urls import include, url
 from django.contrib import admin
-from apis.views import *
+from apis import views
+from apis import server
+
 
 urlpatterns = [
     # Examples:
@@ -8,5 +10,5 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
 
   url('', include(admin.site.urls)),
-  url(r'^test/', wechat_main),
+  url(r'^test/', server.handle),
 ]
