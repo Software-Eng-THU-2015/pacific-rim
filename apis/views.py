@@ -29,11 +29,13 @@ def wechat_main(request):
         else:                                            
             return HttpResponse("wechat_index")          
     else:                                                
-        print "1"                                        
         xml_str = smart_str(request.body)                
-        print "2"                                        
         print (xml_str)                                  
         request_xml = ElementTree.fromstring(xml_str)    
         print(request_xml)                               
         response_xml = auto_reply_main(request_xml)      
         return HttpResponse(response_xml)
+
+def index(request):
+    if request.method == 'GET':
+        return render(request, 'index.html')
