@@ -5,7 +5,7 @@ __author__ = 'XP'
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 import json
-from apis import tools
+from apis.tools import *
 from wechatpy import parse_message, create_reply
 from wechatpy.replies import TextReply, ImageReply, VoiceReply, VideoReply, MusicReply, ArticlesReply, TransferCustomerServiceReply
 

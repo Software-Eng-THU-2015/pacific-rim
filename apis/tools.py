@@ -2,7 +2,7 @@ __author__ = 'XP'
 
 
 import hashlib
-import httplib
+import httplib2
 import json
 from wechatpy.client import WeChatClient
 
@@ -76,5 +76,3 @@ def createQrByDeviceId(deviceId):
     except:
         return res
 
-if __name__ == "__main__":
-    print "python-wechat tools modified by chendaxixi"
