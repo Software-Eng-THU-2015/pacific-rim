@@ -2,6 +2,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from apis import views
 from apis import server
+from apis import models
 
 
 urlpatterns = [

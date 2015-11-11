@@ -20,6 +20,7 @@ class Step(models.Model):
     st_time = models.DateTimeField()
     st_step_number = models.IntegerField()
     st_calorie = models.IntegerField()
+    st_distance = models.IntegerField()
 
 
 class TagContent(models.Model):
