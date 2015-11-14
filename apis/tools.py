@@ -6,7 +6,7 @@ from wechatpy.client import WeChatClient
 
 APP_ID = "wx86b31512dc59cccf"
 APP_SECRET = "d4624c36b6795d1d99dcf0547af5443d"
-TOKEN = "maxipeng"
+TOKEN = "max"
 client = WeChatClient(APP_ID, APP_SECRET)
 
 
