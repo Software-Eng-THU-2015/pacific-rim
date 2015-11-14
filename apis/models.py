@@ -7,10 +7,10 @@ class BandUser(models.Model):
     bu_user = models.OneToOneField(User)
     bu_band = models.IntegerField()
     bu_wechat_id = models.CharField(max_length=128)
-    bu_gender = models.IntegerField() ##1 = male 2 = female
+    bu_gender = models.IntegerField()  # 1 = male 2 = female
     bu_birthday = models.DateTimeField()
-    bu_height = models.IntegerField() ##cm
-    bu_weight = models.IntegerField() ##kg
+    bu_height = models.IntegerField()  # cm
+    bu_weight = models.IntegerField()  # kg
     bu_follow = models.ManyToManyField(User, related_name='bu_follow')
 
 
