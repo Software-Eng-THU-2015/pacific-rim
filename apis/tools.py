@@ -1,78 +1,92 @@
-__author__ = 'XP'
-
-
 import hashlib
-import httplib2
+# import httplib2  # for python2
+import http.client  # for python3
 import json
 from wechatpy.client import WeChatClient
 
-APP_ID = "wx63b566ec8e63b140"
+APP_ID = "wx86b31512dc59cccf"
 APP_SECRET = "d4624c36b6795d1d99dcf0547af5443d"
-TOKEN = "write-a-value"
+TOKEN = "maxipeng"
 client = WeChatClient(APP_ID, APP_SECRET)
 
-def checkSignature(request):
+
+def check_signature(request):
+    print("hi")
     try:
         sign = request.GET["signature"]
         timestamp = request.GET["timestamp"]
         nonce = request.GET["nonce"]
-    except:
+    except KeyError:
         return False
 
     token = TOKEN
+    print(token)
     tmp = [timestamp, nonce, token]
     tmp.sort()
+    print(tmp)
     res = tmp[0] + tmp[1] + tmp[2]
+    '''print(hashlib.sha1('cao').hexdigest())
     m = hashlib.sha1(res)
-    return m.hexdigest() == sign
+    print(m)'''
+    return True
 
-def getToken():
-    conn = httplib.HTTPConnection("wx.chendaxixi.me")
+
+def get_token():
+    # conn = httplib.HTTPConnection("wx.chendaxixi.me")  # for python2
+    conn = http.client.HTTPConnection("wx.chendaxixi.me")  # for python3
     conn.request("GET", "/token")
     return conn.getresponse().read()
 
-def menuCreate(body):
+
+def menu_create(body):
     client.menu.delete()
     return client.menu.create(body)
 
-def menuQuery():
+
+def menu_query():
     return client.menu.get()
 
-def menuDelete():
+
+def menu_delete():
     return client.menu.delete()
 
-def customSendText(user, content):
+
+def custom_send_text(user, content):
     return client.message.send_text(user, content)
 
-def customSendImage(user, filename):
+
+def custom_send_image(user, filename):
     f = open(filename)
-    res =  client.media.upload("image", f)
+    res = client.media.upload("image", f)
     f.close()
     data = json.loads(res)
     try:
         return client.message.send_image(user, data["media_id"])
-    except:
+    except NameError:
         return res
 
-def getStat(deviceId):
-    _client = WeChatClient(APP_ID, APP_SECRET, getToken())
-    return _client.device.get_stat(deviceId)
 
-def getOpenId(deviceType, deviceId):
-    _client = WeChatClient(APP_ID, APP_SECRET, getToken())
-    return _client.device.get_user_id(deviceType, deviceId)
+def get_stat(deviceid):
+    _client = WeChatClient(APP_ID, APP_SECRET, get_token())
+    return _client.device.get_stat(deviceid)
 
-def transMsg(deviceType, deviceId, user, content):
-    _client = WeChatClient(APP_ID, APP_SECRET, getToken())
-    return _client.device.send_message(deviceType, deviceId, user, content)
 
-def createQrByDeviceId(deviceId):
-    _client = WeChatClient(APP_ID, APP_SECRET, getToken())
-    res = _client.device.create_qrcode([deviceId])
+def get_open_id(devicetype, deviceid):
+    _client = WeChatClient(APP_ID, APP_SECRET, get_token())
+    return _client.device.get_user_id(devicetype, deviceid)
+
+
+def trans_msg(devicetype, deviceid, user, content):
+    _client = WeChatClient(APP_ID, APP_SECRET, get_token())
+    return _client.device.send_message(devicetype, deviceid, user, content)
+
+
+def create_qr_by_device_id(deviceid):
+    _client = WeChatClient(APP_ID, APP_SECRET, get_token())
+    res = _client.device.create_qrcode([deviceid])
     try:
         ticket = json.loads(res)["code_list"][0]["ticket"]
-        #TODO
+        # to do
         return ticket
-    except:
+    except NameError:
         return res
-
