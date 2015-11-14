@@ -1,12 +1,12 @@
 import hashlib
-# import httplib2  # for python2
-import http.client  # for python3
+import httplib2  # for python2
+#import http.client  # for python3
 import json
 from wechatpy.client import WeChatClient
 
-APP_ID = "wx86b31512dc59cccf"
+APP_ID = "wx63b566ec8e63b140"
 APP_SECRET = "d4624c36b6795d1d99dcf0547af5443d"
-TOKEN = "maxipeng"
+TOKEN = "max"
 client = WeChatClient(APP_ID, APP_SECRET)
 
 
@@ -23,12 +23,9 @@ def check_signature(request):
     print(token)
     tmp = [timestamp, nonce, token]
     tmp.sort()
-    print(tmp)
-    res = tmp[0] + tmp[1] + tmp[2]
-    '''print(hashlib.sha1('cao').hexdigest())
-    m = hashlib.sha1(res)
-    print(m)'''
-    return True
+    tmp_str = "%s%s%s" % tuple(tmp)
+    tmp_str = hashlib.sha1(tmp_str).hexdigest()
+    return tmp_str == sign
 
 
 def get_token():
