@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 import json
 from apis.tools import *
+from apis import tools
 from wechatpy import parse_message, create_reply
 from wechatpy.replies import TextReply, ImageReply, VoiceReply, VideoReply, MusicReply, ArticlesReply, TransferCustomerServiceReply
 
@@ -16,6 +17,7 @@ def handle(request):
             return HttpResponse("invalid signature")
         else:
             return HttpResponse(request.GET["echostr"])
+    
     msg = parse_message(request.body)
     return msg_splitter[msg.type](msg)
 
