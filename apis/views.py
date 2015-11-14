@@ -130,38 +130,38 @@ def delete_band_user(request):
     return HttpResponse('delete successfully')
 
 
-def delete_step(request, id):
-    st = Step.objects.get(st_id=id)
+def delete_step(request, step_id):
+    st = Step.objects.get(st_id=step_id)
     st.delete()
     return HttpResponse('delete successfully')
 
 
-def delete_tag_content(request, id):
-    tc = TagContent.objects.get(tc_id=id)
+def delete_tag_content(request, tagc_id):
+    tc = TagContent.objects.get(tc_id=tagc_id)
     tc.delete()
     return HttpResponse('delete successfully')
 
 
-def delete_tag(request, id):
-    tg = Tag.objects.get(tg_id=id)
+def delete_tag(request, tag_id):
+    tg = Tag.objects.get(tg_id=tag_id)
     tg.delete()
     return HttpResponse('delete successfully')
 
 
-def delete_plan(request, id):
-    pl = Plan.objects.get(pl_id=id)
+def delete_plan(request, plan_id):
+    pl = Plan.objects.get(pl_id=plan_id)
     pl.delete()
     return HttpResponse('delete successfully')
 
 
-def delete_health(request, id):
-    he = Health.objects.get(he_id=id)
+def delete_health(request, health_id):
+    he = Health.objects.get(he_id=health_id)
     he.delete()
     return HttpResponse('delete successfully')
 
 
-def delete_sleep(request, id):
-    sl = Sleep.objects.get(sl_id=id)
+def delete_sleep(request, sleep_id):
+    sl = Sleep.objects.get(sl_id=sleep_id)
     sl.delete()
     return HttpResponse('delete successfully')
 
@@ -184,9 +184,9 @@ def update_band_user(request):
         return HttpResponse('')
 
 
-def update_tag_content(request, id):
+def update_tag_content(request, tagc_id):
     if request.method == 'POST':
-        tc = BandUser.objects.get(tc_id=id)
+        tc = BandUser.objects.get(tc_id=tagc_id)
         if tc:
             tc.content = request.POST.get('TC_Content')
             tc.save()
@@ -197,9 +197,9 @@ def update_tag_content(request, id):
         return HttpResponse('')
 
 
-def update_tag(request, id):
+def update_tag(request, tag_id):
     if request.method == 'POST':
-        tg = BandUser.objects.get(tg_id=id)
+        tg = BandUser.objects.get(tg_id=tag_id)
         if tg:
             tg.time_from = request.POST.get('TG_TimeFrom')
             tg.time_to = request.POST.get('TG_TimeTo')
@@ -212,9 +212,9 @@ def update_tag(request, id):
         return HttpResponse('')
 
 
-def update_plan(request, id):
+def update_plan(request, plan_id):
     if request.method == 'POST':
-        pl = BandUser.objects.get(pl_id=id)
+        pl = BandUser.objects.get(pl_id=plan_id)
         if pl:
             pl.time_from = request.POST.get('PL_TimeFrom')
             pl.time_to = request.POST.get('PL_TimeTo')
@@ -229,9 +229,9 @@ def update_plan(request, id):
         return HttpResponse('')
 
 
-def update_sleep(request, id):
+def update_sleep(request, sleep_id):
     if request.method == 'POST':
-        sl = BandUser.objects.get(sl_id=id)
+        sl = BandUser.objects.get(sl_id=sleep_id)
         if sl:
             sl.time_from = request.POST.get('SL_TimeFrom')
             sl.time_to = request.POST.get('SL_TimeTo')
@@ -270,9 +270,9 @@ def select_band_user(request):
 
 def select_step(request):
     if request.method == 'GET':
-        id = request.POST.get('ST_ID')
-        if id:
-            st = BandUser.objects.get(st_id=id)
+        step_id = request.POST.get('ST_ID')
+        if step_id:
+            st = BandUser.objects.get(st_id=step_id)
             if st:
                 context = list({})
                 context['ST_User'] = st.st_user
@@ -296,9 +296,9 @@ def select_step_range(request):
 
 def select_tag_content(request):
     if request.method == 'GET':
-        id = request.POST.get('TC_ID')
+        tagc_id = request.POST.get('TC_ID')
         if id:
-            tc = BandUser.objects.get(tc_id=id)
+            tc = BandUser.objects.get(tc_id=tagc_id)
             if tc:
                 context = list({})
                 context['TC_User'] = tc.tc_user
@@ -313,9 +313,9 @@ def select_tag_content(request):
 
 def select_tag(request):
     if request.method == 'GET':
-        id = request.POST.get('TG_ID')
-        if id:
-            tg = BandUser.objects.get(tg_id=id)
+        tag_id = request.POST.get('TG_ID')
+        if tag_id:
+            tg = BandUser.objects.get(tg_id=tag_id)
             if tg:
                 context = list({})
                 context['TG_User'] = tg.tg_user
@@ -332,9 +332,9 @@ def select_tag(request):
 
 def select_plan(request):
     if request.method == 'GET':
-        id = request.POST.get('PL_ID')
-        if id:
-            pl = BandUser.objects.get(pl_id=id)
+        plan_id = request.POST.get('PL_ID')
+        if plan_id:
+            pl = BandUser.objects.get(pl_id=plan_id)
             if pl:
                 context = list({})
                 context['PL_User'] = pl.pl_user
@@ -353,9 +353,9 @@ def select_plan(request):
 
 def select_health(request):
     if request.method == 'GET':
-        id = request.POST.get('HE_ID')
-        if id:
-            he = BandUser.objects.get(he_id=id)
+        health_id = request.POST.get('HE_ID')
+        if health_id:
+            he = BandUser.objects.get(he_id=health_id)
             if he:
                 context = list({})
                 context['HE_User'] = he.he_user
@@ -372,9 +372,9 @@ def select_health(request):
 
 def select_sleep(request):
     if request.method == 'GET':
-        id = request.POST.get('SL_ID')
-        if id:
-            sl = BandUser.objects.get(sl_id=id)
+        sleep_id = request.POST.get('SL_ID')
+        if sleep_id:
+            sl = BandUser.objects.get(sl_id=sleep_id)
             if sl:
                 context = list({})
                 context['SL_User'] = sl.sl_user
