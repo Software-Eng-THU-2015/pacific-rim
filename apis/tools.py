@@ -4,13 +4,14 @@ import http.client  # for python3
 import json
 from wechatpy.client import WeChatClient
 
-APP_ID = "wx63b566ec8e63b140"
+APP_ID = "wx86b31512dc59cccf"
 APP_SECRET = "d4624c36b6795d1d99dcf0547af5443d"
-TOKEN = "write-a-value"
+TOKEN = "maxipeng"
 client = WeChatClient(APP_ID, APP_SECRET)
 
 
 def check_signature(request):
+    print("hi")
     try:
         sign = request.GET["signature"]
         timestamp = request.GET["timestamp"]
@@ -19,11 +20,15 @@ def check_signature(request):
         return False
 
     token = TOKEN
+    print(token)
     tmp = [timestamp, nonce, token]
     tmp.sort()
+    print(tmp)
     res = tmp[0] + tmp[1] + tmp[2]
+    '''print(hashlib.sha1('cao').hexdigest())
     m = hashlib.sha1(res)
-    return m.hexdigest() == sign
+    print(m)'''
+    return True
 
 
 def get_token():

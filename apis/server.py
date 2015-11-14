@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-# import json
+import json
 from apis import tools
 from wechatpy import parse_message, create_reply
 # from wechatpy.replies import TextReply, ImageReply, VoiceReply, VideoReply, MusicReply, TransferCustomerServiceReply
@@ -15,6 +15,9 @@ def handle(request):
             return HttpResponse("invalid signature")
         else:
             return HttpResponse(request.GET["echostr"])
+    '''menu_json = json.loads(open("apis/menu.json"))
+    print(menu_json)
+    tools.menu_create(menu_json)'''
     msg = parse_message(request.body)
     return msg_splitter[msg.type](msg)
 
