@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import Chart from './Chart';
 
 export default class Frame extends Component {
+  constructor(props){
+      super(props);
+      this.state = {source:'https://api.myjson.com/bins/1r1al'};
+  }
+
   componentDidMount(){
       var dataUrls = [
-	  "https://api.myjson.com/bins/1r1al",
-	  "https://api.myjson.com/bins/4mcfh",
-	  "https://api.myjson.com/bins/2ar65"
+	  'https://api.myjson.com/bins/1r1al',
+	  'https://api.myjson.com/bins/4mcfh',
+	  'https://api.myjson.com/bins/2ar65'
       ];
       var self = this;
       $('.ui.button').click(function(){
@@ -17,12 +22,6 @@ export default class Frame extends Component {
       });
   }
 
-  HandleClick(){
-      $(this).siblings().removeClass('active');
-      $(this).toggleClass('active');
-      var idx = $(this).index();
-      self.setState({source : dataUrls[idx]});
-  }
 
   render() {
     return (
@@ -33,7 +32,7 @@ export default class Frame extends Component {
 		<div className = "ui button">Month</div>
 	    </div>
 	    <div className = "ui attached segment">
-		<Chart source = {this.props.source} />
+		<Chart source = {this.state.source} />
 	    </div>
 	</div>
     );
