@@ -1,13 +1,12 @@
 # -*- coding: UTF-8 -*-
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-import json
 from apis.tools import *
 
 from apis import tools
 from wechatpy import parse_message, create_reply
 # from wechatpy.replies import TextReply, ImageReply, VoiceReply, VideoReply, MusicReply, TransferCustomerServiceReply
-from wechatpy.replies import ArticlesReply
+#from wechatpy.replies import ArticlesReply
 
 
 @csrf_exempt
@@ -67,7 +66,7 @@ def event_handle(msg):
 
 # 用户关注事件
 def sub_event(msg):
-    return HttpResponse(create_reply(u"Hello World!I am 用户关注事件", message=msg))
+    return HttpResponse(create_reply(u"太平洋手环保太平，欢迎您使用太平洋手环！", message=msg))
 
 
 # 对用户取消关注事件
@@ -147,23 +146,23 @@ msg_splitter = {
     "video": video_handle,
     "location": location_handle,
     "link": link_handle,
-    "shortvideo": sv_handle,
+    "short_video": sv_handle,
     "event": event_handle,
 }
 
 event_splitter = {
     "subscribe": sub_event,
-    "unsubscribe": unsub_event,
+    "un_subscribe": unsub_event,
     "subscribe_scan": subscan_event,
     "scan": scan_event,
     "location": location_event,
     "click": click_event,
     "view": view_event,
-    "masssendjobfinish": masssend_event,
-    "templatesendjobfinish": templatesend_event,
-    "scancode_push": sc_push_event,
-    "scancode_waitmsg": sc_wait_event,
-    "pic_sysphoto": pic_photo_event,
+    "mass_send_job_finish": masssend_event,
+    "template_send_job_finish": templatesend_event,
+    "scan_code_push": sc_push_event,
+    "scan_code_wait_msg": sc_wait_event,
+    "pic_sys_photo": pic_photo_event,
     "pic_photo_or_album": pic_photo_album_event,
     "pic_weixin": pic_wechat_event,
     "location_select": select_location_event,
