@@ -8,7 +8,7 @@ export default class App extends Component {
     return (
 	<div>
 	    <Stats />
-	    <Frame source = "https://api.myjson.com/bins/1r1al"/>
+	    <Frame />
 	</div>
     );
   }
