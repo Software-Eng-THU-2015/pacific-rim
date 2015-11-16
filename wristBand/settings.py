@@ -15,6 +15,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # coding=utf-8
 
 import os
+import dj_database_url
+DATABASES['default'] = dj_database_url.config()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -28,7 +30,7 @@ SECRET_KEY = 'i#7e-r0asxt#z@-g9mhm8+fw&jecf%i-&pz7b_65!1(elx8=)@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
