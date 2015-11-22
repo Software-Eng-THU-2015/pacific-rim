@@ -4,9 +4,14 @@ import httplib2  # for python2
 import json
 from wechatpy.client import WeChatClient
 
-APP_ID = "wx63b566ec8e63b140"
-APP_SECRET = "d4624c36b6795d1d99dcf0547af5443d"
-TOKEN = "max"
+# APP_ID = "wx63b566ec8e63b140"
+# APP_SECRET = "d4624c36b6795d1d99dcf0547af5443d"
+# TOKEN = "max"
+
+APP_ID = os.environ.get('APP_ID')
+APP_SECRET = os.environ.get('APP_SECRET')
+TOKEN = os.environ.get('TOKEN')
+
 client = WeChatClient(APP_ID, APP_SECRET)
 
 
