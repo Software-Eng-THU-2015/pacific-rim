@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+from django.shortcuts import render_to_response
 from apis.tools import *
 
 from apis import tools
@@ -139,6 +140,11 @@ def select_location_event(msg):
     return HttpResponse(create_reply(u"Hello World!I am 弹出地理位置选择器事件", message=msg))
 
 
+def get_rank_list(msg):
+    return HttpResponse(create_reply(u"大家好", message=msg))
+
+
+
 msg_splitter = {
     "text": text_handle,
     "voice": voice_handle,
@@ -166,4 +172,5 @@ event_splitter = {
     "pic_photo_or_album": pic_photo_album_event,
     "pic_weixin": pic_wechat_event,
     "location_select": select_location_event,
+    "RANK_LIST": get_rank_list,
 }
