@@ -72,3 +72,4 @@ docs/_build/
 target/
 
 node_modules/
+envdir/
