@@ -19,7 +19,7 @@ def handle(request):
             return HttpResponse(request.GET["echostr"])
     menu_file = file("apis/menu.json")
     menu_json = json.load(menu_file)
-    print(menu_json)
+#    print(menu_json)
     tools.menu_create(menu_json)
     msg = parse_message(request.body)
     return msg_splitter[msg.type](msg)
@@ -92,7 +92,7 @@ def location_event(msg):
 
 # 点击菜单拉取消息事件
 def click_event(msg):
-    return HttpResponse(create_reply(u"Hello World!I am 点击菜单拉取消息事件", message=msg))
+    return key_splitter[msg.key](msg)
 
 
 # 点击菜单跳转链接事件
@@ -141,8 +141,7 @@ def select_location_event(msg):
 
 
 def get_rank_list(msg):
-    return HttpResponse(create_reply(u"大家好", message=msg))
-
+    return render_to_response("ranklist.xml", mimetype="application/xml")
 
 
 msg_splitter = {
@@ -154,6 +153,7 @@ msg_splitter = {
     "link": link_handle,
     "short_video": sv_handle,
     "event": event_handle,
+    "click": click_event
 }
 
 event_splitter = {
@@ -172,5 +172,8 @@ event_splitter = {
     "pic_photo_or_album": pic_photo_album_event,
     "pic_weixin": pic_wechat_event,
     "location_select": select_location_event,
+}
+
+key_splitter = {
     "RANK_LIST": get_rank_list,
 }
