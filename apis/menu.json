@@ -21,7 +21,11 @@
             {
                "type":"click",
                "name":"排行榜",
+<<<<<<< HEAD
+               "key":"ranklist"
+=======
                "key":"RANK_LIST"
+>>>>>>> b6cadcbdf48cd167b45f157d19aff9fbfea7dee2
             }]
       },
       {

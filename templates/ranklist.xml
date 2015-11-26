@@ -1,7 +1,13 @@
 <xml>
+<<<<<<< HEAD
+    <ToUserName><![CDATA[{{to_user}}]]></ToUserName>
+    <FromUserName><![CDATA[{{from_user}}]]></FromUserName>
+	<CreateTime>{{create_time}}</CreateTime>
+=======
 	<ToUserName><![CDATA[o0afPs8xCFa2inNhehNdipiacXOk]]></ToUserName>
 	<FromUserName><![CDATA[o0afPs8xCFa2inNhehNdipiacXOk]]></FromUserName>
 	<CreateTime>123456789</CreateTime>
+>>>>>>> b6cadcbdf48cd167b45f157d19aff9fbfea7dee2
 	<MsgType><![CDATA[hardware]]></MsgType>
 	<HardWare>
 		<MessageView><![CDATA[myrank]]></MessageView>
