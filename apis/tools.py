@@ -2,6 +2,7 @@ import hashlib
 import httplib2  # for python2
 #import http.client  # for python3
 import json
+import os
 from wechatpy.client import WeChatClient
 
 # APP_ID = "wx63b566ec8e63b140"
@@ -34,8 +35,8 @@ def check_signature(request):
 
 
 def get_token():
-    # conn = httplib.HTTPConnection("wx.chendaxixi.me")  # for python2
-    conn = http.client.HTTPConnection("wx.chendaxixi.me")  # for python3
+    conn = httplib2.HTTPConnection("wx.chendaxixi.me")  # for python2
+    # conn = http.client.HTTPConnection("wx.chendaxixi.me")  # for python3
     conn.request("GET", "/token")
     return conn.getresponse().read()
 

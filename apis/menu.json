@@ -19,9 +19,9 @@
                "url":"http://v.qq.com/"
             },
             {
-               "type":"view",
+               "type":"click",
                "name":"排行榜",
-               "url":"http://v.qq.com/"
+               "key":"ranklist"
             }]
       },
       {
