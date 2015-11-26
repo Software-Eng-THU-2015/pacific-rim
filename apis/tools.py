@@ -1,5 +1,8 @@
 import hashlib
-import httplib  # for python2
+# import httplib  # for python2
+import httplib2  # for python3
+import os
+
 #import http
 import json
 from wechatpy.client import WeChatClient
@@ -32,7 +35,7 @@ def check_signature(request):
 
 
 def get_token():
-    conn = httplib.HTTPConnection("wx.chendaxixi.me")  # for python2
+    conn = httplib2.HTTPConnection("wx.chendaxixi.me")  # for python2
     #conn = http.client.HTTPConnection("wx.chendaxixi.me")  # for python3
     conn.request("GET", "/token")
     return conn.getresponse().read()
