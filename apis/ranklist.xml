@@ -1,0 +1,11 @@
+<xml>
+	<ToUserName><![CDATA[o0afPs8xCFa2inNhehNdipiacXOk]]></ToUserName>
+	<FromUserName><![CDATA[o0afPs8xCFa2inNhehNdipiacXOk]]></FromUserName>
+	<CreateTime>123456789</CreateTime>
+	<MsgType><![CDATA[hardware]]></MsgType>
+	<HardWare>
+		<MessageView><![CDATA[myrank]]></MessageView>
+		<MessageAction><![CDATA[ranklist]]></MessageAction>
+	</HardWare>
+	<FuncFlag>0</FuncFlag>
+</xml>
