@@ -1,0 +1,2949 @@
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);.input > [role="input"] {
+  cursor: pointer; }
+
+.header {
+  position: relative;
+  width: 100%;
+  padding: 1rem;
+  font-size: 5.2rem;
+  color: white;
+  text-align: center;
+  background: #3f51b5; }
+
+.hours, .minutes {
+  display: inline-block;
+  cursor: pointer;
+  opacity: .6; }
+
+.separator {
+  margin: 0 0.5rem;
+  opacity: .6; }
+
+.ampm {
+  position: absolute;
+  top: 50%;
+  right: 2rem;
+  width: 4rem;
+  height: 4.4rem;
+  margin-top: -2.2rem;
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+  text-align: center; }
+
+.am, .pm {
+  display: block;
+  cursor: pointer;
+  opacity: .6; }
+
+.dialog {
+  width: 30rem; }
+  .dialog > [role="body"] {
+    padding: 0; }
+  .dialog > [role="navigation"] > .button {
+    color: #3f51b5; }
+    .dialog > [role="navigation"] > .button:hover {
+      background: rgba(63, 81, 181, 0.2); }
+    .dialog > [role="navigation"] > .button:focus:not(:active) {
+      background: rgba(63, 81, 181, 0.2); }
+  .dialog.display-hours .hours, .dialog.display-minutes .minutes, .dialog.format-am .am,
+  .dialog.format-pm .pm {
+    opacity: 1; }
+.root {
+  position: relative;
+  padding: 2rem 0; }
+  .root.with-icon {
+    margin-left: 4.8rem; }
+
+.icon {
+  position: absolute;
+  top: 1.6rem;
+  left: -4.8rem;
+  display: block;
+  width: 4.8rem;
+  height: 4.8rem;
+  font-size: 2.4rem !important;
+  line-height: 4.8rem !important;
+  color: rgba(0, 0, 0, 0.26);
+  text-align: center;
+  transition: color 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+
+.input {
+  display: block;
+  width: 100%;
+  padding: 0.8rem 0;
+  font-size: 1.6rem;
+  color: #212121;
+  background-color: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  outline: none; }
+  .input:focus ~ .bar:before, .input:focus ~ .bar:after {
+    width: 50%; }
+  .input:focus ~ .label:not(.fixed) {
+    color: #3f51b5; }
+  .input:focus ~ .icon {
+    color: #3f51b5; }
+  .input:focus ~ .label:not(.fixed), .input.filled ~ .label:not(.fixed), .input[type='date'] ~ .label:not(.fixed), .input[type='time'] ~ .label:not(.fixed) {
+    top: 0.6rem;
+    font-size: 1.2rem; }
+  .input.filled ~ .label.fixed {
+    display: none; }
+
+.label {
+  position: absolute;
+  top: 3.2rem;
+  left: 0;
+  font-size: 1.6rem;
+  line-height: 1.6rem;
+  color: rgba(0, 0, 0, 0.26);
+  pointer-events: none;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.35s;
+  transition-property: top, font-size, color; }
+
+.bar {
+  position: relative;
+  display: block;
+  width: 100%; }
+  .bar:before, .bar:after {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.2s;
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    content: "";
+    background-color: #3f51b5;
+    transition-property: width, background-color; }
+  .bar:before {
+    left: 50%; }
+  .bar:after {
+    right: 50%; }
+
+.underline {
+  display: flex;
+  margin-bottom: -2rem;
+  font-size: 1.2rem;
+  line-height: 2rem;
+  color: rgba(0, 0, 0, 0.26); }
+  .underline .error, .underline .counter {
+    flex-grow: 1; }
+
+.error {
+  text-align: left; }
+
+.counter {
+  text-align: right; }
+
+.disabled > .input {
+  color: rgba(0, 0, 0, 0.26);
+  border-bottom-style: dotted; }
+
+.errored {
+  padding-bottom: 0; }
+  .errored > .input {
+    border-bottom-color: #de3226; }
+    .errored > .input:focus ~ .label:not(.fixed) {
+      color: #de3226; }
+    .errored > .input:focus ~ .bar:before, .errored > .input:focus ~ .bar:after {
+      background-color: #de3226; }
+  .errored > .underline {
+    color: #de3226; }
+
+.hidden {
+  display: none; }
+.threed-rotation, .access-alarm, .access-alarms, .access-time, .accessibility, .account-balance, .account-balance-wallet, .account-box, .account-circle, .adb, .add, .add-alarm, .add-alert, .add-box, .add-circle, .add-circle-outline, .add-shopping-cart, .add-to-photos, .adjust, .airline-seat-flat, .airline-seat-flat-angled, .airline-seat-individual-suite, .airline-seat-legroom-extra, .airline-seat-legroom-normal, .airline-seat-legroom-reduced, .airline-seat-recline-extra, .airline-seat-recline-normal, .airplanemode-active, .airplanemode-inactive, .airplay, .alarm, .alarm-add, .alarm-off, .alarm-on, .album, .android, .announcement, .apps, .archive, .arrow-back, .arrow-drop-down, .arrow-drop-down-circle, .arrow-drop-up, .arrow-forward, .aspect-ratio, .assessment, .assignment, .assignment-ind, .assignment-late, .assignment-return, .assignment-returned, .assignment-turned-in, .assistant, .assistant-photo, .attach-file, .attach-money, .attachment, .audiotrack, .autorenew, .av-timer, .backspace, .backup, .battery-alert, .battery-charging-full, .battery-full, .battery-std, .battery-unknown, .beenhere, .block, .bluetooth, .bluetooth-audio, .bluetooth-connected, .bluetooth-disabled, .bluetooth-searching, .blur-circular, .blur-linear, .blur-off, .blur-on, .book, .bookmark, .bookmark-border, .border-all, .border-bottom, .border-clear, .border-color, .border-horizontal, .border-inner, .border-left, .border-outer, .border-right, .border-style, .border-top, .border-vertical, .brightness-1, .brightness-2, .brightness-3, .brightness-4, .brightness-5, .brightness-6, .brightness-7, .brightness-auto, .brightness-high, .brightness-low, .brightness-medium, .broken-image, .brush, .bug-report, .build, .business, .cached, .cake, .call, .call-end, .call-made, .call-merge, .call-missed, .call-received, .call-split, .camera, .camera-alt, .camera-enhance, .camera-front, .camera-rear, .camera-roll, .cancel, .card-giftcard, .card-membership, .card-travel, .cast, .cast-connected, .center-focus-strong, .center-focus-weak, .change-history, .chat, .chat-bubble, .chat-bubble-outline, .check, .check-box, .check-box-outline-blank, .check-circle, .chevron-left, .chevron-right, .chrome-reader-mode, .class, .clear, .clear-all, .close, .closed-caption, .cloud, .cloud-circle, .cloud-done, .cloud-download, .cloud-off, .cloud-queue, .cloud-upload, .code, .collections, .collections-bookmark, .color-lens, .colorize, .comment, .compare, .computer, .confirmation-number, .contact-phone, .contacts, .content-copy, .content-cut, .content-paste, .control-point, .control-point-duplicate, .create, .credit-card, .crop, .crop-16-9, .crop-3-2, .crop-5-4, .crop-7-5, .crop-din, .crop-free, .crop-landscape, .crop-original, .crop-portrait, .crop-square, .dashboard, .data-usage, .dehaze, .delete, .description, .desktop-mac, .desktop-windows, .details, .developer-board, .developer-mode, .device-hub, .devices, .dialer-sip, .dialpad, .directions, .directions-bike, .directions-boat, .directions-bus, .directions-car, .directions-railway, .directions-run, .directions-subway, .directions-transit, .directions-walk, .disc-full, .dns, .do-not-disturb, .do-not-disturb-alt, .dock, .domain, .done, .done-all, .drafts, .drive-eta, .dvr, .edit, .eject, .email, .equalizer, .error, .error-outline, .event, .event-available, .event-busy, .event-note, .event-seat, .exit-to-app, .expand-less, .expand-more, .explicit, .explore, .exposure, .exposure-neg-1, .exposure-neg-2, .exposure-plus-1, .exposure-plus-2, .exposure-zero, .extension, .face, .fast-forward, .fast-rewind, .favorite, .favorite-border, .feedback, .file-download, .file-upload, .filter, .filter-1, .filter-2, .filter-3, .filter-4, .filter-5, .filter-6, .filter-7, .filter-8, .filter-9, .filter-9-plus, .filter-b-and-w, .filter-center-focus, .filter-drama, .filter-frames, .filter-hdr, .filter-list, .filter-none, .filter-tilt-shift, .filter-vintage, .find-in-page, .find-replace, .flag, .flare, .flash-auto, .flash-off, .flash-on, .flight, .flight-land, .flight-takeoff, .flip, .flip-to-back, .flip-to-front, .folder, .folder-open, .folder-shared, .folder-special, .font-download, .format-align-center, .format-align-justify, .format-align-left, .format-align-right, .format-bold, .format-clear, .format-color-fill, .format-color-reset, .format-color-text, .format-indent-decrease, .format-indent-increase, .format-italic, .format-line-spacing, .format-list-bulleted, .format-list-numbered, .format-paint, .format-quote, .format-size, .format-strikethrough, .format-textdirection-l-to-r, .format-textdirection-r-to-l, .format-underlined, .forum, .forward, .forward-10, .forward-30, .forward-5, .fullscreen, .fullscreen-exit, .functions, .gamepad, .games, .gesture, .get-app, .gif, .gps-fixed, .gps-not-fixed, .gps-off, .grade, .gradient, .grain, .graphic-eq, .grid-off, .grid-on, .group, .group-add, .group-work, .hd, .hdr-off, .hdr-on, .hdr-strong, .hdr-weak, .headset, .headset-mic, .healing, .hearing, .help, .help-outline, .high-quality, .highlight-off, .history, .home, .hotel, .hourglass-empty, .hourglass-full, .http, .https, .image, .image-aspect-ratio, .import-export, .inbox, .indeterminate-check-box, .info, .info-outline, .input, .insert-chart, .insert-comment, .insert-drive-file, .insert-emoticon, .insert-invitation, .insert-link, .insert-photo, .invert-colors, .invert-colors-off, .iso, .keyboard, .keyboard-arrow-down, .keyboard-arrow-left, .keyboard-arrow-right, .keyboard-arrow-up, .keyboard-backspace, .keyboard-capslock, .keyboard-hide, .keyboard-return, .keyboard-tab, .keyboard-voice, .label, .label-outline, .landscape, .language, .laptop, .laptop-chromebook, .laptop-mac, .laptop-windows, .launch, .layers, .layers-clear, .leak-add, .leak-remove, .lens, .library-add, .library-books, .library-music, .link, .list, .live-help, .live-tv, .local-activity, .local-airport, .local-atm, .local-bar, .local-cafe, .local-car-wash, .local-convenience-store, .local-dining, .local-drink, .local-florist, .local-gas-station, .local-grocery-store, .local-hospital, .local-hotel, .local-laundry-service, .local-library, .local-mall, .local-movies, .local-offer, .local-parking, .local-pharmacy, .local-phone, .local-pizza, .local-play, .local-post-office, .local-printshop, .local-see, .local-shipping, .local-taxi, .location-city, .location-disabled, .location-off, .location-on, .location-searching, .lock, .lock-open, .lock-outline, .looks, .looks-3, .looks-4, .looks-5, .looks-6, .looks-one, .looks-two, .loop, .loupe, .loyalty, .mail, .map, .markunread, .markunread-mailbox, .memory, .menu, .merge-type, .message, .mic, .mic-none, .mic-off, .mms, .mode-comment, .mode-edit, .money-off, .monochrome-photos, .mood, .mood-bad, .more, .more-horiz, .more-vert, .mouse, .movie, .movie-creation, .music-note, .my-location, .nature, .nature-people, .navigate-before, .navigate-next, .navigation, .network-cell, .network-locked, .network-wifi, .new-releases, .nfc, .no-sim, .not-interested, .note-add, .notifications, .notifications-active, .notifications-none, .notifications-off, .notifications-paused, .offline-pin, .ondemand-video, .open-in-browser, .open-in-new, .open-with, .pages, .pageview, .palette, .panorama, .panorama-fish-eye, .panorama-horizontal, .panorama-vertical, .panorama-wide-angle, .party-mode, .pause, .pause-circle-filled, .pause-circle-outline, .payment, .people, .people-outline, .perm-camera-mic, .perm-contact-calendar, .perm-data-setting, .perm-device-information, .perm-identity, .perm-media, .perm-phone-msg, .perm-scan-wifi, .person, .person-add, .person-outline, .person-pin, .personal-video, .phone, .phone-android, .phone-bluetooth-speaker, .phone-forwarded, .phone-in-talk, .phone-iphone, .phone-locked, .phone-missed, .phone-paused, .phonelink, .phonelink-erase, .phonelink-lock, .phonelink-off, .phonelink-ring, .phonelink-setup, .photo, .photo-album, .photo-camera, .photo-library, .photo-size-select-actual, .photo-size-select-large, .photo-size-select-small, .picture-as-pdf, .picture-in-picture, .pin-drop, .place, .play-arrow, .play-circle-filled, .play-circle-outline, .play-for-work, .playlist-add, .plus-one, .poll, .polymer, .portable-wifi-off, .portrait, .power, .power-input, .power-settings-new, .present-to-all, .print, .public, .publish, .query-builder, .question-answer, .queue, .queue-music, .radio, .radio-button-checked, .radio-button-unchecked, .rate-review, .receipt, .recent-actors, .redeem, .redo, .refresh, .remove, .remove-circle, .remove-circle-outline, .remove-red-eye, .reorder, .repeat, .repeat-one, .replay, .replay-10, .replay-30, .replay-5, .reply, .reply-all, .report, .report-problem, .restaurant-menu, .restore, .ring-volume, .room, .rotate-90-degrees-ccw, .rotate-left, .rotate-right, .router, .satellite, .save, .scanner, .schedule, .school, .screen-lock-landscape, .screen-lock-portrait, .screen-lock-rotation, .screen-rotation, .sd-card, .sd-storage, .search, .security, .select-all, .send, .settings, .settings-applications, .settings-backup-restore, .settings-bluetooth, .settings-brightness, .settings-cell, .settings-ethernet, .settings-input-antenna, .settings-input-component, .settings-input-composite, .settings-input-hdmi, .settings-input-svideo, .settings-overscan, .settings-phone, .settings-power, .settings-remote, .settings-system-daydream, .settings-voice, .share, .shop, .shop-two, .shopping-basket, .shopping-cart, .shuffle, .signal-cellular-4-bar, .signal-cellular-connected-no-internet-4-bar, .signal-cellular-no-sim, .signal-cellular-null, .signal-cellular-off, .signal-wifi-4-bar, .signal-wifi-4-bar-lock, .signal-wifi-off, .sim-card, .sim-card-alert, .skip-next, .skip-previous, .slideshow, .smartphone, .sms, .sms-failed, .snooze, .sort, .sort-by-alpha, .space-bar, .speaker, .speaker-group, .speaker-notes, .speaker-phone, .spellcheck, .star, .star-border, .star-half, .stars, .stay-current-landscape, .stay-current-portrait, .stay-primary-landscape, .stay-primary-portrait, .stop, .storage, .store, .store-mall-directory, .straighten, .strikethrough-s, .style, .subject, .subtitles, .supervisor-account, .surround-sound, .swap-calls, .swap-horiz, .swap-vert, .swap-vertical-circle, .switch-camera, .switch-video, .sync, .sync-disabled, .sync-problem, .system-update, .system-update-alt, .tab, .tab-unselected, .tablet, .tablet-android, .tablet-mac, .tag-faces, .tap-and-play, .terrain, .text-format, .textsms, .texture, .theaters, .thumb-down, .thumb-up, .thumbs-up-down, .time-to-leave, .timelapse, .timer, .timer-10, .timer-3, .timer-off, .toc, .today, .toll, .tonality, .toys, .track-changes, .traffic, .transform, .translate, .trending-down, .trending-flat, .trending-up, .tune, .turned-in, .turned-in-not, .tv, .undo, .unfold-less, .unfold-more, .usb, .verified-user, .vertical-align-bottom, .vertical-align-center, .vertical-align-top, .vibration, .video-library, .videocam, .videocam-off, .view-agenda, .view-array, .view-carousel, .view-column, .view-comfy, .view-compact, .view-day, .view-headline, .view-list, .view-module, .view-quilt, .view-stream, .view-week, .vignette, .visibility, .visibility-off, .voice-chat, .voicemail, .volume-down, .volume-mute, .volume-off, .volume-up, .vpn-key, .vpn-lock, .wallpaper, .warning, .watch, .wb-auto, .wb-cloudy, .wb-incandescent, .wb-iridescent, .wb-sunny, .wc, .web, .whatshot, .widgets, .wifi, .wifi-lock, .wifi-tethering, .work, .wrap-text, .youtube-searched-for, .zoom-in, .zoom-out {
+  display: inline-block;
+  font-family: "Material Icons";
+  font-size: inherit;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  transform: translate(0, 0);
+  text-rendering: auto;
+  font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.threed-rotation::before {
+  content: "\E84D"; }
+
+.access-alarm::before {
+  content: "\E190"; }
+
+.access-alarms::before {
+  content: "\E191"; }
+
+.access-time::before {
+  content: "\E192"; }
+
+.accessibility::before {
+  content: "\E84E"; }
+
+.account-balance::before {
+  content: "\E84F"; }
+
+.account-balance-wallet::before {
+  content: "\E850"; }
+
+.account-box::before {
+  content: "\E851"; }
+
+.account-circle::before {
+  content: "\E853"; }
+
+.adb::before {
+  content: "\E60E"; }
+
+.add::before {
+  content: "\E145"; }
+
+.add-alarm::before {
+  content: "\E193"; }
+
+.add-alert::before {
+  content: "\E003"; }
+
+.add-box::before {
+  content: "\E146"; }
+
+.add-circle::before {
+  content: "\E147"; }
+
+.add-circle-outline::before {
+  content: "\E148"; }
+
+.add-shopping-cart::before {
+  content: "\E854"; }
+
+.add-to-photos::before {
+  content: "\E39D"; }
+
+.adjust::before {
+  content: "\E39E"; }
+
+.airline-seat-flat::before {
+  content: "\E630"; }
+
+.airline-seat-flat-angled::before {
+  content: "\E631"; }
+
+.airline-seat-individual-suite::before {
+  content: "\E632"; }
+
+.airline-seat-legroom-extra::before {
+  content: "\E633"; }
+
+.airline-seat-legroom-normal::before {
+  content: "\E634"; }
+
+.airline-seat-legroom-reduced::before {
+  content: "\E635"; }
+
+.airline-seat-recline-extra::before {
+  content: "\E636"; }
+
+.airline-seat-recline-normal::before {
+  content: "\E637"; }
+
+.airplanemode-active::before {
+  content: "\E195"; }
+
+.airplanemode-inactive::before {
+  content: "\E194"; }
+
+.airplay::before {
+  content: "\E055"; }
+
+.alarm::before {
+  content: "\E855"; }
+
+.alarm-add::before {
+  content: "\E856"; }
+
+.alarm-off::before {
+  content: "\E857"; }
+
+.alarm-on::before {
+  content: "\E858"; }
+
+.album::before {
+  content: "\E019"; }
+
+.android::before {
+  content: "\E859"; }
+
+.announcement::before {
+  content: "\E85A"; }
+
+.apps::before {
+  content: "\E5C3"; }
+
+.archive::before {
+  content: "\E149"; }
+
+.arrow-back::before {
+  content: "\E5C4"; }
+
+.arrow-drop-down::before {
+  content: "\E5C5"; }
+
+.arrow-drop-down-circle::before {
+  content: "\E5C6"; }
+
+.arrow-drop-up::before {
+  content: "\E5C7"; }
+
+.arrow-forward::before {
+  content: "\E5C8"; }
+
+.aspect-ratio::before {
+  content: "\E85B"; }
+
+.assessment::before {
+  content: "\E85C"; }
+
+.assignment::before {
+  content: "\E85D"; }
+
+.assignment-ind::before {
+  content: "\E85E"; }
+
+.assignment-late::before {
+  content: "\E85F"; }
+
+.assignment-return::before {
+  content: "\E860"; }
+
+.assignment-returned::before {
+  content: "\E861"; }
+
+.assignment-turned-in::before {
+  content: "\E862"; }
+
+.assistant::before {
+  content: "\E39F"; }
+
+.assistant-photo::before {
+  content: "\E3A0"; }
+
+.attach-file::before {
+  content: "\E226"; }
+
+.attach-money::before {
+  content: "\E227"; }
+
+.attachment::before {
+  content: "\E2BC"; }
+
+.audiotrack::before {
+  content: "\E3A1"; }
+
+.autorenew::before {
+  content: "\E863"; }
+
+.av-timer::before {
+  content: "\E01B"; }
+
+.backspace::before {
+  content: "\E14A"; }
+
+.backup::before {
+  content: "\E864"; }
+
+.battery-alert::before {
+  content: "\E19C"; }
+
+.battery-charging-full::before {
+  content: "\E1A3"; }
+
+.battery-full::before {
+  content: "\E1A4"; }
+
+.battery-std::before {
+  content: "\E1A5"; }
+
+.battery-unknown::before {
+  content: "\E1A6"; }
+
+.beenhere::before {
+  content: "\E52D"; }
+
+.block::before {
+  content: "\E14B"; }
+
+.bluetooth::before {
+  content: "\E1A7"; }
+
+.bluetooth-audio::before {
+  content: "\E60F"; }
+
+.bluetooth-connected::before {
+  content: "\E1A8"; }
+
+.bluetooth-disabled::before {
+  content: "\E1A9"; }
+
+.bluetooth-searching::before {
+  content: "\E1AA"; }
+
+.blur-circular::before {
+  content: "\E3A2"; }
+
+.blur-linear::before {
+  content: "\E3A3"; }
+
+.blur-off::before {
+  content: "\E3A4"; }
+
+.blur-on::before {
+  content: "\E3A5"; }
+
+.book::before {
+  content: "\E865"; }
+
+.bookmark::before {
+  content: "\E866"; }
+
+.bookmark-border::before {
+  content: "\E867"; }
+
+.border-all::before {
+  content: "\E228"; }
+
+.border-bottom::before {
+  content: "\E229"; }
+
+.border-clear::before {
+  content: "\E22A"; }
+
+.border-color::before {
+  content: "\E22B"; }
+
+.border-horizontal::before {
+  content: "\E22C"; }
+
+.border-inner::before {
+  content: "\E22D"; }
+
+.border-left::before {
+  content: "\E22E"; }
+
+.border-outer::before {
+  content: "\E22F"; }
+
+.border-right::before {
+  content: "\E230"; }
+
+.border-style::before {
+  content: "\E231"; }
+
+.border-top::before {
+  content: "\E232"; }
+
+.border-vertical::before {
+  content: "\E233"; }
+
+.brightness-1::before {
+  content: "\E3A6"; }
+
+.brightness-2::before {
+  content: "\E3A7"; }
+
+.brightness-3::before {
+  content: "\E3A8"; }
+
+.brightness-4::before {
+  content: "\E3A9"; }
+
+.brightness-5::before {
+  content: "\E3AA"; }
+
+.brightness-6::before {
+  content: "\E3AB"; }
+
+.brightness-7::before {
+  content: "\E3AC"; }
+
+.brightness-auto::before {
+  content: "\E1AB"; }
+
+.brightness-high::before {
+  content: "\E1AC"; }
+
+.brightness-low::before {
+  content: "\E1AD"; }
+
+.brightness-medium::before {
+  content: "\E1AE"; }
+
+.broken-image::before {
+  content: "\E3AD"; }
+
+.brush::before {
+  content: "\E3AE"; }
+
+.bug-report::before {
+  content: "\E868"; }
+
+.build::before {
+  content: "\E869"; }
+
+.business::before {
+  content: "\E0AF"; }
+
+.cached::before {
+  content: "\E86A"; }
+
+.cake::before {
+  content: "\E7E9"; }
+
+.call::before {
+  content: "\E0B0"; }
+
+.call-end::before {
+  content: "\E0B1"; }
+
+.call-made::before {
+  content: "\E0B2"; }
+
+.call-merge::before {
+  content: "\E0B3"; }
+
+.call-missed::before {
+  content: "\E0B4"; }
+
+.call-received::before {
+  content: "\E0B5"; }
+
+.call-split::before {
+  content: "\E0B6"; }
+
+.camera::before {
+  content: "\E3AF"; }
+
+.camera-alt::before {
+  content: "\E3B0"; }
+
+.camera-enhance::before {
+  content: "\E8FC"; }
+
+.camera-front::before {
+  content: "\E3B1"; }
+
+.camera-rear::before {
+  content: "\E3B2"; }
+
+.camera-roll::before {
+  content: "\E3B3"; }
+
+.cancel::before {
+  content: "\E5C9"; }
+
+.card-giftcard::before {
+  content: "\E8F6"; }
+
+.card-membership::before {
+  content: "\E8F7"; }
+
+.card-travel::before {
+  content: "\E8F8"; }
+
+.cast::before {
+  content: "\E307"; }
+
+.cast-connected::before {
+  content: "\E308"; }
+
+.center-focus-strong::before {
+  content: "\E3B4"; }
+
+.center-focus-weak::before {
+  content: "\E3B5"; }
+
+.change-history::before {
+  content: "\E86B"; }
+
+.chat::before {
+  content: "\E0B7"; }
+
+.chat-bubble::before {
+  content: "\E0CA"; }
+
+.chat-bubble-outline::before {
+  content: "\E0CB"; }
+
+.check::before {
+  content: "\E5CA"; }
+
+.check-box::before {
+  content: "\E834"; }
+
+.check-box-outline-blank::before {
+  content: "\E835"; }
+
+.check-circle::before {
+  content: "\E86C"; }
+
+.chevron-left::before {
+  content: "\E5CB"; }
+
+.chevron-right::before {
+  content: "\E5CC"; }
+
+.chrome-reader-mode::before {
+  content: "\E86D"; }
+
+.class::before {
+  content: "\E86E"; }
+
+.clear::before {
+  content: "\E14C"; }
+
+.clear-all::before {
+  content: "\E0B8"; }
+
+.close::before {
+  content: "\E5CD"; }
+
+.closed-caption::before {
+  content: "\E01C"; }
+
+.cloud::before {
+  content: "\E2BD"; }
+
+.cloud-circle::before {
+  content: "\E2BE"; }
+
+.cloud-done::before {
+  content: "\E2BF"; }
+
+.cloud-download::before {
+  content: "\E2C0"; }
+
+.cloud-off::before {
+  content: "\E2C1"; }
+
+.cloud-queue::before {
+  content: "\E2C2"; }
+
+.cloud-upload::before {
+  content: "\E2C3"; }
+
+.code::before {
+  content: "\E86F"; }
+
+.collections::before {
+  content: "\E3B6"; }
+
+.collections-bookmark::before {
+  content: "\E431"; }
+
+.color-lens::before {
+  content: "\E3B7"; }
+
+.colorize::before {
+  content: "\E3B8"; }
+
+.comment::before {
+  content: "\E0B9"; }
+
+.compare::before {
+  content: "\E3B9"; }
+
+.computer::before {
+  content: "\E30A"; }
+
+.confirmation-number::before {
+  content: "\E638"; }
+
+.contact-phone::before {
+  content: "\E0CF"; }
+
+.contacts::before {
+  content: "\E0BA"; }
+
+.content-copy::before {
+  content: "\E14D"; }
+
+.content-cut::before {
+  content: "\E14E"; }
+
+.content-paste::before {
+  content: "\E14F"; }
+
+.control-point::before {
+  content: "\E3BA"; }
+
+.control-point-duplicate::before {
+  content: "\E3BB"; }
+
+.create::before {
+  content: "\E150"; }
+
+.credit-card::before {
+  content: "\E870"; }
+
+.crop::before {
+  content: "\E3BE"; }
+
+.crop-16-9::before {
+  content: "\E3BC"; }
+
+.crop-3-2::before {
+  content: "\E3BD"; }
+
+.crop-5-4::before {
+  content: "\E3BF"; }
+
+.crop-7-5::before {
+  content: "\E3C0"; }
+
+.crop-din::before {
+  content: "\E3C1"; }
+
+.crop-free::before {
+  content: "\E3C2"; }
+
+.crop-landscape::before {
+  content: "\E3C3"; }
+
+.crop-original::before {
+  content: "\E3C4"; }
+
+.crop-portrait::before {
+  content: "\E3C5"; }
+
+.crop-square::before {
+  content: "\E3C6"; }
+
+.dashboard::before {
+  content: "\E871"; }
+
+.data-usage::before {
+  content: "\E1AF"; }
+
+.dehaze::before {
+  content: "\E3C7"; }
+
+.delete::before {
+  content: "\E872"; }
+
+.description::before {
+  content: "\E873"; }
+
+.desktop-mac::before {
+  content: "\E30B"; }
+
+.desktop-windows::before {
+  content: "\E30C"; }
+
+.details::before {
+  content: "\E3C8"; }
+
+.developer-board::before {
+  content: "\E30D"; }
+
+.developer-mode::before {
+  content: "\E1B0"; }
+
+.device-hub::before {
+  content: "\E335"; }
+
+.devices::before {
+  content: "\E1B1"; }
+
+.dialer-sip::before {
+  content: "\E0BB"; }
+
+.dialpad::before {
+  content: "\E0BC"; }
+
+.directions::before {
+  content: "\E52E"; }
+
+.directions-bike::before {
+  content: "\E52F"; }
+
+.directions-boat::before {
+  content: "\E532"; }
+
+.directions-bus::before {
+  content: "\E530"; }
+
+.directions-car::before {
+  content: "\E531"; }
+
+.directions-railway::before {
+  content: "\E534"; }
+
+.directions-run::before {
+  content: "\E566"; }
+
+.directions-subway::before {
+  content: "\E533"; }
+
+.directions-transit::before {
+  content: "\E535"; }
+
+.directions-walk::before {
+  content: "\E536"; }
+
+.disc-full::before {
+  content: "\E610"; }
+
+.dns::before {
+  content: "\E875"; }
+
+.do-not-disturb::before {
+  content: "\E612"; }
+
+.do-not-disturb-alt::before {
+  content: "\E611"; }
+
+.dock::before {
+  content: "\E30E"; }
+
+.domain::before {
+  content: "\E7EE"; }
+
+.done::before {
+  content: "\E876"; }
+
+.done-all::before {
+  content: "\E877"; }
+
+.drafts::before {
+  content: "\E151"; }
+
+.drive-eta::before {
+  content: "\E613"; }
+
+.dvr::before {
+  content: "\E1B2"; }
+
+.edit::before {
+  content: "\E3C9"; }
+
+.eject::before {
+  content: "\E8FB"; }
+
+.email::before {
+  content: "\E0BE"; }
+
+.equalizer::before {
+  content: "\E01D"; }
+
+.error::before {
+  content: "\E000"; }
+
+.error-outline::before {
+  content: "\E001"; }
+
+.event::before {
+  content: "\E878"; }
+
+.event-available::before {
+  content: "\E614"; }
+
+.event-busy::before {
+  content: "\E615"; }
+
+.event-note::before {
+  content: "\E616"; }
+
+.event-seat::before {
+  content: "\E903"; }
+
+.exit-to-app::before {
+  content: "\E879"; }
+
+.expand-less::before {
+  content: "\E5CE"; }
+
+.expand-more::before {
+  content: "\E5CF"; }
+
+.explicit::before {
+  content: "\E01E"; }
+
+.explore::before {
+  content: "\E87A"; }
+
+.exposure::before {
+  content: "\E3CA"; }
+
+.exposure-neg-1::before {
+  content: "\E3CB"; }
+
+.exposure-neg-2::before {
+  content: "\E3CC"; }
+
+.exposure-plus-1::before {
+  content: "\E3CD"; }
+
+.exposure-plus-2::before {
+  content: "\E3CE"; }
+
+.exposure-zero::before {
+  content: "\E3CF"; }
+
+.extension::before {
+  content: "\E87B"; }
+
+.face::before {
+  content: "\E87C"; }
+
+.fast-forward::before {
+  content: "\E01F"; }
+
+.fast-rewind::before {
+  content: "\E020"; }
+
+.favorite::before {
+  content: "\E87D"; }
+
+.favorite-border::before {
+  content: "\E87E"; }
+
+.feedback::before {
+  content: "\E87F"; }
+
+.file-download::before {
+  content: "\E2C4"; }
+
+.file-upload::before {
+  content: "\E2C6"; }
+
+.filter::before {
+  content: "\E3D3"; }
+
+.filter-1::before {
+  content: "\E3D0"; }
+
+.filter-2::before {
+  content: "\E3D1"; }
+
+.filter-3::before {
+  content: "\E3D2"; }
+
+.filter-4::before {
+  content: "\E3D4"; }
+
+.filter-5::before {
+  content: "\E3D5"; }
+
+.filter-6::before {
+  content: "\E3D6"; }
+
+.filter-7::before {
+  content: "\E3D7"; }
+
+.filter-8::before {
+  content: "\E3D8"; }
+
+.filter-9::before {
+  content: "\E3D9"; }
+
+.filter-9-plus::before {
+  content: "\E3DA"; }
+
+.filter-b-and-w::before {
+  content: "\E3DB"; }
+
+.filter-center-focus::before {
+  content: "\E3DC"; }
+
+.filter-drama::before {
+  content: "\E3DD"; }
+
+.filter-frames::before {
+  content: "\E3DE"; }
+
+.filter-hdr::before {
+  content: "\E3DF"; }
+
+.filter-list::before {
+  content: "\E152"; }
+
+.filter-none::before {
+  content: "\E3E0"; }
+
+.filter-tilt-shift::before {
+  content: "\E3E2"; }
+
+.filter-vintage::before {
+  content: "\E3E3"; }
+
+.find-in-page::before {
+  content: "\E880"; }
+
+.find-replace::before {
+  content: "\E881"; }
+
+.flag::before {
+  content: "\E153"; }
+
+.flare::before {
+  content: "\E3E4"; }
+
+.flash-auto::before {
+  content: "\E3E5"; }
+
+.flash-off::before {
+  content: "\E3E6"; }
+
+.flash-on::before {
+  content: "\E3E7"; }
+
+.flight::before {
+  content: "\E539"; }
+
+.flight-land::before {
+  content: "\E904"; }
+
+.flight-takeoff::before {
+  content: "\E905"; }
+
+.flip::before {
+  content: "\E3E8"; }
+
+.flip-to-back::before {
+  content: "\E882"; }
+
+.flip-to-front::before {
+  content: "\E883"; }
+
+.folder::before {
+  content: "\E2C7"; }
+
+.folder-open::before {
+  content: "\E2C8"; }
+
+.folder-shared::before {
+  content: "\E2C9"; }
+
+.folder-special::before {
+  content: "\E617"; }
+
+.font-download::before {
+  content: "\E167"; }
+
+.format-align-center::before {
+  content: "\E234"; }
+
+.format-align-justify::before {
+  content: "\E235"; }
+
+.format-align-left::before {
+  content: "\E236"; }
+
+.format-align-right::before {
+  content: "\E237"; }
+
+.format-bold::before {
+  content: "\E238"; }
+
+.format-clear::before {
+  content: "\E239"; }
+
+.format-color-fill::before {
+  content: "\E23A"; }
+
+.format-color-reset::before {
+  content: "\E23B"; }
+
+.format-color-text::before {
+  content: "\E23C"; }
+
+.format-indent-decrease::before {
+  content: "\E23D"; }
+
+.format-indent-increase::before {
+  content: "\E23E"; }
+
+.format-italic::before {
+  content: "\E23F"; }
+
+.format-line-spacing::before {
+  content: "\E240"; }
+
+.format-list-bulleted::before {
+  content: "\E241"; }
+
+.format-list-numbered::before {
+  content: "\E242"; }
+
+.format-paint::before {
+  content: "\E243"; }
+
+.format-quote::before {
+  content: "\E244"; }
+
+.format-size::before {
+  content: "\E245"; }
+
+.format-strikethrough::before {
+  content: "\E246"; }
+
+.format-textdirection-l-to-r::before {
+  content: "\E247"; }
+
+.format-textdirection-r-to-l::before {
+  content: "\E248"; }
+
+.format-underlined::before {
+  content: "\E249"; }
+
+.forum::before {
+  content: "\E0BF"; }
+
+.forward::before {
+  content: "\E154"; }
+
+.forward-10::before {
+  content: "\E056"; }
+
+.forward-30::before {
+  content: "\E057"; }
+
+.forward-5::before {
+  content: "\E058"; }
+
+.fullscreen::before {
+  content: "\E5D0"; }
+
+.fullscreen-exit::before {
+  content: "\E5D1"; }
+
+.functions::before {
+  content: "\E24A"; }
+
+.gamepad::before {
+  content: "\E30F"; }
+
+.games::before {
+  content: "\E021"; }
+
+.gesture::before {
+  content: "\E155"; }
+
+.get-app::before {
+  content: "\E884"; }
+
+.gif::before {
+  content: "\E908"; }
+
+.gps-fixed::before {
+  content: "\E1B3"; }
+
+.gps-not-fixed::before {
+  content: "\E1B4"; }
+
+.gps-off::before {
+  content: "\E1B5"; }
+
+.grade::before {
+  content: "\E885"; }
+
+.gradient::before {
+  content: "\E3E9"; }
+
+.grain::before {
+  content: "\E3EA"; }
+
+.graphic-eq::before {
+  content: "\E1B8"; }
+
+.grid-off::before {
+  content: "\E3EB"; }
+
+.grid-on::before {
+  content: "\E3EC"; }
+
+.group::before {
+  content: "\E7EF"; }
+
+.group-add::before {
+  content: "\E7F0"; }
+
+.group-work::before {
+  content: "\E886"; }
+
+.hd::before {
+  content: "\E052"; }
+
+.hdr-off::before {
+  content: "\E3ED"; }
+
+.hdr-on::before {
+  content: "\E3EE"; }
+
+.hdr-strong::before {
+  content: "\E3F1"; }
+
+.hdr-weak::before {
+  content: "\E3F2"; }
+
+.headset::before {
+  content: "\E310"; }
+
+.headset-mic::before {
+  content: "\E311"; }
+
+.healing::before {
+  content: "\E3F3"; }
+
+.hearing::before {
+  content: "\E023"; }
+
+.help::before {
+  content: "\E887"; }
+
+.help-outline::before {
+  content: "\E8FD"; }
+
+.high-quality::before {
+  content: "\E024"; }
+
+.highlight-off::before {
+  content: "\E888"; }
+
+.history::before {
+  content: "\E889"; }
+
+.home::before {
+  content: "\E88A"; }
+
+.hotel::before {
+  content: "\E53A"; }
+
+.hourglass-empty::before {
+  content: "\E88B"; }
+
+.hourglass-full::before {
+  content: "\E88C"; }
+
+.http::before {
+  content: "\E902"; }
+
+.https::before {
+  content: "\E88D"; }
+
+.image::before {
+  content: "\E3F4"; }
+
+.image-aspect-ratio::before {
+  content: "\E3F5"; }
+
+.import-export::before {
+  content: "\E0C3"; }
+
+.inbox::before {
+  content: "\E156"; }
+
+.indeterminate-check-box::before {
+  content: "\E909"; }
+
+.info::before {
+  content: "\E88E"; }
+
+.info-outline::before {
+  content: "\E88F"; }
+
+.input::before {
+  content: "\E890"; }
+
+.insert-chart::before {
+  content: "\E24B"; }
+
+.insert-comment::before {
+  content: "\E24C"; }
+
+.insert-drive-file::before {
+  content: "\E24D"; }
+
+.insert-emoticon::before {
+  content: "\E24E"; }
+
+.insert-invitation::before {
+  content: "\E24F"; }
+
+.insert-link::before {
+  content: "\E250"; }
+
+.insert-photo::before {
+  content: "\E251"; }
+
+.invert-colors::before {
+  content: "\E891"; }
+
+.invert-colors-off::before {
+  content: "\E0C4"; }
+
+.iso::before {
+  content: "\E3F6"; }
+
+.keyboard::before {
+  content: "\E312"; }
+
+.keyboard-arrow-down::before {
+  content: "\E313"; }
+
+.keyboard-arrow-left::before {
+  content: "\E314"; }
+
+.keyboard-arrow-right::before {
+  content: "\E315"; }
+
+.keyboard-arrow-up::before {
+  content: "\E316"; }
+
+.keyboard-backspace::before {
+  content: "\E317"; }
+
+.keyboard-capslock::before {
+  content: "\E318"; }
+
+.keyboard-hide::before {
+  content: "\E31A"; }
+
+.keyboard-return::before {
+  content: "\E31B"; }
+
+.keyboard-tab::before {
+  content: "\E31C"; }
+
+.keyboard-voice::before {
+  content: "\E31D"; }
+
+.label::before {
+  content: "\E892"; }
+
+.label-outline::before {
+  content: "\E893"; }
+
+.landscape::before {
+  content: "\E3F7"; }
+
+.language::before {
+  content: "\E894"; }
+
+.laptop::before {
+  content: "\E31E"; }
+
+.laptop-chromebook::before {
+  content: "\E31F"; }
+
+.laptop-mac::before {
+  content: "\E320"; }
+
+.laptop-windows::before {
+  content: "\E321"; }
+
+.launch::before {
+  content: "\E895"; }
+
+.layers::before {
+  content: "\E53B"; }
+
+.layers-clear::before {
+  content: "\E53C"; }
+
+.leak-add::before {
+  content: "\E3F8"; }
+
+.leak-remove::before {
+  content: "\E3F9"; }
+
+.lens::before {
+  content: "\E3FA"; }
+
+.library-add::before {
+  content: "\E02E"; }
+
+.library-books::before {
+  content: "\E02F"; }
+
+.library-music::before {
+  content: "\E030"; }
+
+.link::before {
+  content: "\E157"; }
+
+.list::before {
+  content: "\E896"; }
+
+.live-help::before {
+  content: "\E0C6"; }
+
+.live-tv::before {
+  content: "\E639"; }
+
+.local-activity::before {
+  content: "\E53F"; }
+
+.local-airport::before {
+  content: "\E53D"; }
+
+.local-atm::before {
+  content: "\E53E"; }
+
+.local-bar::before {
+  content: "\E540"; }
+
+.local-cafe::before {
+  content: "\E541"; }
+
+.local-car-wash::before {
+  content: "\E542"; }
+
+.local-convenience-store::before {
+  content: "\E543"; }
+
+.local-dining::before {
+  content: "\E556"; }
+
+.local-drink::before {
+  content: "\E544"; }
+
+.local-florist::before {
+  content: "\E545"; }
+
+.local-gas-station::before {
+  content: "\E546"; }
+
+.local-grocery-store::before {
+  content: "\E547"; }
+
+.local-hospital::before {
+  content: "\E548"; }
+
+.local-hotel::before {
+  content: "\E549"; }
+
+.local-laundry-service::before {
+  content: "\E54A"; }
+
+.local-library::before {
+  content: "\E54B"; }
+
+.local-mall::before {
+  content: "\E54C"; }
+
+.local-movies::before {
+  content: "\E54D"; }
+
+.local-offer::before {
+  content: "\E54E"; }
+
+.local-parking::before {
+  content: "\E54F"; }
+
+.local-pharmacy::before {
+  content: "\E550"; }
+
+.local-phone::before {
+  content: "\E551"; }
+
+.local-pizza::before {
+  content: "\E552"; }
+
+.local-play::before {
+  content: "\E553"; }
+
+.local-post-office::before {
+  content: "\E554"; }
+
+.local-printshop::before {
+  content: "\E555"; }
+
+.local-see::before {
+  content: "\E557"; }
+
+.local-shipping::before {
+  content: "\E558"; }
+
+.local-taxi::before {
+  content: "\E559"; }
+
+.location-city::before {
+  content: "\E7F1"; }
+
+.location-disabled::before {
+  content: "\E1B6"; }
+
+.location-off::before {
+  content: "\E0C7"; }
+
+.location-on::before {
+  content: "\E0C8"; }
+
+.location-searching::before {
+  content: "\E1B7"; }
+
+.lock::before {
+  content: "\E897"; }
+
+.lock-open::before {
+  content: "\E898"; }
+
+.lock-outline::before {
+  content: "\E899"; }
+
+.looks::before {
+  content: "\E3FC"; }
+
+.looks-3::before {
+  content: "\E3FB"; }
+
+.looks-4::before {
+  content: "\E3FD"; }
+
+.looks-5::before {
+  content: "\E3FE"; }
+
+.looks-6::before {
+  content: "\E3FF"; }
+
+.looks-one::before {
+  content: "\E400"; }
+
+.looks-two::before {
+  content: "\E401"; }
+
+.loop::before {
+  content: "\E028"; }
+
+.loupe::before {
+  content: "\E402"; }
+
+.loyalty::before {
+  content: "\E89A"; }
+
+.mail::before {
+  content: "\E158"; }
+
+.map::before {
+  content: "\E55B"; }
+
+.markunread::before {
+  content: "\E159"; }
+
+.markunread-mailbox::before {
+  content: "\E89B"; }
+
+.memory::before {
+  content: "\E322"; }
+
+.menu::before {
+  content: "\E5D2"; }
+
+.merge-type::before {
+  content: "\E252"; }
+
+.message::before {
+  content: "\E0C9"; }
+
+.mic::before {
+  content: "\E029"; }
+
+.mic-none::before {
+  content: "\E02A"; }
+
+.mic-off::before {
+  content: "\E02B"; }
+
+.mms::before {
+  content: "\E618"; }
+
+.mode-comment::before {
+  content: "\E253"; }
+
+.mode-edit::before {
+  content: "\E254"; }
+
+.money-off::before {
+  content: "\E25C"; }
+
+.monochrome-photos::before {
+  content: "\E403"; }
+
+.mood::before {
+  content: "\E7F2"; }
+
+.mood-bad::before {
+  content: "\E7F3"; }
+
+.more::before {
+  content: "\E619"; }
+
+.more-horiz::before {
+  content: "\E5D3"; }
+
+.more-vert::before {
+  content: "\E5D4"; }
+
+.mouse::before {
+  content: "\E323"; }
+
+.movie::before {
+  content: "\E02C"; }
+
+.movie-creation::before {
+  content: "\E404"; }
+
+.music-note::before {
+  content: "\E405"; }
+
+.my-location::before {
+  content: "\E55C"; }
+
+.nature::before {
+  content: "\E406"; }
+
+.nature-people::before {
+  content: "\E407"; }
+
+.navigate-before::before {
+  content: "\E408"; }
+
+.navigate-next::before {
+  content: "\E409"; }
+
+.navigation::before {
+  content: "\E55D"; }
+
+.network-cell::before {
+  content: "\E1B9"; }
+
+.network-locked::before {
+  content: "\E61A"; }
+
+.network-wifi::before {
+  content: "\E1BA"; }
+
+.new-releases::before {
+  content: "\E031"; }
+
+.nfc::before {
+  content: "\E1BB"; }
+
+.no-sim::before {
+  content: "\E0CC"; }
+
+.not-interested::before {
+  content: "\E033"; }
+
+.note-add::before {
+  content: "\E89C"; }
+
+.notifications::before {
+  content: "\E7F4"; }
+
+.notifications-active::before {
+  content: "\E7F7"; }
+
+.notifications-none::before {
+  content: "\E7F5"; }
+
+.notifications-off::before {
+  content: "\E7F6"; }
+
+.notifications-paused::before {
+  content: "\E7F8"; }
+
+.offline-pin::before {
+  content: "\E90A"; }
+
+.ondemand-video::before {
+  content: "\E63A"; }
+
+.open-in-browser::before {
+  content: "\E89D"; }
+
+.open-in-new::before {
+  content: "\E89E"; }
+
+.open-with::before {
+  content: "\E89F"; }
+
+.pages::before {
+  content: "\E7F9"; }
+
+.pageview::before {
+  content: "\E8A0"; }
+
+.palette::before {
+  content: "\E40A"; }
+
+.panorama::before {
+  content: "\E40B"; }
+
+.panorama-fish-eye::before {
+  content: "\E40C"; }
+
+.panorama-horizontal::before {
+  content: "\E40D"; }
+
+.panorama-vertical::before {
+  content: "\E40E"; }
+
+.panorama-wide-angle::before {
+  content: "\E40F"; }
+
+.party-mode::before {
+  content: "\E7FA"; }
+
+.pause::before {
+  content: "\E034"; }
+
+.pause-circle-filled::before {
+  content: "\E035"; }
+
+.pause-circle-outline::before {
+  content: "\E036"; }
+
+.payment::before {
+  content: "\E8A1"; }
+
+.people::before {
+  content: "\E7FB"; }
+
+.people-outline::before {
+  content: "\E7FC"; }
+
+.perm-camera-mic::before {
+  content: "\E8A2"; }
+
+.perm-contact-calendar::before {
+  content: "\E8A3"; }
+
+.perm-data-setting::before {
+  content: "\E8A4"; }
+
+.perm-device-information::before {
+  content: "\E8A5"; }
+
+.perm-identity::before {
+  content: "\E8A6"; }
+
+.perm-media::before {
+  content: "\E8A7"; }
+
+.perm-phone-msg::before {
+  content: "\E8A8"; }
+
+.perm-scan-wifi::before {
+  content: "\E8A9"; }
+
+.person::before {
+  content: "\E7FD"; }
+
+.person-add::before {
+  content: "\E7FE"; }
+
+.person-outline::before {
+  content: "\E7FF"; }
+
+.person-pin::before {
+  content: "\E55A"; }
+
+.personal-video::before {
+  content: "\E63B"; }
+
+.phone::before {
+  content: "\E0CD"; }
+
+.phone-android::before {
+  content: "\E324"; }
+
+.phone-bluetooth-speaker::before {
+  content: "\E61B"; }
+
+.phone-forwarded::before {
+  content: "\E61C"; }
+
+.phone-in-talk::before {
+  content: "\E61D"; }
+
+.phone-iphone::before {
+  content: "\E325"; }
+
+.phone-locked::before {
+  content: "\E61E"; }
+
+.phone-missed::before {
+  content: "\E61F"; }
+
+.phone-paused::before {
+  content: "\E620"; }
+
+.phonelink::before {
+  content: "\E326"; }
+
+.phonelink-erase::before {
+  content: "\E0DB"; }
+
+.phonelink-lock::before {
+  content: "\E0DC"; }
+
+.phonelink-off::before {
+  content: "\E327"; }
+
+.phonelink-ring::before {
+  content: "\E0DD"; }
+
+.phonelink-setup::before {
+  content: "\E0DE"; }
+
+.photo::before {
+  content: "\E410"; }
+
+.photo-album::before {
+  content: "\E411"; }
+
+.photo-camera::before {
+  content: "\E412"; }
+
+.photo-library::before {
+  content: "\E413"; }
+
+.photo-size-select-actual::before {
+  content: "\E432"; }
+
+.photo-size-select-large::before {
+  content: "\E433"; }
+
+.photo-size-select-small::before {
+  content: "\E434"; }
+
+.picture-as-pdf::before {
+  content: "\E415"; }
+
+.picture-in-picture::before {
+  content: "\E8AA"; }
+
+.pin-drop::before {
+  content: "\E55E"; }
+
+.place::before {
+  content: "\E55F"; }
+
+.play-arrow::before {
+  content: "\E037"; }
+
+.play-circle-filled::before {
+  content: "\E038"; }
+
+.play-circle-outline::before {
+  content: "\E039"; }
+
+.play-for-work::before {
+  content: "\E906"; }
+
+.playlist-add::before {
+  content: "\E03B"; }
+
+.plus-one::before {
+  content: "\E800"; }
+
+.poll::before {
+  content: "\E801"; }
+
+.polymer::before {
+  content: "\E8AB"; }
+
+.portable-wifi-off::before {
+  content: "\E0CE"; }
+
+.portrait::before {
+  content: "\E416"; }
+
+.power::before {
+  content: "\E63C"; }
+
+.power-input::before {
+  content: "\E336"; }
+
+.power-settings-new::before {
+  content: "\E8AC"; }
+
+.present-to-all::before {
+  content: "\E0DF"; }
+
+.print::before {
+  content: "\E8AD"; }
+
+.public::before {
+  content: "\E80B"; }
+
+.publish::before {
+  content: "\E255"; }
+
+.query-builder::before {
+  content: "\E8AE"; }
+
+.question-answer::before {
+  content: "\E8AF"; }
+
+.queue::before {
+  content: "\E03C"; }
+
+.queue-music::before {
+  content: "\E03D"; }
+
+.radio::before {
+  content: "\E03E"; }
+
+.radio-button-checked::before {
+  content: "\E837"; }
+
+.radio-button-unchecked::before {
+  content: "\E836"; }
+
+.rate-review::before {
+  content: "\E560"; }
+
+.receipt::before {
+  content: "\E8B0"; }
+
+.recent-actors::before {
+  content: "\E03F"; }
+
+.redeem::before {
+  content: "\E8B1"; }
+
+.redo::before {
+  content: "\E15A"; }
+
+.refresh::before {
+  content: "\E5D5"; }
+
+.remove::before {
+  content: "\E15B"; }
+
+.remove-circle::before {
+  content: "\E15C"; }
+
+.remove-circle-outline::before {
+  content: "\E15D"; }
+
+.remove-red-eye::before {
+  content: "\E417"; }
+
+.reorder::before {
+  content: "\E8FE"; }
+
+.repeat::before {
+  content: "\E040"; }
+
+.repeat-one::before {
+  content: "\E041"; }
+
+.replay::before {
+  content: "\E042"; }
+
+.replay-10::before {
+  content: "\E059"; }
+
+.replay-30::before {
+  content: "\E05A"; }
+
+.replay-5::before {
+  content: "\E05B"; }
+
+.reply::before {
+  content: "\E15E"; }
+
+.reply-all::before {
+  content: "\E15F"; }
+
+.report::before {
+  content: "\E160"; }
+
+.report-problem::before {
+  content: "\E8B2"; }
+
+.restaurant-menu::before {
+  content: "\E561"; }
+
+.restore::before {
+  content: "\E8B3"; }
+
+.ring-volume::before {
+  content: "\E0D1"; }
+
+.room::before {
+  content: "\E8B4"; }
+
+.rotate-90-degrees-ccw::before {
+  content: "\E418"; }
+
+.rotate-left::before {
+  content: "\E419"; }
+
+.rotate-right::before {
+  content: "\E41A"; }
+
+.router::before {
+  content: "\E328"; }
+
+.satellite::before {
+  content: "\E562"; }
+
+.save::before {
+  content: "\E161"; }
+
+.scanner::before {
+  content: "\E329"; }
+
+.schedule::before {
+  content: "\E8B5"; }
+
+.school::before {
+  content: "\E80C"; }
+
+.screen-lock-landscape::before {
+  content: "\E1BE"; }
+
+.screen-lock-portrait::before {
+  content: "\E1BF"; }
+
+.screen-lock-rotation::before {
+  content: "\E1C0"; }
+
+.screen-rotation::before {
+  content: "\E1C1"; }
+
+.sd-card::before {
+  content: "\E623"; }
+
+.sd-storage::before {
+  content: "\E1C2"; }
+
+.search::before {
+  content: "\E8B6"; }
+
+.security::before {
+  content: "\E32A"; }
+
+.select-all::before {
+  content: "\E162"; }
+
+.send::before {
+  content: "\E163"; }
+
+.settings::before {
+  content: "\E8B8"; }
+
+.settings-applications::before {
+  content: "\E8B9"; }
+
+.settings-backup-restore::before {
+  content: "\E8BA"; }
+
+.settings-bluetooth::before {
+  content: "\E8BB"; }
+
+.settings-brightness::before {
+  content: "\E8BD"; }
+
+.settings-cell::before {
+  content: "\E8BC"; }
+
+.settings-ethernet::before {
+  content: "\E8BE"; }
+
+.settings-input-antenna::before {
+  content: "\E8BF"; }
+
+.settings-input-component::before {
+  content: "\E8C0"; }
+
+.settings-input-composite::before {
+  content: "\E8C1"; }
+
+.settings-input-hdmi::before {
+  content: "\E8C2"; }
+
+.settings-input-svideo::before {
+  content: "\E8C3"; }
+
+.settings-overscan::before {
+  content: "\E8C4"; }
+
+.settings-phone::before {
+  content: "\E8C5"; }
+
+.settings-power::before {
+  content: "\E8C6"; }
+
+.settings-remote::before {
+  content: "\E8C7"; }
+
+.settings-system-daydream::before {
+  content: "\E1C3"; }
+
+.settings-voice::before {
+  content: "\E8C8"; }
+
+.share::before {
+  content: "\E80D"; }
+
+.shop::before {
+  content: "\E8C9"; }
+
+.shop-two::before {
+  content: "\E8CA"; }
+
+.shopping-basket::before {
+  content: "\E8CB"; }
+
+.shopping-cart::before {
+  content: "\E8CC"; }
+
+.shuffle::before {
+  content: "\E043"; }
+
+.signal-cellular-4-bar::before {
+  content: "\E1C8"; }
+
+.signal-cellular-connected-no-internet-4-bar::before {
+  content: "\E1CD"; }
+
+.signal-cellular-no-sim::before {
+  content: "\E1CE"; }
+
+.signal-cellular-null::before {
+  content: "\E1CF"; }
+
+.signal-cellular-off::before {
+  content: "\E1D0"; }
+
+.signal-wifi-4-bar::before {
+  content: "\E1D8"; }
+
+.signal-wifi-4-bar-lock::before {
+  content: "\E1D9"; }
+
+.signal-wifi-off::before {
+  content: "\E1DA"; }
+
+.sim-card::before {
+  content: "\E32B"; }
+
+.sim-card-alert::before {
+  content: "\E624"; }
+
+.skip-next::before {
+  content: "\E044"; }
+
+.skip-previous::before {
+  content: "\E045"; }
+
+.slideshow::before {
+  content: "\E41B"; }
+
+.smartphone::before {
+  content: "\E32C"; }
+
+.sms::before {
+  content: "\E625"; }
+
+.sms-failed::before {
+  content: "\E626"; }
+
+.snooze::before {
+  content: "\E046"; }
+
+.sort::before {
+  content: "\E164"; }
+
+.sort-by-alpha::before {
+  content: "\E053"; }
+
+.space-bar::before {
+  content: "\E256"; }
+
+.speaker::before {
+  content: "\E32D"; }
+
+.speaker-group::before {
+  content: "\E32E"; }
+
+.speaker-notes::before {
+  content: "\E8CD"; }
+
+.speaker-phone::before {
+  content: "\E0D2"; }
+
+.spellcheck::before {
+  content: "\E8CE"; }
+
+.star::before {
+  content: "\E838"; }
+
+.star-border::before {
+  content: "\E83A"; }
+
+.star-half::before {
+  content: "\E839"; }
+
+.stars::before {
+  content: "\E8D0"; }
+
+.stay-current-landscape::before {
+  content: "\E0D3"; }
+
+.stay-current-portrait::before {
+  content: "\E0D4"; }
+
+.stay-primary-landscape::before {
+  content: "\E0D5"; }
+
+.stay-primary-portrait::before {
+  content: "\E0D6"; }
+
+.stop::before {
+  content: "\E047"; }
+
+.storage::before {
+  content: "\E1DB"; }
+
+.store::before {
+  content: "\E8D1"; }
+
+.store-mall-directory::before {
+  content: "\E563"; }
+
+.straighten::before {
+  content: "\E41C"; }
+
+.strikethrough-s::before {
+  content: "\E257"; }
+
+.style::before {
+  content: "\E41D"; }
+
+.subject::before {
+  content: "\E8D2"; }
+
+.subtitles::before {
+  content: "\E048"; }
+
+.supervisor-account::before {
+  content: "\E8D3"; }
+
+.surround-sound::before {
+  content: "\E049"; }
+
+.swap-calls::before {
+  content: "\E0D7"; }
+
+.swap-horiz::before {
+  content: "\E8D4"; }
+
+.swap-vert::before {
+  content: "\E8D5"; }
+
+.swap-vertical-circle::before {
+  content: "\E8D6"; }
+
+.switch-camera::before {
+  content: "\E41E"; }
+
+.switch-video::before {
+  content: "\E41F"; }
+
+.sync::before {
+  content: "\E627"; }
+
+.sync-disabled::before {
+  content: "\E628"; }
+
+.sync-problem::before {
+  content: "\E629"; }
+
+.system-update::before {
+  content: "\E62A"; }
+
+.system-update-alt::before {
+  content: "\E8D7"; }
+
+.tab::before {
+  content: "\E8D8"; }
+
+.tab-unselected::before {
+  content: "\E8D9"; }
+
+.tablet::before {
+  content: "\E32F"; }
+
+.tablet-android::before {
+  content: "\E330"; }
+
+.tablet-mac::before {
+  content: "\E331"; }
+
+.tag-faces::before {
+  content: "\E420"; }
+
+.tap-and-play::before {
+  content: "\E62B"; }
+
+.terrain::before {
+  content: "\E564"; }
+
+.text-format::before {
+  content: "\E165"; }
+
+.textsms::before {
+  content: "\E0D8"; }
+
+.texture::before {
+  content: "\E421"; }
+
+.theaters::before {
+  content: "\E8DA"; }
+
+.thumb-down::before {
+  content: "\E8DB"; }
+
+.thumb-up::before {
+  content: "\E8DC"; }
+
+.thumbs-up-down::before {
+  content: "\E8DD"; }
+
+.time-to-leave::before {
+  content: "\E62C"; }
+
+.timelapse::before {
+  content: "\E422"; }
+
+.timer::before {
+  content: "\E425"; }
+
+.timer-10::before {
+  content: "\E423"; }
+
+.timer-3::before {
+  content: "\E424"; }
+
+.timer-off::before {
+  content: "\E426"; }
+
+.toc::before {
+  content: "\E8DE"; }
+
+.today::before {
+  content: "\E8DF"; }
+
+.toll::before {
+  content: "\E8E0"; }
+
+.tonality::before {
+  content: "\E427"; }
+
+.toys::before {
+  content: "\E332"; }
+
+.track-changes::before {
+  content: "\E8E1"; }
+
+.traffic::before {
+  content: "\E565"; }
+
+.transform::before {
+  content: "\E428"; }
+
+.translate::before {
+  content: "\E8E2"; }
+
+.trending-down::before {
+  content: "\E8E3"; }
+
+.trending-flat::before {
+  content: "\E8E4"; }
+
+.trending-up::before {
+  content: "\E8E5"; }
+
+.tune::before {
+  content: "\E429"; }
+
+.turned-in::before {
+  content: "\E8E6"; }
+
+.turned-in-not::before {
+  content: "\E8E7"; }
+
+.tv::before {
+  content: "\E333"; }
+
+.undo::before {
+  content: "\E166"; }
+
+.unfold-less::before {
+  content: "\E5D6"; }
+
+.unfold-more::before {
+  content: "\E5D7"; }
+
+.usb::before {
+  content: "\E1E0"; }
+
+.verified-user::before {
+  content: "\E8E8"; }
+
+.vertical-align-bottom::before {
+  content: "\E258"; }
+
+.vertical-align-center::before {
+  content: "\E259"; }
+
+.vertical-align-top::before {
+  content: "\E25A"; }
+
+.vibration::before {
+  content: "\E62D"; }
+
+.video-library::before {
+  content: "\E04A"; }
+
+.videocam::before {
+  content: "\E04B"; }
+
+.videocam-off::before {
+  content: "\E04C"; }
+
+.view-agenda::before {
+  content: "\E8E9"; }
+
+.view-array::before {
+  content: "\E8EA"; }
+
+.view-carousel::before {
+  content: "\E8EB"; }
+
+.view-column::before {
+  content: "\E8EC"; }
+
+.view-comfy::before {
+  content: "\E42A"; }
+
+.view-compact::before {
+  content: "\E42B"; }
+
+.view-day::before {
+  content: "\E8ED"; }
+
+.view-headline::before {
+  content: "\E8EE"; }
+
+.view-list::before {
+  content: "\E8EF"; }
+
+.view-module::before {
+  content: "\E8F0"; }
+
+.view-quilt::before {
+  content: "\E8F1"; }
+
+.view-stream::before {
+  content: "\E8F2"; }
+
+.view-week::before {
+  content: "\E8F3"; }
+
+.vignette::before {
+  content: "\E435"; }
+
+.visibility::before {
+  content: "\E8F4"; }
+
+.visibility-off::before {
+  content: "\E8F5"; }
+
+.voice-chat::before {
+  content: "\E62E"; }
+
+.voicemail::before {
+  content: "\E0D9"; }
+
+.volume-down::before {
+  content: "\E04D"; }
+
+.volume-mute::before {
+  content: "\E04E"; }
+
+.volume-off::before {
+  content: "\E04F"; }
+
+.volume-up::before {
+  content: "\E050"; }
+
+.vpn-key::before {
+  content: "\E0DA"; }
+
+.vpn-lock::before {
+  content: "\E62F"; }
+
+.wallpaper::before {
+  content: "\E1BC"; }
+
+.warning::before {
+  content: "\E002"; }
+
+.watch::before {
+  content: "\E334"; }
+
+.wb-auto::before {
+  content: "\E42C"; }
+
+.wb-cloudy::before {
+  content: "\E42D"; }
+
+.wb-incandescent::before {
+  content: "\E42E"; }
+
+.wb-iridescent::before {
+  content: "\E436"; }
+
+.wb-sunny::before {
+  content: "\E430"; }
+
+.wc::before {
+  content: "\E63D"; }
+
+.web::before {
+  content: "\E051"; }
+
+.whatshot::before {
+  content: "\E80E"; }
+
+.widgets::before {
+  content: "\E1BD"; }
+
+.wifi::before {
+  content: "\E63E"; }
+
+.wifi-lock::before {
+  content: "\E1E1"; }
+
+.wifi-tethering::before {
+  content: "\E1E2"; }
+
+.work::before {
+  content: "\E8F9"; }
+
+.wrap-text::before {
+  content: "\E25B"; }
+
+.youtube-searched-for::before {
+  content: "\E8FA"; }
+
+.zoom-in::before {
+  content: "\E8FF"; }
+
+.zoom-out::before {
+  content: "\E900"; }
+.root {
+  position: absolute;
+  z-index: 200;
+  display: block;
+  max-width: 17rem;
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4rem;
+  color: #fff;
+  text-align: center;
+  text-transform: none;
+  background: rgba(97, 97, 97, 0.9);
+  border-radius: 0.2rem;
+  transform: scale(0);
+  transform-origin: top center;
+  animation-duration: 2000ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-iteration-count: 1;
+  animation-direction: forwards; }
+  .root.active {
+    animation-name: tooltip-animation; }
+  .root.large {
+    padding: 1.6rem;
+    font-size: 1.4rem; }
+
+@keyframes tooltip-animation {
+  0% {
+    transform: scale(0); }
+  10%, 99% {
+    transform: scale(1); }
+  100% {
+    transform: scale(0); } }
+.root {
+  padding: 1.5rem 2rem; }
+
+.wrapper {
+  position: relative;
+  z-index: 100;
+  background-color: #eeeeee;
+  border-radius: 50%; }
+
+.face {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+  cursor: pointer;
+  border-radius: 50%;
+  transform: translateX(-50%) translateY(-50%); }
+
+.number {
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  margin-top: -1rem;
+  margin-left: -1rem;
+  text-align: center;
+  pointer-events: none;
+  user-select: none; }
+  .number.active {
+    color: white; }
+
+.hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  display: block;
+  width: 0.4rem;
+  margin-left: -0.2rem;
+  background-color: #3f51b5;
+  transform-origin: 50% 100%; }
+  .hand:before {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 1rem;
+    height: 1rem;
+    margin-bottom: -0.5rem;
+    margin-left: -0.5rem;
+    content: "";
+    background-color: #3f51b5;
+    border-radius: 50%; }
+  .hand.small > .knob {
+    background-color: rgba(63, 81, 181, 0.2); }
+    .hand.small > .knob:after {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 1.2rem;
+      height: 1.2rem;
+      margin-top: -0.6rem;
+      margin-left: -0.6rem;
+      content: "";
+      background: #3f51b5;
+      border-radius: 50%; }
+    .hand.small > .knob:before {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0.4rem;
+      height: 2.2rem;
+      margin-left: -0.2rem;
+      content: "";
+      background: #3f51b5; }
+
+.knob {
+  position: absolute;
+  top: -3.4rem;
+  left: 50%;
+  width: 3.4rem;
+  height: 3.4rem;
+  margin-left: -1.7rem;
+  cursor: pointer;
+  background-color: #3f51b5;
+  border-radius: 50%; }
+.normal, .loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 100;
+  pointer-events: none;
+  background-color: currentColor;
+  border-radius: 50%;
+  transform-origin: 50% 50%; }
+
+.wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: none; }
+
+.normal {
+  transition-duration: 1.2s; }
+  .normal.restarting {
+    opacity: 0.3;
+    transition-property: none; }
+  .normal.active {
+    opacity: 0.3;
+    transition-property: transform; }
+  .normal:not(.active):not(.restarting) {
+    opacity: 0;
+    transition-property: opacity, transform; }
+
+.loading {
+  width: 15rem;
+  height: 15rem;
+  opacity: 0.3;
+  animation-name: ripple;
+  animation-duration: 1.2s;
+  animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  animation-iteration-count: infinite; }
+
+@keyframes ripple {
+  0% {
+    opacity: 0.3;
+    transform: translate3d(-50%, -50%, 0) scale(0); }
+  95% {
+    opacity: 0;
+    transform: translate3d(-50%, -50%, 0) scale(1); }
+  100% {
+    opacity: 0;
+    transform: translate3d(-50%, -50%, 0) scale(0); } }
+.flat, .toggle, .raised, .floating {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  position: relative;
+  display: inline-block;
+  height: 3.6rem;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 0;
+  outline: none;
+  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1), background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+  .flat::-moz-focus-inner, .toggle::-moz-focus-inner, .raised::-moz-focus-inner, .floating::-moz-focus-inner {
+    border: 0; }
+  .flat > span:not(.tooltip), .toggle > span:not(.tooltip), .raised > span:not(.tooltip), .floating > span:not(.tooltip) {
+    display: inline-block;
+    line-height: 3.6rem;
+    vertical-align: middle; }
+  .flat > svg, .toggle > svg, .raised > svg, .floating > svg {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    font-size: 120%;
+    vertical-align: middle;
+    fill: currentColor; }
+  .flat > *, .toggle > *, .raised > *, .floating > * {
+    pointer-events: none; }
+  .flat [data-react-toolbox="ripple"], .toggle [data-react-toolbox="ripple"], .raised [data-react-toolbox="ripple"], .floating [data-react-toolbox="ripple"] {
+    overflow: hidden; }
+
+.flat, .raised {
+  min-width: 9rem;
+  padding: 0 1.2rem;
+  border-radius: 0.2rem; }
+  .flat .icon, .raised .icon {
+    margin-right: 0.6rem;
+    font-size: 120%;
+    vertical-align: middle; }
+  .flat > svg, .raised > svg {
+    margin-right: 0.5rem; }
+
+.flat[disabled], .toggle[disabled], .raised[disabled], .floating[disabled] {
+  color: rgba(0, 0, 0, 0.26);
+  pointer-events: none;
+  cursor: auto; }
+
+.flat {
+  background: transparent; }
+  .flat:hover {
+    background: rgba(0, 0, 0, 0.26); }
+  .flat:focus:not(:active) {
+    background: rgba(0, 0, 0, 0.26); }
+
+.toggle {
+  width: 3.6rem;
+  background: transparent;
+  border-radius: 50%; }
+  .toggle:hover {
+    background: rgba(0, 0, 0, 0.26); }
+  .toggle:focus:not(:active) {
+    background: rgba(0, 0, 0, 0.26); }
+  .toggle .icon {
+    font-size: 120%;
+    line-height: 3.6rem;
+    vertical-align: middle; }
+  .toggle [data-react-toolbox="ripple"] {
+    border-radius: 50%; }
+
+.raised {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  background: rgba(158, 158, 158, 0.2); }
+  .raised:active {
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2); }
+  .raised:focus:not(:active) {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.18), 0 8px 16px rgba(0, 0, 0, 0.36); }
+  .raised[disabled] {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    background-color: rgba(0, 0, 0, 0.12); }
+
+.floating {
+  width: 5.6rem;
+  height: 5.6rem;
+  font-size: 2.4rem;
+  background: rgba(158, 158, 158, 0.2);
+  border-radius: 50%;
+  box-shadow: 0 1px 1.5px 0 rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.24); }
+  .floating:active {
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2); }
+  .floating:focus:not(:active) {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.18), 0 8px 16px rgba(0, 0, 0, 0.36); }
+  .floating[disabled] {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    background-color: rgba(0, 0, 0, 0.12); }
+  .floating .icon {
+    line-height: 5.6rem; }
+  .floating [data-react-toolbox="ripple"] {
+    border-radius: 50%; }
+
+.primary:not([disabled]).raised, .primary:not([disabled]).floating {
+  color: white;
+  background: #3f51b5; }
+
+.primary:not([disabled]).flat, .primary:not([disabled]).toggle {
+  color: #3f51b5; }
+  .primary:not([disabled]).flat:hover, .primary:not([disabled]).toggle:hover {
+    background: rgba(63, 81, 181, 0.2); }
+  .primary:not([disabled]).flat:focus:not(:active), .primary:not([disabled]).toggle:focus:not(:active) {
+    background: rgba(63, 81, 181, 0.2); }
+
+.accent:not([disabled]).raised, .accent:not([disabled]).floating {
+  color: white;
+  background-color: #ff4081; }
+
+.accent:not([disabled]).flat, .accent:not([disabled]).toggle {
+  color: #ff4081; }
+  .accent:not([disabled]).flat:hover, .accent:not([disabled]).toggle:hover {
+    background: rgba(255, 64, 129, 0.2); }
+  .accent:not([disabled]).flat:focus:not(:active), .accent:not([disabled]).toggle:focus:not(:active) {
+    background: rgba(255, 64, 129, 0.2); }
+
+.neutral:not([disabled]).raised, .neutral:not([disabled]).floating {
+  color: #212121;
+  background-color: white; }
+
+.neutral:not([disabled]).flat, .neutral:not([disabled]).toggle {
+  color: #212121; }
+  .neutral:not([disabled]).flat:hover, .neutral:not([disabled]).toggle:hover {
+    background: rgba(33, 33, 33, 0.2); }
+  .neutral:not([disabled]).flat:focus:not(:active), .neutral:not([disabled]).toggle:focus:not(:active) {
+    background: rgba(33, 33, 33, 0.2); }
+
+.mini.floating {
+  width: 4rem;
+  height: 4rem;
+  font-size: 1.77778rem; }
+  .mini.floating .icon {
+    line-height: 4rem; }
+.root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 300;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; }
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.35s;
+  transition-property: opacity; }
+
+.active {
+  pointer-events: all; }
+.root {
+  display: flex;
+  max-width: 96vw;
+  max-height: 96vh;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 0.2rem;
+  box-shadow: 0 19px 60px rgba(0, 0, 0, 0.3), 0 15px 20px rgba(0, 0, 0, 0.22);
+  opacity: 0;
+  transition-delay: 0.07s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.35s;
+  transition-property: opacity, transform;
+  transform: translateY(-4rem); }
+  .root.active {
+    opacity: 1;
+    transform: translateY(0%); }
+
+.small {
+  width: 30vw; }
+
+.normal {
+  width: 50vw; }
+
+.large {
+  width: 96vw; }
+
+.title {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: .02em;
+  flex-grow: 0;
+  margin-bottom: 1.6rem;
+  color: black; }
+
+.body {
+  flex-grow: 2;
+  padding: 2.4rem;
+  overflow-y: auto;
+  color: #757575; }
+
+.navigation {
+  flex-grow: 0;
+  padding: 0.8rem;
+  text-align: right; }
+
+.button {
+  min-width: 0;
+  padding-right: 0.8rem;
+  padding-left: 0.8rem;
+  margin-left: 0.8rem; }
