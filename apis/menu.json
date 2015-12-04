@@ -6,12 +6,12 @@
            {
                "type":"view",
                "name":"当前",
-               "url":"http://59.66.139.149:80/"
+               "url":"http://59.66.139.31:80/"
             },
             {
                "type":"view",
                "name":"历史",
-               "url":"http://htai.me"
+               "url":"http://59.66.139.31:80/"
             },
             {
                "type":"view",
@@ -19,9 +19,9 @@
                "url":"http://v.qq.com/"
             },
             {
-               "type":"view",
-               "name":"排行榜",
-               "url":"http://v.qq.com/"
+               "type": "click",
+               "name": "排行榜",
+               "key": "ranklist"
             }]
       },
       {
@@ -29,8 +29,8 @@
            "sub_button":[
            {
                "type":"view",
-               "name":"关注他人",
-               "url":"http://www.soso.com/"
+               "name":"test",
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx63b566ec8e63b140&redirect_uri=http%3a%2f%2f59.66.139.88%2ftag.html&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
             },
             {
                "type":"view",

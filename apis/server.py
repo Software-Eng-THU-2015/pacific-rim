@@ -1,13 +1,17 @@
-# -*- coding: UTF-8 -*-
+# coding=utf-8
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-import json
+from django.shortcuts import render_to_response
 from apis.tools import *
+from django.template.loader import get_template
+from django.template import Context
 
 from apis import tools
 from wechatpy import parse_message, create_reply
+from wechatpy.replies import TextReply
+
 # from wechatpy.replies import TextReply, ImageReply, VoiceReply, VideoReply, MusicReply, TransferCustomerServiceReply
-from wechatpy.replies import ArticlesReply
+#from wechatpy.replies import ArticlesReply
 
 
 @csrf_exempt
@@ -19,7 +23,6 @@ def handle(request):
             return HttpResponse(request.GET["echostr"])
     menu_file = file("apis/menu.json")
     menu_json = json.load(menu_file)
-    print(menu_json)
     tools.menu_create(menu_json)
     msg = parse_message(request.body)
     return msg_splitter[msg.type](msg)
@@ -67,7 +70,7 @@ def event_handle(msg):
 
 # 用户关注事件
 def sub_event(msg):
-    return HttpResponse(create_reply(u"Hello World!I am 用户关注事件", message=msg))
+    return HttpResponse(create_reply(u"太平洋手环保太平，欢迎您使用太平洋手环！", message=msg))
 
 
 # 对用户取消关注事件
@@ -92,7 +95,13 @@ def location_event(msg):
 
 # 点击菜单拉取消息事件
 def click_event(msg):
-    return HttpResponse(create_reply(u"Hello World!I am 点击菜单拉取消息事件", message=msg))
+    if msg.key == 'ranklist':     #排行榜
+        reply = TextReply(message = msg)
+        t = get_template('ranklist.xml')
+        html = t.render(Context({'to_user': reply.target, 'from_user': reply.source, "create_time": reply.time}))
+        return HttpResponse(html, content_type="application/xml")
+    return key_splitter[msg.key](msg)
+
 
 
 # 点击菜单跳转链接事件
@@ -107,7 +116,7 @@ def masssend_event(msg):
 
 # 模板消息发送任务完成事件
 def templatesend_event(msg):
-    return HttpResponse(create_reply(u"Hello World!I am 模板消息发送任务完成事件", message=msg))
+    return HttpResponse(create_reply(u"Hello World!I am 模板消息发送任务完成事件", message = msg))
 
 
 # 扫码推事件
@@ -140,6 +149,10 @@ def select_location_event(msg):
     return HttpResponse(create_reply(u"Hello World!I am 弹出地理位置选择器事件", message=msg))
 
 
+def get_rank_list(msg):
+    return render_to_response("ranklist.xml", mimetype="application/xml")
+
+
 msg_splitter = {
     "text": text_handle,
     "voice": voice_handle,
@@ -147,24 +160,29 @@ msg_splitter = {
     "video": video_handle,
     "location": location_handle,
     "link": link_handle,
-    "shortvideo": sv_handle,
+    "short_video": sv_handle,
     "event": event_handle,
+    "click": click_event
 }
 
 event_splitter = {
     "subscribe": sub_event,
-    "unsubscribe": unsub_event,
+    "un_subscribe": unsub_event,
     "subscribe_scan": subscan_event,
     "scan": scan_event,
     "location": location_event,
     "click": click_event,
     "view": view_event,
-    "masssendjobfinish": masssend_event,
-    "templatesendjobfinish": templatesend_event,
-    "scancode_push": sc_push_event,
-    "scancode_waitmsg": sc_wait_event,
-    "pic_sysphoto": pic_photo_event,
+    "mass_send_job_finish": masssend_event,
+    "template_send_job_finish": templatesend_event,
+    "scan_code_push": sc_push_event,
+    "scan_code_wait_msg": sc_wait_event,
+    "pic_sys_photo": pic_photo_event,
     "pic_photo_or_album": pic_photo_album_event,
     "pic_weixin": pic_wechat_event,
     "location_select": select_location_event,
+}
+
+key_splitter = {
+    "RANK_LIST": get_rank_list,
 }
