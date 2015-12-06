@@ -3,7 +3,8 @@ from django.shortcuts import render
 # from django.http import HttpResponseRedirect, HttpResponse
 from django.http import JsonResponse
 import json
-from apis.models import BandUser, Step, TagContent, Tag, Plan, Health, Sleep
+from apis.models import BandUser, Step, TagContent, Tag, Plan, Health, Sleep, HistoryPlan
+from datetime import *
 
 # Create your views here.
 # from xml.etree import ElementTree
@@ -19,9 +20,35 @@ import urllib2
 import os
 
 
+plan_detail = [
+    {
+        "lv": 0,
+        "steps": 100,
+        "description": "hi",
+    },
+    {
+        "lv": 1,
+        "steps": 200,
+        "description": "no",
+    }
+]
+
+
 def index(request):
     if request.method == 'GET':
         return render(request, 'index.html')
+
+
+def get_plan(request):
+    if request.method == 'GET':
+        openid = request.GET["openid"]
+        user = BandUser.objects.get(bu_openid=openid)
+        planid = request.GET["planid"]
+        if user:
+            return JsonResponse(plan_detail[planid])
+        else:
+            return HttpResponse('user not found!')
+    return HttpResponse('')
 
 
 def insert_band_user(request):
@@ -167,6 +194,19 @@ def delete_sleep(request, sleep_id):
     return HttpResponse('delete successfully')
 
 
+def update_plan(request):
+    if request.method == 'GET':
+        openid = request.GET["openid"]
+        user = BandUser.objects.get(bu_openid=openid)
+        if user:
+            user.bu_plan = request.GET["planid"]
+            user.save()
+            return HttpResponse('updated successfully!')
+        else:
+            return HttpResponse('user not found!')
+    return HttpResponse('')
+
+
 def update_band_user(request):
     if request.method == 'POST':
         user = request.user
@@ -289,10 +329,18 @@ def select_step(request):
 
 
 def select_step_range(request):
-    from_time = request.GET["from_time"]
-    to_time = request.GET["to_time"]
-    entries = request.user.st_user.filter(st_time__range=(from_time, to_time))
-    return JsonResponse({'entries': entries})
+    if request.method == 'GET':
+        open_id = request.GET["openid"]
+        user = BandUser.objects.get(openid=open_id)
+        if user:
+            from_time = request.GET["from_time"]
+            to_time = request.GET["to_time"]
+            entries = request.user.st_user.filter(st_time__range=(from_time, to_time))
+            return JsonResponse({'entries': entries})
+        else:
+            return HttpResponse('not found!')
+    else:
+        return HttpResponse('')
 
 
 def select_tag_content(request):
@@ -389,6 +437,35 @@ def select_sleep(request):
                 return HttpResponse('')
         else:
             return HttpResponse('')
+
+
+def check_plan(open_id):
+    user = BandUser.objects.get(openid=open_id)
+    total = 0
+    if user:
+        today = date.today()
+        entries = user.st_user.filter(st_time__year=today.year, st_time__month=today.month, st_time__day=today.day)
+        for x in entries:
+            total += x.st_step_number
+        if total >= plan_detail[user.bu_plan]:
+            return True
+        else:
+            return False
+    return False
+
+
+def update_plan_history(open_id):
+    user = BandUser.objects.get(openid=open_id)
+    if user.bu_today_done:
+        hp = HistoryPlan()
+        hp.hp_user = user
+        hp.hp_date = date.today()
+        hp.hp_plan = user.bu_plan
+        hp.save()
+    user.bu_today_done = False
+    user.save()
+    return
+
 
 '''
 def tag_test(request):

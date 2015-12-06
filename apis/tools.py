@@ -5,10 +5,6 @@ import json
 import os
 from wechatpy.client import WeChatClient
 
-# APP_ID = "wx63b566ec8e63b140"
-# APP_SECRET = "d4624c36b6795d1d99dcf0547af5443d"
-# TOKEN = "max"
-
 global APP_ID
 global APP_SECRET
 global TOKEN
