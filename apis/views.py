@@ -2,6 +2,7 @@
 from django.shortcuts import render
 # from django.http import HttpResponseRedirect, HttpResponse
 from django.http import JsonResponse
+import json
 from apis.models import BandUser, Step, TagContent, Tag, Plan, Health, Sleep
 
 # Create your views here.
@@ -14,6 +15,8 @@ from django.http import HttpResponse
 # from django.contrib.auth.models import User
 # import wechatpy
 # import hashlib
+import urllib2
+import os
 
 
 def index(request):
@@ -24,9 +27,8 @@ def index(request):
 def insert_band_user(request):
     if request.method == 'POST':
         bu = BandUser()
-        bu.bu_user = request.user
         bu.bu_band = request.POST.get('BU_Band')
-        bu.bu_wechat_id = request.POST.get('BU_WechatId')
+        bu.bu_openid = request.POST.get('BU_WechatId')
         bu.bu_gender = request.POST.get('BU_Gender')
         bu.bu_birthday = request.POST.get('BU_Birthday')
         bu.bu_height = request.POST.get('BU_Height')
@@ -41,7 +43,7 @@ def insert_band_user(request):
 def insert_step(request):
     if request.method == 'POST':
         st = Step()
-        st.st_user = request.user
+        st.st_user = request.POST.get('openid')
         st.st_time = request.POST.get('ST_Time')
         st.st_step_number = request.POST.get('ST_StepNumber')
         st.st_calorie = request.POST.get('ST_Calorie')
@@ -55,7 +57,7 @@ def insert_step(request):
 def insert_tag_content(request):
     if request.method == 'POST':
         tc = Step()
-        tc.tc_user = request.user
+        tc.tc_user = request.POST.get('openid')
         tc.tc_content = request.POST.get('TC_Content')
 
         tc.save()
@@ -67,11 +69,10 @@ def insert_tag_content(request):
 def insert_tag(request):
     if request.method == 'POST':
         tg = Step()
-        tg.tg_user = request.user
+        tg.tg_user = request.POST.get('openid')
         tg.tg_time_from = request.POST.get('TG_TimeFrom')
         tg.tg_time_to = request.POST.get('TG_TimeTo')
         tg.tg_content = request.POST.get('TG_Content')
-
         tg.save()
         return HttpResponse('')
     else:
@@ -81,7 +82,7 @@ def insert_tag(request):
 def insert_plan(request):
     if request.method == 'POST':
         pl = Step()
-        pl.pl_user = request.user
+        pl.pl_user = request.POST.get('openid')
         pl.pl_time_from = request.POST.get('PL_TimeFrom')
         pl.pl_time_to = request.POST.get('PL_TimeTo')
         pl.pl_time = request.POST.get('PL_Time')
@@ -97,7 +98,7 @@ def insert_plan(request):
 def insert_health(request):
     if request.method == 'POST':
         he = Step()
-        he.he_user = request.user
+        he.he_user = request.POST.get('openid')
         he.he_time = request.POST.get('HE_Time')
         he.he_pressure = request.POST.get('HE_Pressure')
         he.he_heart_rate = request.POST.get('HE_HeartRate')
@@ -111,7 +112,7 @@ def insert_health(request):
 def insert_sleep(request):
     if request.method == 'POST':
         sl = Step()
-        sl.sl_user = request.user
+        sl.sl_user = request.POST.get('openid')
         sl.sl_time_from = request.POST.get('TG_TimeFrom')
         sl.sl_time_to = request.POST.get('TG_TimeTo')
         sl.sl_length = request.POST.get('TG_Length')
@@ -388,3 +389,16 @@ def select_sleep(request):
                 return HttpResponse('')
         else:
             return HttpResponse('')
+
+'''
+def tag_test(request):
+    if request.method == "GET":
+        code = request.GET["code"]
+        url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + os.environ.get('APP_ID')+ "&secret=" + os.environ.get('APP_SECRET') + "&code=" + code + "&grant_type=authorization_code"
+        # url = "xp"
+        response = urllib2.urlopen(url)         #调用urllib2向服务器发送get请求
+        js = json.loads(response.read())
+        openid = js["openid"]
+        print openid
+        return HttpResponse("xpxpxp")                     #获取服务器返回的页面信息
+'''
