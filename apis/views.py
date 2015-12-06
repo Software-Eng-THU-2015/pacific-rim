@@ -51,6 +51,48 @@ def get_plan(request):
     return HttpResponse('')
 
 
+def update_database(request):
+    if request.method == "GET":
+        start_year = request.GET["start_year"]  # like 2015
+        start_month = request.GET["start_month"]  # like 11
+        start_day = request.GET["start_day"]  # like 19
+        start_time = request.GET["start_time"]  # like 00:00:00 or 20:00:00
+        end_year = request.GET["end_year"]
+        end_month = request.GET["end_month"]
+        end_day = request.GET["end_day"]
+        end_time = request.GET["end_time"]
+        openid = request.GET["openid"]
+        user = openid % 100  # from 0 to 99
+        url = "http://wrist.ssast2015.com/bongdata/?startTime="+ start_year +"-"+ start_month +"-"+ start_day +"%20"+ start_time +"&endTime="+ end_year +"-"+ end_month +"-"+ end_day +"%20"+ end_time +"&user=" + str(user)
+        response = urllib2.urlopen(url)         #调用urllib2向服务器发送get请求
+        js = json.loads(response.read())
+        for element in js:
+            if js["type"] == 1:  # for sleeping
+                sl = Sleep()
+                sl.sl_user = js['user']  # from 0 to 99
+                sl.sl_time_from = js['startTime']  # like "2015-11-19 00:00:00"
+                sl.sl_time_to = js['endTime']  # like "2015-11-19 00:00:00"
+                sl.sl_length = js['lsNum'] + js['wakeNum']  # minutes
+                sl.sl_deep_length = js['dsNum']  # minutes
+                sl.save()
+            elif js["type"] == 2 or js["type"] == 3:  # for bong or not bong
+                st = Step.objects.filter(st_user=user).get(st_date=js["date"])
+                if st:
+                    st.st_step_number += js['steps']
+                    st.st_calorie += js['calories']
+                    st.save()
+                else:
+                    st = Step()
+                    st.st_user = js['user']  # from 0 to 99
+                    st.st_date = js['date']  # like 20151119
+                    st.st_step_number = js['steps']
+                    st.st_calorie = js['calories']
+                    st.save()
+            else:  # for other situations
+                continue
+
+        return HttpResponse("^-^")                     #获取服务器返回的页面信息
+
 def insert_band_user(request):
     if request.method == 'POST':
         bu = BandUser()
@@ -138,7 +180,7 @@ def insert_health(request):
 
 def insert_sleep(request):
     if request.method == 'POST':
-        sl = Step()
+        sl = Sleep()
         sl.sl_user = request.POST.get('openid')
         sl.sl_time_from = request.POST.get('TG_TimeFrom')
         sl.sl_time_to = request.POST.get('TG_TimeTo')

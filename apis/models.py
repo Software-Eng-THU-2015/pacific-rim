@@ -28,6 +28,7 @@ class Step(models.Model):
     st_id = models.AutoField(primary_key=True, unique=True)
     st_user = models.ForeignKey(User, related_name='st_user')
     st_time = models.DateTimeField()
+    st_date = models.IntegerField()
     st_step_number = models.IntegerField()
     st_calorie = models.IntegerField()
     st_distance = models.IntegerField()
