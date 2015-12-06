@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 class BandUser(models.Model):
     # bu_user = models.OneToOneField(User)
+    bu_id = models.AutoField(primary_key=True, unique=True)
     bu_band = models.IntegerField()
     bu_openid = models.CharField(max_length=128)
     bu_gender = models.IntegerField()  # 1 = male 2 = female
@@ -12,6 +13,15 @@ class BandUser(models.Model):
     bu_height = models.IntegerField()  # cm
     bu_weight = models.IntegerField()  # kg
     bu_follow = models.ManyToManyField(User, related_name='bu_follow')
+    bu_plan = models.IntegerField()
+    bu_today_done = models.BooleanField()
+
+
+class HistoryPlan(models.Model):
+    hp_id = models.AutoField(primary_key=True, unique=True)
+    hp_user = models.ForeignKey(User, related_name='hp_user')
+    hp_date = models.DateField()
+    hp_plan = models.IntegerField()
 
 
 class Step(models.Model):
