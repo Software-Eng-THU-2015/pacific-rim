@@ -1,5 +1,6 @@
 # coding=utf-8
 from django.shortcuts import render
+from django.core.exceptions import *
 # from django.http import HttpResponseRedirect, HttpResponse
 from django.http import JsonResponse
 import json
@@ -23,8 +24,8 @@ def index(request):
     if request.method == 'GET':
         return render(request, 'index.html')
 
-
-def insert_band_user(request):
+'''
+def insert_band_user_test(request):
     if request.method == 'POST':
         bu = BandUser()
         bu.bu_band = request.POST.get('BU_Band')
@@ -33,11 +34,27 @@ def insert_band_user(request):
         bu.bu_birthday = request.POST.get('BU_Birthday')
         bu.bu_height = request.POST.get('BU_Height')
         bu.bu_weight = request.POST.get('BU_Weight')
-
         bu.save()
-        return HttpResponse('')
+        return HttpResponse('success')
     else:
         return HttpResponse('fail')
+'''
+
+def insert_band_user_test(request):
+    if request.method == 'GET':
+        bu = BandUser()
+        bu.bu_openid = request.GET.get('BU_WechatId')
+        bu.save()
+        return HttpResponse('yes')
+    else:
+        return HttpResponse('fail')
+
+
+def insert_band_user(BU_WechatId):
+    bu = BandUser()
+    bu.bu_openid = BU_WechatId
+    bu.save()
+    return True
 
 
 def insert_step(request):
@@ -245,7 +262,7 @@ def update_sleep(request, sleep_id):
     else:
         return HttpResponse('')
 
-
+'''
 def select_band_user(request):
     if request.method == 'GET':
         user = request.POST.get('BU_User')
@@ -261,13 +278,19 @@ def select_band_user(request):
                 context['BU_Height'] = bu.bu_height
                 context['BU_Weight'] = bu.bu_weight
                 context['BU_Follow'] = [fo for fo in bu.bu_follow]
-
                 return HttpResponse('')
             else:
                 return HttpResponse('')
         else:
             return HttpResponse('')
+'''
 
+def check_band_user(uid):    # 检查是否存在
+    try:
+        bu = BandUser.objects.get(bu_openid = uid)
+    except ObjectDoesNotExist:
+        return False
+    return True
 
 def select_step(request):
     if request.method == 'GET':
@@ -390,8 +413,8 @@ def select_sleep(request):
         else:
             return HttpResponse('')
 
-'''
-def tag_test(request):
+
+def get_openid(request):
     if request.method == "GET":
         code = request.GET["code"]
         url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + os.environ.get('APP_ID')+ "&secret=" + os.environ.get('APP_SECRET') + "&code=" + code + "&grant_type=authorization_code"
@@ -400,5 +423,11 @@ def tag_test(request):
         js = json.loads(response.read())
         openid = js["openid"]
         print openid
-        return HttpResponse("xpxpxp")                     #获取服务器返回的页面信息
-'''
+        return openid                  #获取服务器返回的页面信息
+
+
+def tag_main(request):
+    if request.method == 'GET':
+        openid = get_openid(request)
+        # return HttpResponse('xxxx')
+        return render(request, 'index.html')

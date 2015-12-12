@@ -1,17 +1,31 @@
  {
      "button":[
       {
+           "name":"个人",
+           "sub_button":[
+           {
+               "type":"view",
+               "name":"智能闹钟",
+               "url":"http://www.soso.com/"
+            },
+            {
+               "type":"view",
+               "name":"天气状况",
+               "url":"http://v.qq.com/"
+            }]
+      },
+      {
            "name":"运动信息",
            "sub_button":[
            {
                "type":"view",
                "name":"当前",
-               "url":"http://59.66.139.31:80/"
+               "url":"http://59.66.139.50:80/"
             },
             {
                "type":"view",
                "name":"历史",
-               "url":"http://59.66.139.31:80/"
+               "url":"http://59.66.139.50:80/"
             },
             {
                "type":"view",
@@ -25,12 +39,12 @@
             }]
       },
       {
-           "name":"健康信息",
+           "name":"计划",
            "sub_button":[
            {
                "type":"view",
                "name":"test",
-               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx63b566ec8e63b140&redirect_uri=http%3a%2f%2f59.66.139.88%2ftag.html&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
+               "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx63b566ec8e63b140&redirect_uri=http%3a%2f%2f59.66.139.50%2ftag_main.html&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
             },
             {
                "type":"view",
@@ -45,20 +59,6 @@
             {
                "type":"view",
                "name":"睡眠报告",
-               "url":"http://v.qq.com/"
-            }]
-       },
-       {
-           "name":"实用功能",
-           "sub_button":[
-           {
-               "type":"view",
-               "name":"智能闹钟",
-               "url":"http://www.soso.com/"
-            },
-            {
-               "type":"view",
-               "name":"天气状况",
                "url":"http://v.qq.com/"
             }]
        }]
