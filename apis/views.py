@@ -4,7 +4,8 @@ from django.core.exceptions import *
 # from django.http import HttpResponseRedirect, HttpResponse
 from django.http import JsonResponse
 import json
-from apis.models import BandUser, Step, TagContent, Tag, Plan, Health, Sleep
+from apis.models import *
+from datetime import *
 
 # Create your views here.
 # from xml.etree import ElementTree
@@ -20,12 +21,82 @@ import urllib2
 import os
 
 
+plan_detail = [
+    {
+        "lv": 0,
+        "steps": 100,
+        "description": "hi",
+    },
+    {
+        "lv": 1,
+        "steps": 200,
+        "description": "no",
+    }
+]
+
 def index(request):
     if request.method == 'GET':
         return render(request, 'index.html')
 
+def get_plan(request):
+    if request.method == 'GET':
+        openid = request.GET["openid"]
+        user = BandUser.objects.get(bu_openid=openid)
+        planid = request.GET["planid"]
+        if user:
+            return JsonResponse(plan_detail[planid])
+        else:
+            return HttpResponse('user not found!')
+    return HttpResponse('')
+
+def update_database(request):
+    if request.method == "GET":
+        start_year = request.GET["start_year"]  # like 2015
+        start_month = request.GET["start_month"]  # like 11
+        start_day = request.GET["start_day"]  # like 19
+        start_time = request.GET["start_time"]  # like 00:00:00 or 20:00:00
+        end_year = request.GET["end_year"]
+        end_month = request.GET["end_month"]
+        end_day = request.GET["end_day"]
+        end_time = request.GET["end_time"]
+        openid = request.GET["openid"]
+        user = int(openid) % 100  # from 0 to 99
+        url = "http://wrist.ssast2015.com/bongdata/?startTime="+ start_year +"-"+ start_month +"-"+ start_day +"%20"+ start_time +"&endTime="+ end_year +"-"+ end_month +"-"+ end_day +"%20"+ end_time +"&user=" + str(user)
+        print(url)
+        response = urllib2.urlopen(url)         #调用urllib2向服务器发送get请求
+        js = json.loads(response.read())
+
+        for element in js:
+            if element["type"] == str(1):  # for sleeping
+                sl = Sleep()
+                sl.sl_user = element['user']  # from 0 to 99
+                sl.sl_time_from = element['startTime']  # like "2015-11-19 00:00:00"
+                sl.sl_time_to = element['endTime']  # like "2015-11-19 00:00:00"
+                sl.sl_length = element['lsNum'] + element['wakeNum']  # minutes
+                sl.sl_deep_length = element['dsNum']  # minutes
+                sl.save()
+            elif element["type"] == 2 or element["type"] == 3:  # for bong or not bong
+                try:
+                    print element["date"]
+                    st = Step.objects.get(st_user_id=user)
+                except ObjectDoesNotExist:
+                    st = Step()
+                    st.st_user_id = element['user']  # from 0 to 99
+                    st.st_date = element['date']  # like 20151119
+                    st.st_step_number = element['steps']
+                    st.st_calorie = element['calories']
+                    st.st_distance = element['distance']
+                    st.save()
+                st.st_step_number += element['steps']
+                st.st_calorie += element['calories']
+                st.save()
+            else:  # for other situations
+                continue
+
+        return HttpResponse("^-^")                     #获取服务器返回的页面信息
+
 '''
-def insert_band_user_test(request):
+def insert_band_user(request):
     if request.method == 'POST':
         bu = BandUser()
         bu.bu_band = request.POST.get('BU_Band')
@@ -128,7 +199,7 @@ def insert_health(request):
 
 def insert_sleep(request):
     if request.method == 'POST':
-        sl = Step()
+        sl = Sleep()
         sl.sl_user = request.POST.get('openid')
         sl.sl_time_from = request.POST.get('TG_TimeFrom')
         sl.sl_time_to = request.POST.get('TG_TimeTo')
@@ -182,6 +253,19 @@ def delete_sleep(request, sleep_id):
     sl = Sleep.objects.get(sl_id=sleep_id)
     sl.delete()
     return HttpResponse('delete successfully')
+
+
+def update_plan(request):
+    if request.method == 'GET':
+        openid = request.GET["openid"]
+        user = BandUser.objects.get(bu_openid=openid)
+        if user:
+            user.bu_plan = request.GET["planid"]
+            user.save()
+            return HttpResponse('updated successfully!')
+        else:
+            return HttpResponse('user not found!')
+    return HttpResponse('')
 
 
 def update_band_user(request):
@@ -312,10 +396,18 @@ def select_step(request):
 
 
 def select_step_range(request):
-    from_time = request.GET["from_time"]
-    to_time = request.GET["to_time"]
-    entries = request.user.st_user.filter(st_time__range=(from_time, to_time))
-    return JsonResponse({'entries': entries})
+    if request.method == 'GET':
+        open_id = request.GET["openid"]
+        user = BandUser.objects.get(openid=open_id)
+        if user:
+            from_time = request.GET["from_time"]
+            to_time = request.GET["to_time"]
+            entries = request.user.st_user.filter(st_time__range=(from_time, to_time))
+            return JsonResponse({'entries': entries})
+        else:
+            return HttpResponse('not found!')
+    else:
+        return HttpResponse('')
 
 
 def select_tag_content(request):
@@ -414,6 +506,7 @@ def select_sleep(request):
             return HttpResponse('')
 
 
+
 def get_openid(request):
     if request.method == "GET":
         code = request.GET["code"]
@@ -422,9 +515,35 @@ def get_openid(request):
         response = urllib2.urlopen(url)         #调用urllib2向服务器发送get请求
         js = json.loads(response.read())
         openid = js["openid"]
-        print openid
+        print (openid)
         return openid                  #获取服务器返回的页面信息
 
+def check_plan(open_id):
+    user = BandUser.objects.get(openid=open_id)
+    total = 0
+    if user:
+        today = date.today()
+        entries = user.st_user.filter(st_time__year=today.year, st_time__month=today.month, st_time__day=today.day)
+        for x in entries:
+            total += x.st_step_number
+        if total >= plan_detail[user.bu_plan]:
+            return True
+        else:
+            return False
+    return False
+
+
+def update_plan_history(open_id):
+    user = BandUser.objects.get(openid=open_id)
+    if user.bu_today_done:
+        hp = HistoryPlan()
+        hp.hp_user = user
+        hp.hp_date = date.today()
+        hp.hp_plan = user.bu_plan
+        hp.save()
+    user.bu_today_done = False
+    user.save()
+    return
 
 def tag_main(request):
     if request.method == 'GET':

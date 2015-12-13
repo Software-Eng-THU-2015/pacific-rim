@@ -33,7 +33,6 @@ def handle(request):
 def text_handle(msg):
     reply = TextReply(message = msg)
     new_uid = reply.target
-    print new_uid
     if(views.check_band_user(new_uid) == False):
         print "xxx"
         views.insert_band_user(new_uid)

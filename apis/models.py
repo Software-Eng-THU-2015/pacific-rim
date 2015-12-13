@@ -1,4 +1,5 @@
 from django.db import models
+import django
 from django.contrib.auth.models import User
 import datetime
 # Create your models here.
@@ -9,16 +10,27 @@ class BandUser(models.Model):
     bu_band = models.IntegerField(default=0)
     bu_openid = models.CharField(max_length=128)
     bu_gender = models.IntegerField(default=0)  # 1 = male 2 = female
-    bu_birthday = models.DateTimeField(default=datetime.datetime.now())
+    bu_birthday = models.DateTimeField(default=django.utils.timezone.now)
     bu_height = models.IntegerField(default=0)  # cm
     bu_weight = models.IntegerField(default=0)  # kg
     bu_follow = models.ManyToManyField(User, related_name='bu_follow')
+    bu_plan = models.IntegerField(default=-1)
+    bu_today_done = models.BooleanField(default=False)
+
+
+class HistoryPlan(models.Model):
+    hp_id = models.AutoField(primary_key=True, unique=True)
+    hp_user = models.ForeignKey(User, related_name='hp_user')
+    hp_date = models.DateField()
+    hp_plan = models.IntegerField()
+
 
 
 class Step(models.Model):
     st_id = models.AutoField(primary_key=True, unique=True)
-    st_user = models.ForeignKey(User, related_name='st_user')
-    st_time = models.DateTimeField()
+    st_user_id = models.IntegerField(default=0)
+    st_time = models.DateTimeField(default=django.utils.timezone.now)
+    st_date = models.IntegerField(default=0)
     st_step_number = models.IntegerField()
     st_calorie = models.IntegerField()
     st_distance = models.IntegerField()
