@@ -25,7 +25,6 @@ class HistoryPlan(models.Model):
     hp_plan = models.IntegerField()
 
 
-
 class Step(models.Model):
     st_id = models.AutoField(primary_key=True, unique=True)
     st_user_id = models.IntegerField(default=0)

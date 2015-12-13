@@ -346,6 +346,7 @@ def update_sleep(request, sleep_id):
     else:
         return HttpResponse('')
 
+
 '''
 def select_band_user(request):
     if request.method == 'GET':
@@ -506,7 +507,6 @@ def select_sleep(request):
             return HttpResponse('')
 
 
-
 def get_openid(request):
     if request.method == "GET":
         code = request.GET["code"]
@@ -517,6 +517,7 @@ def get_openid(request):
         openid = js["openid"]
         print (openid)
         return openid                  #获取服务器返回的页面信息
+
 
 def check_plan(open_id):
     user = BandUser.objects.get(openid=open_id)
@@ -544,6 +545,19 @@ def update_plan_history(open_id):
     user.bu_today_done = False
     user.save()
     return
+
+
+def get_plan_history(request):
+    if request.method == 'GET':
+        open_id = request.GET['openid']
+        month = request.GET['month']
+        try:
+            user = BandUser.objects.get(openid=open_id)
+            entries = user.hp_user.filter(hp_date__month=month)
+            return JsonResponse({'entries': entries})
+        except ObjectDoesNotExist:
+            return JsonResponse({'entries': {}})
+
 
 def tag_main(request):
     if request.method == 'GET':
