@@ -8,6 +8,7 @@ import Frame from './Frame';
 import About from './About';
 import Tags from './Tag/Tags';
 import History from './history/history';
+import Daily from './Daily/daily';
 
 export default class App extends Component {
   render() {
@@ -17,6 +18,7 @@ export default class App extends Component {
 		<li><Link to='/about'>About</Link></li>
 		<li><Link to='/tag'>Tags</Link></li>
 		<li><Link to='/history'>History</Link></li>
+		<li><Link to='/daily'>Daily</Link></li>
 	    </ul>
 	    {this.props.children}
 	    <Stats />
