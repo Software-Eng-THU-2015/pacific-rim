@@ -15,4 +15,3 @@ ReactDOM.render((
 	<Router path='tag' component={Tags} />
     </Router>
 ), document.getElementById('root'));
-

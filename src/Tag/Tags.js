@@ -25,32 +25,40 @@ export default class Tags extends Component{
     }
     render(){
 	return(
-	    <form className="ui form">
-		<div className="field">
-		    <label>StartTime</label>
-		    <DatePicker selected={this.state.startDate}
-			onChange={this.handleStartDate} />
-		</div>
-		<div className="field">
-		    <TimePicker onChange={this.handleStartTime} />
-		</div>
-		<div className="field">
-		    <label>EndTime</label>
-		    <DatePicker selected={this.state.endDate}
-			onChange={this.handleEndDate} />
-		</div>
-		<div className="field">
-		    <TimePicker onChange={this.handleEndTime} />
-		</div>
-		<div className="field">
-		    <label>Tag</label>
-		    <input type="text" ref="tag" />
-		</div>
-		<div className="field">
-		    <input type="submit" className="ui button"
-		    onClick={this.handleSubmit} />
-		</div>
-	    </form>
+		<div className="ui equal width center aligned padded grid">
+	    	<div className="blue row">
+		    	<h1>Tag</h1>
+		    </div>
+		    <div className="blue row">
+		    	<div className="ui input">
+		    		<input type="text" ref="tag" />
+	    		</div>
+			</div>
+			<div className="row">
+			<div className="ui accordion">
+				<div className="title">
+		    		<h2><i className="dropdown icon"></i>StartTime :</h2>
+			   		<DatePicker selected={this.state.startDate}
+					onChange={this.handleStartDate} />
+				</div>
+				<div className="content">
+		    		<TimePicker onChange={this.handleStartTime} />
+				</div>
+				<div className="title">
+		    		<h2><i className="dropdown icon"></i>EndTime :</h2>
+		    		<DatePicker selected={this.state.endDate}
+					onChange={this.handleEndDate} />
+				</div>
+				<div className="content">
+		    		<TimePicker onChange={this.handleEndTime} />
+				</div>
+			</div>
+			</div>
+			<div className="grey row">
+		 		<input type="submit" className="ui button"
+		   		onClick={this.handleSubmit} />
+			</div>
+	    </div>
 	)
     }
     handleSubmit = (e) =>{
