@@ -7,6 +7,7 @@ import Frame from './Frame';
 
 import About from './About';
 import Tags from './Tag/Tags';
+import History from './history/history';
 
 export default class App extends Component {
   render() {
@@ -15,6 +16,7 @@ export default class App extends Component {
 	    <ul>
 		<li><Link to='/about'>About</Link></li>
 		<li><Link to='/tag'>Tags</Link></li>
+		<li><Link to='/history'>History</Link></li>
 	    </ul>
 	    {this.props.children}
 	    <Stats />

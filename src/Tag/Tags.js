@@ -9,6 +9,7 @@ import moment from 'moment';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import './timepicker.css';
+import './tags.css';
 
 export default class Tags extends Component{
     constructor(props){
@@ -25,7 +26,9 @@ export default class Tags extends Component{
     }
     render(){
 	return(
+    <div className="ui container">
 	    <form className="ui form">
+      <div className="ui segments">
 		<div className="field">
 		    <label>StartTime</label>
 		    <DatePicker selected={this.state.startDate}
@@ -50,7 +53,9 @@ export default class Tags extends Component{
 		    <input type="submit" className="ui button"
 		    onClick={this.handleSubmit} />
 		</div>
+    </div>
 	    </form>
+      </div>
 	)
     }
     handleSubmit = (e) =>{
@@ -98,4 +103,3 @@ export default class Tags extends Component{
 	})
     }
 }
-
