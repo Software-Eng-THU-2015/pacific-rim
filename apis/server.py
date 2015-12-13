@@ -7,6 +7,7 @@ from django.template.loader import get_template
 from django.template import Context
 
 from apis import tools
+from apis import views
 from wechatpy import parse_message, create_reply
 from wechatpy.replies import TextReply
 
@@ -30,7 +31,14 @@ def handle(request):
 
 # 对文本信息进行回复
 def text_handle(msg):
-    return HttpResponse(create_reply("Hello World!I am text", message=msg))
+    reply = TextReply(message = msg)
+    new_uid = reply.target
+    if(views.check_band_user(new_uid) == False):
+        print "xxx"
+        views.insert_band_user(new_uid)
+        return HttpResponse(create_reply(u"太平洋手环保太平，欢迎您使用太平洋手环！", message=msg))
+    else:
+        return HttpResponse(create_reply(u"欢迎您重归太平洋手环！", message=msg))
 
 
 # 对语音信息进行回复
@@ -70,7 +78,15 @@ def event_handle(msg):
 
 # 用户关注事件
 def sub_event(msg):
-    return HttpResponse(create_reply(u"太平洋手环保太平，欢迎您使用太平洋手环！", message=msg))
+    reply = TextReply(message = msg)
+    new_uid = reply.target
+    print new_uid
+    if(views.check_band_user(new_uid) == False):
+        print "xp"
+        views.insert_band_user(new_uid)
+        return HttpResponse(create_reply(u"太平洋手环保太平，欢迎您使用太平洋手环！", message=msg))
+    else:
+        return HttpResponse(create_reply(u"欢迎您重归太平洋手环！", message=msg))
 
 
 # 对用户取消关注事件

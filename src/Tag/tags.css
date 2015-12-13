@@ -1,0 +1,38 @@
+.time-picker-field {
+	margin: 5% 10% 5% 10%;
+	text-align: center;
+	background-color: #FFFFFF;
+}
+
+.time-picker-title {
+	padding: 1% 2% 2% 2%;
+	background-color: #EEEEEE;
+}
+
+.time-picker-title-text {
+	padding: 0.5rem;
+	font-size: 1.7rem;
+}
+
+.time-picker {
+}
+
+.title-field {
+	text-align: center;
+	background-color: #DDDDDD;
+}
+
+.title-text {
+	background-color: #79D7FF;
+	padding-top: 1.5rem;
+	padding-bottom: 1.5rem;
+	font-size: 2rem;
+}
+
+.title-input {
+	padding: 2%;
+}
+
+.form {
+	background-color: #F7F7F7;
+}

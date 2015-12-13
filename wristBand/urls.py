@@ -16,5 +16,8 @@ urlpatterns = [
     url(r'^apis/', include('apis.urls')),
     url(r'^$', index),
     url(r'^test/', server.handle),
-     url(r'^tag', apis.views.tag_test),
+    url(r'^xp/', apis.views.insert_band_user_test),
+    url(r'^tag_main', apis.views.tag_main),
+    url(r'^update', apis.views.update_database),
+    # url(r'^tag', apis.views.tag_test),
 ]

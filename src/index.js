@@ -17,4 +17,3 @@ ReactDOM.render((
 	<Router path='history' component={History} />
     </Router>
 ), document.getElementById('root'));
-
