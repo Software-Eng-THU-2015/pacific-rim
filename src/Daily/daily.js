@@ -8,10 +8,19 @@ export default class Daily extends Component{
 		let _year = today.getFullYear();
 		this.state={
 			month: _mon,
-			year: _year
+			year: _year,
+			status: false
 		};
 	}
 	componentDidMount(){
+		$.get('/',{year: this.state.year, month: this.state.month}, (data)=>{
+			console.log(data);
+			if(data.status){
+				this.setState({
+					status: true
+				});
+			}
+		});
 	}
 	handleBtnClick = (e) => {
 		let btn = this.refs.submit;
@@ -20,6 +29,16 @@ export default class Daily extends Component{
 				(data)=>(console.log(data)));
 	}
 	render(){
+		if (this.state.status){
+			var btn = (
+				<button ref="submit" onClick={this.handleBtnClick} className="ui teal button">Submit</button>
+					)
+		}
+		else{
+			var btn = (
+				<button ref="submit" onClick={this.handleBtnClick} className="ui button">Submit</button>
+					)
+		}
 		return (
 				<div className="ui container">
 					<div className="ui large header">
@@ -28,7 +47,7 @@ export default class Daily extends Component{
 					<div className="ui header">
 						{this.state.month}
 					</div>
-					<button ref="submit" onClick={this.handleBtnClick} className="ui button">Submit</button>
+					{btn}
 				</div>
 			   )
 	}
