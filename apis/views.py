@@ -17,7 +17,7 @@ from django.http import HttpResponse
 # from django.contrib.auth.models import User
 # import wechatpy
 # import hashlib
-import urllib2
+import urllib
 import os
 
 
@@ -63,7 +63,7 @@ def update_database(request):
         user = int(openid) % 100  # from 0 to 99
         url = "http://wrist.ssast2015.com/bongdata/?startTime="+ start_year +"-"+ start_month +"-"+ start_day +"%20"+ start_time +"&endTime="+ end_year +"-"+ end_month +"-"+ end_day +"%20"+ end_time +"&user=" + str(user)
         print(url)
-        response = urllib2.urlopen(url)         #调用urllib2向服务器发送get请求
+        response = urllib.urlopen(url)         #调用urllib2向服务器发送get请求
         js = json.loads(response.read())
 
         for element in js:
@@ -77,7 +77,6 @@ def update_database(request):
                 sl.save()
             elif element["type"] == 2 or element["type"] == 3:  # for bong or not bong
                 try:
-                    print element["date"]
                     st = Step.objects.get(st_user_id=user)
                 except ObjectDoesNotExist:
                     st = Step()
@@ -512,7 +511,7 @@ def get_openid(request):
         code = request.GET["code"]
         url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + os.environ.get('APP_ID')+ "&secret=" + os.environ.get('APP_SECRET') + "&code=" + code + "&grant_type=authorization_code"
         # url = "xp"
-        response = urllib2.urlopen(url)         #调用urllib2向服务器发送get请求
+        response = urllib.urlopen(url)         #调用urllib2向服务器发送get请求
         js = json.loads(response.read())
         openid = js["openid"]
         print (openid)

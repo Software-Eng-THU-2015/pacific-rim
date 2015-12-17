@@ -34,7 +34,6 @@ def text_handle(msg):
     reply = TextReply(message = msg)
     new_uid = reply.target
     if(views.check_band_user(new_uid) == False):
-        print "xxx"
         views.insert_band_user(new_uid)
         return HttpResponse(create_reply(u"太平洋手环保太平，欢迎您使用太平洋手环！", message=msg))
     else:
@@ -80,9 +79,7 @@ def event_handle(msg):
 def sub_event(msg):
     reply = TextReply(message = msg)
     new_uid = reply.target
-    print new_uid
     if(views.check_band_user(new_uid) == False):
-        print "xp"
         views.insert_band_user(new_uid)
         return HttpResponse(create_reply(u"太平洋手环保太平，欢迎您使用太平洋手环！", message=msg))
     else:
