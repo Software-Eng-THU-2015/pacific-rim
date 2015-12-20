@@ -67,7 +67,7 @@ class Cal extends Component{
 				cell =  (<div key={idx} className="ui green circular label"> {item.day} </div>)
 			}
 			else{
-				cell =  (<div key={idx} className="ui red circular label"> {item.day} </div>)
+				cell =  (<div key={idx} className="ui circular label" style={{"background-color":"#fff"}}> {item.day} </div>)
 			}
 			return cell;
 		});
@@ -81,7 +81,7 @@ class Cal extends Component{
 				</div>
 				<button onClick = {this.last} className="ui teal button"> Last </button>
 			</div>
-		  )
+		)
 	}
 }
 

@@ -23,8 +23,8 @@ export default class App extends Component {
 		<li><Link to='/todo'>Todo</Link></li>
 	    </ul>
 	    {this.props.children}
-	    // <Stats />
-	    // <Frame />
+	    <Stats />
+	    <Frame />
 	</div>
     );
   }

@@ -41,7 +41,7 @@ export default class Tags extends Component{
 			<div className="row">
 			<div className="ui accordion">
 				<div className="title">
-		    		<h2><i className="dropdown icon"></i>StartTime :</h2>
+		    		<h2 style={{"display":"block", "width":"300px"}}><i className="dropdown icon"></i>StartTime :</h2>
 			   		<DatePicker selected={this.state.startDate}
 					onChange={this.handleStartDate} />
 				</div>
