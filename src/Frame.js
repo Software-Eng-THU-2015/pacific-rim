@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Chart from './Chart';
+import TagList from './TagList'
 
 export default class Frame extends Component {
   constructor(props){
@@ -33,6 +34,7 @@ export default class Frame extends Component {
 	    </div>
 	    <div className = "ui attached segment">
 		<Chart source = {this.state.source} />
+		<TagList startTime={"heihei"} endTime={"heihei"} />
 	    </div>
 	</div>
     );

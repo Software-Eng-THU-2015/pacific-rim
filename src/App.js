@@ -23,6 +23,7 @@ export default class App extends Component {
 		<li><Link to='/tree'>Tree</Link></li>
 	    </ul>
 	    {this.props.children}
+			<Stats />
 	</div>
     );
   }
