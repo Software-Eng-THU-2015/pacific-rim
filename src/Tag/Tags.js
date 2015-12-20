@@ -78,12 +78,12 @@ export default class Tags extends Component{
 	    hour: this.state.endHour,
 	    minute: this.state.endMin,
 	});
-	fetch('/tags/submit',{
+	fetch('/apis/tags/post_tag/',{
 	    method: 'post',
 	    body: JSON.stringify({
-		startTime,
-		endTime,
-		tag,
+			TG_TimeFrom:startTime,
+			TG_TimeTo:endTime,
+			TG_Content:tag,
 	    })
 	})
     }
