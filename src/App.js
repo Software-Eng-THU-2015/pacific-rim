@@ -10,6 +10,7 @@ import Tags from './Tag/Tags';
 import History from './history/history';
 import Daily from './Daily/daily';
 // import ToDo from './components/todo';
+import Tree from './Tree/Tree'
 
 export default class App extends Component {
   render() {
@@ -21,6 +22,7 @@ export default class App extends Component {
 		<li><Link to='/history'>History</Link></li>
 		<li><Link to='/daily'>Daily</Link></li>
 		<li><Link to='/todo'>Todo</Link></li>
+		<li><Link to='/tree'>Tree</Link><li>
 	    </ul>
 	    {this.props.children}
 	    // <Stats />
