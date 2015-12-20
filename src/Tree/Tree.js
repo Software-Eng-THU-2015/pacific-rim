@@ -9,6 +9,11 @@ import moment from 'moment';
 export default class Tree extends Component{
 
     render(){
+	let level = 0;
+	let height = 0;
+	let health = 0;
+	let water = 0;
+	let fertilizer = 0;
 
 	$.get("/", function(data){
 			level = data.level;
@@ -77,7 +82,7 @@ export default class Tree extends Component{
                 <div className="ui list">
                     <div className="item water">
                     </div>
-		 		    <input type="submit" className="ui item button" id="water"} />
+		 		    <input type="submit" className="ui item button" id="water" />
                 </div>
 			    <div className="ui list">
                     <div className="item fertilizer">
