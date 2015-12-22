@@ -74,3 +74,4 @@ target/
 node_modules/
 envdir/
 .idea/
+apis/migrations/*

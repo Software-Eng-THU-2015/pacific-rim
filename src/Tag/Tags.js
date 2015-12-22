@@ -6,6 +6,9 @@ import React, { Component } from 'react';
 import TimePicker from 'react-timepicker';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import Cookie from 'js-cookie';
+var $ = jQuery = require('jquery');
+window.jQuery = $;
 
 import 'react-datepicker/dist/react-datepicker.css';
 import './timepicker.css';
@@ -25,7 +28,8 @@ export default class Tags extends Component{
 		}
 	}
 	componentDidMount(){
-		$('.ui.accordion').accordion();
+		const id = this.props.params.id;
+		console.log(id);
     }
     render(){
 	return(
@@ -39,9 +43,8 @@ export default class Tags extends Component{
 	    		</div>
 			</div>
 			<div className="row">
-			<div className="ui accordion">
 				<div className="title">
-		    		<h2 style={{"display":"block", "width":"300px"}}><i className="dropdown icon"></i>StartTime :</h2>
+		    		<h2><i className="dropdown icon"></i>StartTime :</h2>
 			   		<DatePicker selected={this.state.startDate}
 					onChange={this.handleStartDate} />
 				</div>
@@ -57,56 +60,63 @@ export default class Tags extends Component{
 		    		<TimePicker onChange={this.handleEndTime} />
 				</div>
 			</div>
-			</div>
 			<div className="grey row">
-		 		<input type="submit" className="ui button"
+		 		<input ref="submit" type="submit" className="ui button"
 		   		onClick={this.handleSubmit} />
 			</div>
 	    </div>
 	)
     }
     handleSubmit = (e) =>{
-	e.preventDefault();
-	let tag = this.refs.tag.value;
-	let startTime = this.state.startDate;
-	startTime = startTime.set({
-	    hour: this.state.startHour,
-	    minute: this.state.startMin,
-	});
-	let endTime = this.state.endDate;
-	endTime = endTime.set({
-	    hour: this.state.endHour,
-	    minute: this.state.endMin,
-	});
-	fetch('/apis/tags/post_tag/',{
-	    method: 'post',
-	    body: JSON.stringify({
-			TG_TimeFrom:startTime,
-			TG_TimeTo:endTime,
-			TG_Content:tag,
-	    })
-	})
+		e.preventDefault();
+		let tag = this.refs.tag.value;
+		let startTime = this.state.startDate;
+		startTime = startTime.set({
+			hour: this.state.startHour,
+			minute: this.state.startMin,
+		});
+		let endTime = this.state.endDate;
+		endTime = endTime.set({
+			hour: this.state.endHour,
+			minute: this.state.endMin,
+		});
+
+		fetch('/apis/tags/post_tag/',{
+			method: 'post',
+			body: JSON.stringify({
+				openid: this.props.params.id,
+				TG_TimeFrom:startTime,
+				TG_TimeTo:endTime,
+				TG_Content:tag,
+			})
+		}).then(res => {
+			if(res.ok){
+				this.refs.submit.classList.add('teal');
+			}
+		})
     }
+	handleTagAdded = () => {
+	}
     handleEndDate = (date) =>{
-	this.setState({
-	    endDate: date
-	})
+		this.setState({
+			endDate: date
+		})
     }
     handleStartDate = (date) =>{
-	this.setState({
-	    startDate: date
-	})
+		this.setState({
+			startDate: date
+		})
     }
     handleStartTime = (hours, minutes) => {
-	this.setState({
-	    startHour: hours,
-	    startMin: minutes
-	})
+		this.setState({
+			startHour: hours,
+			startMin: minutes
+		})
     }
     handleEndTime = (hours, minutes) =>{
-	this.setState({
-	    endHour: hours,
-	    endMin: minutes
-	})
+		this.setState({
+			endHour: hours,
+			endMin: minutes
+		})
     }
 }
