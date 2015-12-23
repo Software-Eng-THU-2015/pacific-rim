@@ -9,4 +9,5 @@ urlpatterns = [
 	url(r'tags/post_tag/', insert_tag),
 	url(r'plans/create/', insert_plan),
     url(r'plans/get_today/', get_plan_list),
+    url(r'plans/(?P<plan_id>[0-9]+)/update/', update_plan),
 ]

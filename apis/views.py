@@ -297,19 +297,6 @@ def delete_sleep(request, sleep_id):
     return HttpResponse('delete successfully')
 
 
-def update_plan(request):
-    if request.method == 'GET':
-        data = ujson.loads(request.body)
-        openid = data.get["openid"]
-        user = BandUser.objects.get(bu_openid=openid)
-        if user:
-            user.bu_plan = request.GET["planid"]
-            user.save()
-            return HttpResponse('updated successfully!')
-        else:
-            return HttpResponse('user not found!')
-    return HttpResponse('')
-
 
 def update_band_user(request):
     if request.method == 'POST':
@@ -356,22 +343,34 @@ def update_tag(request, tag_id):
     else:
         return HttpResponse('')
 
-
+@csrf_exempt
 def update_plan(request, plan_id):
     if request.method == 'POST':
-        pl = BandUser.objects.get(pl_id=plan_id)
-        if pl:
-            pl.time_from = request.POST.get('PL_TimeFrom')
-            pl.time_to = request.POST.get('PL_TimeTo')
-            pl.time = request.POST.get('PL_Time')
-            pl.goal = request.POST.get('PL_Goal')
-            pl.description = request.POST.get('PL_Description')
-            pl.save()
-            return HttpResponse('updated successfully!')
-        else:
-            return HttpResponse('not found!')
-    else:
-        return HttpResponse('')
+        print(plan_id)
+        data = ujson.loads(request.body)
+        try:
+            pl = Plan.objects.filter(pl_id = plan_id).update(**data)
+            return HttpResponse(json.dumps({'res':'ok'}),
+                    content_type='application/json')
+        except ObjectDoesNotExist:
+            return HttpResponse(json.dumps({'err': 'invalid pid'}),
+                    content_type='application/json')
+
+# def update_plan(request, plan_id):
+#     if request.method == 'POST':
+#         pl = BandUser.objects.get(pl_id=plan_id)
+#         if pl:
+#             pl.time_from = request.POST.get('PL_TimeFrom')
+#             pl.time_to = request.POST.get('PL_TimeTo')
+#             pl.time = request.POST.get('PL_Time')
+#             pl.goal = request.POST.get('PL_Goal')
+#             pl.description = request.POST.get('PL_Description')
+#             pl.save()
+#             return HttpResponse('updated successfully!')
+#         else:
+#             return HttpResponse('not found!')
+#     else:
+#         return HttpResponse('')
 
 
 def update_sleep(request, sleep_id):
