@@ -4,6 +4,7 @@ from django.core.exceptions import *
 # from django.http import HttpResponseRedirect, HttpResponse
 from django.http import JsonResponse
 import ujson
+import random
 import json
 from apis.models import *
 from datetime import timedelta, time, datetime
@@ -714,3 +715,36 @@ def get_tree(request):
                 content_type="application/json")
 
 
+def update_database_randomly(openid):
+    try:
+        bu = BandUser.objects.get(bu_openid=openid)
+    except ObjectDoesNotExist:
+        return False
+    start_datetime = datetime(2015, 11, 30, 0, 0)
+    end_datetime = datetime.now()
+    total_time = (end_datetime - start_datetime).seconds / 60
+    actiontime = start_datetime
+    print "|" + str(start_datetime) + "|" + str(end_datetime) + "|" + str(total_time) + "|" + str(actiontime)
+    i = 0
+    print "total_time: " + str(total_time)
+    while i < int(total_time):
+        actiontime += timedelta(minutes=1)
+        steps = random.uniform(10, 20)
+        calorie = random.uniform(10, 20)
+        distance = random.uniform(10, 20)
+        try:
+            st = Step.objects.get(st_openid=bu, st_start_time=actiontime)
+        except ObjectDoesNotExist:
+            st = Step()
+            st.st_openid = bu  # from 0 to 99
+            st.st_start_time = actiontime
+            st.st_step_number = steps
+            st.st_calorie = calorie
+            st.st_distance = distance
+            st.save()
+    print "i = " + str(i)
+    return True
+
+def test(request):
+    if update_database_randomly(request.GET.get("openid")):
+        return HttpResponse('yes')

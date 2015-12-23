@@ -19,6 +19,7 @@ sessions = dict([])
 
 @csrf_exempt
 def handle(request):
+    print request
     if request.method == "GET":
         if not tools.check_signature(request):
             return HttpResponse("invalid signature")
@@ -46,10 +47,15 @@ def handle(request):
 def text_handle(request):
     msg = parse_message(request.body)
     reply = TextReply(message = msg)
+    content = msg.content
     new_uid = reply.target
 
+    if (content.encode("utf-8") == "来数据"):
+        views.update_database_randomly(new_uid)
+        return HttpResponse(create_reply(u"注入了数据！", message=msg))
+
     if(new_uid in sessions and sessions[new_uid] == 1):
-        content = msg.content
+
         if (content.encode("utf-8") == "退出"):
             sessions[reply.target] = 0
             return HttpResponse(create_reply(u"生命之树期待与您再次相会", message=msg))
