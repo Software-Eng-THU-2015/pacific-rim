@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^tree_main', tree_main),
     url(r'^care_tree', tree_care),
     url(r'^get_tree', get_tree),
+    url(r'plans/(?P<plan_id>[0-9]+)/update/', update_plan),
 ]

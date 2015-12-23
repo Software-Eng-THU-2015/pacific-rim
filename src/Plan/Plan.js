@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AddPlan from './AddPlan';
 import urls from '../constants';
 import _ from 'lodash';
+import classNames from 'classnames';
 
 export default class Plan extends Component{
 	constructor(props){
@@ -10,7 +11,7 @@ export default class Plan extends Component{
 			planlist: [],
 		}
 	}
-	componentDidMount(){
+	updateData = () =>{
 		var params = {
 			'openid': this.props.params.id,
 		}
@@ -21,20 +22,34 @@ export default class Plan extends Component{
 				plans: data.data,
 			});
 		});
-			
+	}
+	componentDidMount(){
+		this.updateData();
+	}
+	handleDone = (item)=>{
+		var pid = item.pl_id;
+		console.log(pid);
+		var url = '/apis/plans/' + pid + '/update/';
+		fetch(url, {
+			method: 'post',
+			body: JSON.stringify({
+				status: true,
+			})
+		}).then(res => {
+			console.log(res.json())
+		})
+		this.refs.done.classList.add('teal');
 	}
 	componentDidUpdate(){
 	}
 	render(){
 		var plans = _.map(this.state.plans, (item, idx)=>{
-			if(item.status){
-				var mark = ( <div> Done </div>);
-			}
-			else{
-				var mark = ( <div> Todo </div>);
-			}
+			var BtnClass = classNames({
+				'ui button': true,
+				'teal': item.status,
+			})
 			return(
-				<div>
+				<div key={idx}>
 					<div className="ui header">
 						{item.pl_goal}
 					</div>
@@ -44,7 +59,7 @@ export default class Plan extends Component{
 					<div className="ui description">
 						{item.pl_time_to}
 					</div>
-						{mark}
+					<div ref="done" onClick={this.handleDone.bind(this, item)} className={BtnClass} >Done</div>
 				</div>
 				)
 		});
@@ -52,7 +67,7 @@ export default class Plan extends Component{
 			<div>
 				Plan of Today
 				{plans}
-				<AddPlan {...this.props} />
+				<AddPlan onSubmit={this.updateData} {...this.props} />
 			</div>
 		)
 	}

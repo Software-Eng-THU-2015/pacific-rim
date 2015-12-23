@@ -63,10 +63,6 @@ export default class AddPlan extends Component{
 					<input ref="submit" type="submit" className="ui button"
 					onClick={this.handleSubmit} />
 				</div>
-				<div className="black row">
-					<input ref="complete" type="submit" className="ui button"
-					onClick={this.handleComplete} />
-				</div>
 			</div>
 		)
     }
@@ -98,6 +94,7 @@ export default class AddPlan extends Component{
 		}).then(res => {
 			if(res.ok){
 				this.refs.submit.classList.add('teal');
+				this.props.onSubmit();
 			}
 		})
 	}
