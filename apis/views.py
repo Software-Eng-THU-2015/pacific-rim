@@ -3,17 +3,19 @@ from django.shortcuts import render
 from django.core.exceptions import *
 # from django.http import HttpResponseRedirect, HttpResponse
 from django.http import JsonResponse
-import json
+import ujson
 from apis.models import *
 from datetime import *
+from django.views.decorators.csrf import csrf_exempt
+import codecs
 
 # Create your views here.
 # from xml.etree import ElementTree
 # import json
-                                                         
+
 # from django.utils.encoding import smart_str
 # from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse                     
+from django.http import HttpResponse
 # from django.contrib.auth.models import User
 # import wechatpy
 # import hashlib
@@ -152,18 +154,23 @@ def insert_tag_content(request):
     else:
         return HttpResponse('')
 
-
+@csrf_exempt
 def insert_tag(request):
     if request.method == 'POST':
-        tg = Step()
-        tg.tg_user = request.POST.get('openid')
-        tg.tg_time_from = request.POST.get('TG_TimeFrom')
-        tg.tg_time_to = request.POST.get('TG_TimeTo')
-        tg.tg_content = request.POST.get('TG_Content')
+        data = ujson.loads(request.body)
+        tg = Tag()
+        openid = data.get('openid')
+        user = BandUser.objects.get(bu_openid = openid)
+        tg.tg_user = user
+        tg.tg_time_from = data.get('TG_TimeFrom')
+        tg.tg_time_to = data.get('TG_TimeTo')
+        content = data.get('TG_Content')
+        tg_content = TagContent(tc_user = user, tc_content=content)
+        tg_content.save()
+        tg.tg_content = tg_content
         tg.save()
-        return HttpResponse('')
-    else:
-        return HttpResponse('')
+        return HttpResponse(ujson.dumps({'res':'ok'}),
+                content_type="application/json")
 
 
 def insert_plan(request):

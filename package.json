@@ -4,7 +4,7 @@
   "description": "Boilerplate for ReactJS project with hot code reloading",
   "scripts": {
     "start": "node server.js",
-	"deploy": "NODE_ENV=production webpack -p --watch --config webpack.production.config.js",
+    "deploy": "NODE_ENV=production webpack -p --watch --config webpack.production.config.js",
     "lint": "eslint src"
   },
   "repository": {
@@ -47,8 +47,11 @@
     "autoprefixer": "^6.1.1",
     "classnames": "^2.2.1",
     "d3": "^3.5.7",
+    "exports-loader": "^0.6.2",
     "flux": "^2.1.1",
     "history": "^1.13.1",
+    "imports-loader": "^0.6.5",
+    "js-cookie": "^2.0.4",
     "lodash": "^3.10.1",
     "moment": "^2.10.6",
     "node-sass": "^3.4.2",
@@ -64,6 +67,7 @@
     "react-toolbox": "^0.12.13",
     "sass-loader": "^3.1.2",
     "semantic-ui": "^2.1.6",
-    "style-loader": "^0.13.0"
+    "style-loader": "^0.13.0",
+    "whatwg-fetch": "^0.10.1"
   }
 }

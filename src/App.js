@@ -16,7 +16,9 @@ export default class App extends Component {
 	<div>
 	    <ul>
 		<li><Link to='/about'>About</Link></li>
-		<li><Link to='/tag'>Tags</Link></li>
+
+		<li><Link to='/user/shit/tag'>Shit</Link></li>
+
 		<li><Link to='/history'>History</Link></li>
 		<li><Link to='/daily'>Daily</Link></li>
 		<li><Link to='/todo'>Todo</Link></li>

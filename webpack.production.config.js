@@ -14,7 +14,10 @@ module.exports = {
     publicPath: '/build/'
   },
   plugins: [
-      new ExtractTextPlugin('spec.css', {allChunks: true})
+      new ExtractTextPlugin('spec.css', {allChunks: true}),
+	  new webpack.ProvidePlugin({
+		  'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+	  })
   ],
   resolve: {
       extensions: ['', '.jsx', '.scss', '.js', '.json']

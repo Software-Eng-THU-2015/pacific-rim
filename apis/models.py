@@ -6,13 +6,13 @@ import datetime
 
 
 class BandUser(models.Model):
-    # bu_user = models.OneToOneField(User)
+    bu_user = models.OneToOneField(User, null=True)
     bu_band = models.IntegerField(default=0)
     bu_openid = models.CharField(max_length=128)
     bu_gender = models.IntegerField(default=0)  # 1 = male 2 = female
     bu_birthday = models.DateTimeField(default=django.utils.timezone.now)
-    bu_height = models.IntegerField(default=0)  # cm
-    bu_weight = models.IntegerField(default=0)  # kg
+    bu_height = models.IntegerField(default=160)  # cm
+    bu_weight = models.IntegerField(default=55)  # kg
     bu_follow = models.ManyToManyField(User, related_name='bu_follow')
     bu_plan = models.IntegerField(default=-1)
     bu_today_done = models.BooleanField(default=False)
@@ -37,16 +37,16 @@ class Step(models.Model):
 
 class TagContent(models.Model):
     tc_id = models.AutoField(primary_key=True, unique=True)
-    tc_user = models.ForeignKey(User, related_name='tc_user')
+    tc_user = models.ForeignKey(BandUser, related_name='tc_user')
     tc_content = models.CharField(max_length=128)
 
 
 class Tag(models.Model):
     tg_id = models.AutoField(primary_key=True, unique=True)
-    tg_user = models.ForeignKey(User, related_name='tg_user')
+    tg_user = models.ForeignKey(BandUser, related_name='tg_user')
     tg_time_from = models.DateTimeField()
     tg_time_to = models.DateTimeField()
-    tg_content = models.ForeignKey(User, related_name='tg_content')
+    tg_content = models.ForeignKey(TagContent, related_name='tag')
 
 
 class Plan(models.Model):
