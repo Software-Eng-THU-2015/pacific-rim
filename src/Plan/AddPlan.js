@@ -94,6 +94,7 @@ export default class AddPlan extends Component{
 		}).then(res => {
 			if(res.ok){
 				this.refs.submit.classList.add('teal');
+				this.props.onSubmit();
 			}
 		})
 	}

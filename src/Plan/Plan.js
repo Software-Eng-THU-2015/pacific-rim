@@ -11,7 +11,7 @@ export default class Plan extends Component{
 			planlist: [],
 		}
 	}
-	componentDidMount(){
+	updateData = () =>{
 		var params = {
 			'openid': this.props.params.id,
 		}
@@ -22,7 +22,9 @@ export default class Plan extends Component{
 				plans: data.data,
 			});
 		});
-			
+	}
+	componentDidMount(){
+		this.updateData();
 	}
 	handleDone = (item)=>{
 		var pid = item.pl_id;
@@ -35,8 +37,6 @@ export default class Plan extends Component{
 			})
 		}).then(res => {
 			console.log(res.json())
-		}).then(data => {
-			console.log(data)
 		})
 		this.refs.done.classList.add('teal');
 	}
@@ -49,7 +49,7 @@ export default class Plan extends Component{
 				'teal': item.status,
 			})
 			return(
-				<div>
+				<div key={idx}>
 					<div className="ui header">
 						{item.pl_goal}
 					</div>
@@ -59,7 +59,7 @@ export default class Plan extends Component{
 					<div className="ui description">
 						{item.pl_time_to}
 					</div>
-					<div ref="done" onClick={this.handleDone.bind(this, item)} key={idx} className={BtnClass} >Done</div>
+					<div ref="done" onClick={this.handleDone.bind(this, item)} className={BtnClass} >Done</div>
 				</div>
 				)
 		});
@@ -67,7 +67,7 @@ export default class Plan extends Component{
 			<div>
 				Plan of Today
 				{plans}
-				<AddPlan {...this.props} />
+				<AddPlan onSubmit={this.updateData} {...this.props} />
 			</div>
 		)
 	}
