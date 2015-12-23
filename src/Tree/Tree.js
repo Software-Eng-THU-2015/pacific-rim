@@ -17,7 +17,7 @@ export default class Tree extends Component{
 	let nowDate = new Date();
     let level_name = "";
 
-	$.get("/", function(data){
+	$.get("/get_tree", function(data){
 			level = data.level;
 			health = data.health;
 			height = data.hetight;
@@ -49,7 +49,7 @@ export default class Tree extends Component{
 		if(water <= 0){
 			alert("no more water to pour!");
 		}else{
-			$.post("/",{
+			$.post("/care_tree",{
 				water: True,
 				fertilizer: False
 			},
@@ -62,7 +62,7 @@ export default class Tree extends Component{
 		if(fertilizer <= 0){
 			alert("no more fertilizer to feed!");
 		}else{
-			$.post("/",{
+			$.post("/care_tree",{
 				water: False,
 				fertilizer: True
 			},
@@ -107,8 +107,8 @@ export default class Tree extends Component{
                 生命之树生长规则：完成每日打卡，奖励浇水机会一次<br/>
                 完成每日挑战任务（每日一个），奖励施肥或浇水机会一次<br/>
                 设健康度为x（0到10，初始为10）<br/>
-                施肥：x>=6时，树高度增加2cm;x<6的时候，树高度增加0.4*x cm;增加一点健康度（上限10）<br/>
-                浇水：x>=6时，树高度增加1cm;x<6的时候，树高度增加0.2*x cm;增加一点健康度（上限10）<br/>
+                施肥：x大于等于6时，树高度增加2cm;x小于6的时候，树高度增加0.4*x cm;增加一点健康度（上限10）<br/>
+                浇水：x大于等于6时，树高度增加1cm;x小于6的时候，树高度增加0.2*x cm;增加一点健康度（上限10）<br/>
                 每日0点，所有树健康度降低1点，最低到0<br/>
             </div>
 	    </div>
