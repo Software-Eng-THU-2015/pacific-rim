@@ -30,6 +30,12 @@ class Cal extends Component{
 				_days: data.data
 			});
 		}.bind(this));
+/*		$.get("dates.json", function(data){
+			console.log(data);
+			this.setState({
+				_days: data.data
+			});
+		}.bind(this)); */
 	}
 	handleClickLast(){
 		console.log('net');
@@ -57,29 +63,69 @@ class Cal extends Component{
 			})
 		})
 	}
+	next = (e) => {
+		var _month = this.state.currentMon + 1;
+		var month = _month;
+		var year = this.state.currentYear;
+		if(_month==13){
+			month = 1;
+			year += 1;
+		}
+		console.log(month, year);
+		this.setState({
+			currentYear: year,
+			currentMon: month
+		});
+		var param = $.param({
+			month,
+			year
+		});
+		$.get("", param,  (data)=>{
+			this.setState({
+				_days: data.data
+			})
+		})
+	}
 	prev = () =>{
 	}
 	render(){
 		let days = this.state._days;
-		let cal = _.map(days, (item, idx) => { 
+		for (var i = days.length; i < 35; i++){
+			days.push({"day":0});
+		}
+		let cal = new Array(5);
+		for (var i = 0; i < 5; i++){
+			cal[i] = _.map(days.slice(i * 7, i * 7 + 7), (item, idx) => { 
 			var cell, _cell;
-			if (item.status){
-				cell =  (<div key={idx} className="ui green circular label"> {item.day} </div>)
+			if (item.day == 0){
+				cell = (<div key={idx} className="column"></div>)
+			}
+			else if (item.status){
+				cell = (<div key={idx} className="column"><div className="ui green square label"> {item.day} </div></div>)
 			}
 			else{
-				cell =  (<div key={idx} className="ui circular label" style={{"background-color":"#fff"}}> {item.day} </div>)
+				cell = (<div key={idx} className="column"><div className="ui grey square label"> {item.day} </div></div>)
 			}
 			return cell;
-		});
+			});
+		}
 		return(
 			<div>
-			history
-				<div className="ui centered grid">
-					{this.state.currentMon}
-					{this.state.currentYear}
-					{cal}
+				<div className="ui equal width center aligned padded grid">
+				<div className = "blue row"><h1>history</h1></div>
+					<div className = "row">
+					<div className = "column"><h2>{this.state.currentMon}</h2></div>
+					<div className = "column"><h2>{this.state.currentYear}</h2></div>
+					</div>
+					<div className = "row">{cal[0]}</div>
+					<div className = "row">{cal[1]}</div>
+					<div className = "row">{cal[2]}</div>
+					<div className = "row">{cal[3]}</div>
+					<div className = "row">{cal[4]}</div>
+					<div className = "row"></div>
+				<div className = "grey row"><div className="column"><button onClick = {this.last} className="ui teal button"> Last </button></div>
+				<div className = "column"><button onClick = {this.next} className="ui teal button"> Next </button></div></div>
 				</div>
-				<button onClick = {this.last} className="ui teal button"> Last </button>
 			</div>
 		)
 	}

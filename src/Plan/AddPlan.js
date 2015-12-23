@@ -24,6 +24,7 @@ export default class AddPlan extends Component{
 	componentDidMount(){
 		const id = this.props.params.id;
 		console.log(id);
+		$('.ui.accordion').accordion();
     }
     render(){
 		return(
@@ -41,8 +42,8 @@ export default class AddPlan extends Component{
 						<input placeholder="description" type="text" ref="description" />
 					</div>
 				</div>
-				<div className="row">
-					<div className="title">
+				<div className="ui accordion">
+					<div className="title" style={{"width":"300px"}}>
 						<h2><i className="dropdown icon"></i>StartTime :</h2>
 						<DatePicker selected={this.state.startDate}
 						onChange={this.handleStartDate} />
