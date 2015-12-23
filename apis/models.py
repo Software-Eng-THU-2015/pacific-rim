@@ -51,12 +51,12 @@ class Tag(models.Model):
 
 class Plan(models.Model):
     pl_id = models.AutoField(primary_key=True, unique=True)
-    pl_user = models.ForeignKey(User, related_name='pl_user')
-    pl_time_from = models.DateTimeField()
-    pl_time_to = models.DateTimeField()
-    pl_time = models.TimeField()
+    pl_user = models.ForeignKey(BandUser, related_name='plans')
+    pl_time_from = models.DateTimeField(default=django.utils.timezone.now)
+    pl_time_to = models.DateTimeField(default=django.utils.timezone.now)
     pl_goal = models.CharField(max_length=128)
-    pl_description = models.TextField()
+    pl_description = models.TextField(max_length=256)
+    status = models.BooleanField(default=False)
 
 
 class Health(models.Model):

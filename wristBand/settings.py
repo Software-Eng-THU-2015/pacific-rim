@@ -82,7 +82,7 @@ TEMPLATES = [
 # )
 
 
-APPEND_SLASH = False
+APPEND_SLASH = True
 
 WSGI_APPLICATION = 'wristBand.wsgi.application'
 

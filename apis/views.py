@@ -4,10 +4,13 @@ from django.core.exceptions import *
 # from django.http import HttpResponseRedirect, HttpResponse
 from django.http import JsonResponse
 import ujson
+import json
 from apis.models import *
-from datetime import *
+from datetime import timedelta, time, datetime
 from django.views.decorators.csrf import csrf_exempt
 import codecs
+from django.utils import timezone
+from django.forms.models import model_to_dict
 
 # Create your views here.
 # from xml.etree import ElementTree
@@ -39,6 +42,37 @@ plan_detail = [
 def index(request):
     if request.method == 'GET':
         return render(request, 'index.html')
+
+def get_plan_list(request):
+    if request.method == 'GET':
+        res = {'error': 'ok'}
+        openid = request.GET.get('openid')
+        try:
+            user = BandUser.objects.get(bu_openid=openid)
+        except ObjectDoesNotExist:
+            res['error'] = "invalid user"
+            return HttpResponse(ujson.dumps(res),
+                    content_type="application/json")
+        today = django.utils.timezone.now().date()
+        tomorrow = today + timedelta(1)
+        today_start = datetime.combine(today, time())
+        today_end = datetime.combine(tomorrow, time())
+        res['data'] = []
+        try: 
+            plans = user.plans.filter(pl_user=user,
+                    pl_time_from__gte=today_start, 
+                    pl_time_to__lte=today_end)
+            for item in plans:
+                res['data'].append(model_to_dict(item))
+        except ObjectDoesNotExist:
+            res['data'] = []
+
+        return HttpResponse(json.dumps(res, default=date_handler),
+                content_type="application/json")
+
+def date_handler(obj):
+    return obj.isoformat() if hasattr(obj, 'isoformat') else obj
+
 
 def get_plan(request):
     if request.method == 'GET':
@@ -172,21 +206,23 @@ def insert_tag(request):
         return HttpResponse(ujson.dumps({'res':'ok'}),
                 content_type="application/json")
 
-
+@csrf_exempt
 def insert_plan(request):
     if request.method == 'POST':
-        pl = Step()
-        pl.pl_user = request.POST.get('openid')
-        pl.pl_time_from = request.POST.get('PL_TimeFrom')
-        pl.pl_time_to = request.POST.get('PL_TimeTo')
-        pl.pl_time = request.POST.get('PL_Time')
-        pl.pl_goal = request.POST.get('PL_Goal')
-        pl.pl_descriptiont.POST.get('PL_Description')
+        data = ujson.loads(request.body)
+        pl = Plan()
+        openid = data.get('openid')
+        user = BandUser.objects.get(bu_openid = openid)
+        pl.pl_user = user
+        pl.pl_time_from = data.get('PL_TimeFrom')
+        pl.pl_time_to = data.get('PL_TimeTo')
+        pl.pl_time = data.get('PL_Time')
+        pl.pl_goal = data.get('PL_Goal')
+        pl.pl_description = data.get('PL_Description')
 
         pl.save()
-        return HttpResponse('')
-    else:
-        return HttpResponse('')
+        return HttpResponse(ujson.dumps({'res':'ok'}),
+                content_type="application/json")
 
 
 def insert_health(request):
@@ -263,7 +299,8 @@ def delete_sleep(request, sleep_id):
 
 def update_plan(request):
     if request.method == 'GET':
-        openid = request.GET["openid"]
+        data = ujson.loads(request.body)
+        openid = data.get["openid"]
         user = BandUser.objects.get(bu_openid=openid)
         if user:
             user.bu_plan = request.GET["planid"]
