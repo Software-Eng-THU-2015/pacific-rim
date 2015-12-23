@@ -63,6 +63,29 @@ class Cal extends Component{
 			})
 		})
 	}
+	next = (e) => {
+		var _month = this.state.currentMon + 1;
+		var month = _month;
+		var year = this.state.currentYear;
+		if(_month==13){
+			month = 1;
+			year += 1;
+		}
+		console.log(month, year);
+		this.setState({
+			currentYear: year,
+			currentMon: month
+		});
+		var param = $.param({
+			month,
+			year
+		});
+		$.get("", param,  (data)=>{
+			this.setState({
+				_days: data.data
+			})
+		})
+	}
 	prev = () =>{
 	}
 	render(){
@@ -78,10 +101,10 @@ class Cal extends Component{
 				cell = (<div key={idx} className="column"></div>)
 			}
 			else if (item.status){
-				cell = (<div key={idx} className="column"><div className="ui green circular label"> {item.day} </div></div>)
+				cell = (<div key={idx} className="column"><div className="ui green square label"> {item.day} </div></div>)
 			}
 			else{
-				cell = (<div key={idx} className="column"><div className="ui grey circular label"> {item.day} </div></div>)
+				cell = (<div key={idx} className="column"><div className="ui grey square label"> {item.day} </div></div>)
 			}
 			return cell;
 			});
@@ -99,7 +122,9 @@ class Cal extends Component{
 					<div className = "row">{cal[2]}</div>
 					<div className = "row">{cal[3]}</div>
 					<div className = "row">{cal[4]}</div>
-				<div className = "grey row"><button onClick = {this.last} className="ui teal button"> Last </button></div>
+					<div className = "row"></div>
+				<div className = "grey row"><div className="column"><button onClick = {this.last} className="ui teal button"> Last </button></div>
+				<div className = "column"><button onClick = {this.next} className="ui teal button"> Next </button></div></div>
 				</div>
 			</div>
 		)
