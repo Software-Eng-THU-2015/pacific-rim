@@ -9,4 +9,7 @@ urlpatterns = [
 	url(r'tags/post_tag/', insert_tag),
 	url(r'plans/create/', insert_plan),
     url(r'plans/get_today/', get_plan_list),
+    url(r'^tree_main', tree_main),
+    url(r'^care_tree', tree_care),
+    url(r'^get_tree', get_tree),
 ]

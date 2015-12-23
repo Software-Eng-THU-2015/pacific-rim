@@ -16,6 +16,10 @@ class BandUser(models.Model):
     bu_follow = models.ManyToManyField(User, related_name='bu_follow')
     bu_plan = models.IntegerField(default=-1)
     bu_today_done = models.BooleanField(default=False)
+    bu_tree_height = models.FloatField(default=0)
+    bu_tree_health = models.IntegerField(default=10)
+    bu_tree_today_watertime = models.IntegerField(default=0)
+    bu_tree_today_fertilizer = models.IntegerField(default=0)
 
 
 class HistoryPlan(models.Model):

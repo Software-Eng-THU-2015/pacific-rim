@@ -5,7 +5,7 @@ from django.shortcuts import render_to_response
 from apis.tools import *
 from django.template.loader import get_template
 from django.template import Context
-
+import urllib
 from apis import tools
 from apis import views
 from wechatpy import parse_message, create_reply
@@ -14,6 +14,8 @@ from wechatpy.replies import TextReply
 # from wechatpy.replies import TextReply, ImageReply, VoiceReply, VideoReply, MusicReply, TransferCustomerServiceReply
 #from wechatpy.replies import ArticlesReply
 
+global sessions
+sessions = dict([])
 
 @csrf_exempt
 def handle(request):
@@ -22,17 +24,43 @@ def handle(request):
             return HttpResponse("invalid signature")
         else:
             return HttpResponse(request.GET["echostr"])
+    '''
     menu_file = file("apis/menu.json")
     menu_json = json.load(menu_file)
     tools.menu_create(menu_json)
+    '''
+
     msg = parse_message(request.body)
-    return msg_splitter[msg.type](msg)
+    reply = TextReply(message = msg)
+    if msg.type == "event" and msg.key == "talk_with_tree":
+        sessions[reply.target] = 1
+
+    if(reply.target in sessions):
+        print sessions[reply.target]
+
+
+    return msg_splitter[msg.type](request)
 
 
 # 对文本信息进行回复
-def text_handle(msg):
+def text_handle(request):
+    msg = parse_message(request.body)
     reply = TextReply(message = msg)
     new_uid = reply.target
+
+    if(new_uid in sessions and sessions[new_uid] == 1):
+        content = msg.content
+        if (content.encode("utf-8") == "退出"):
+            sessions[reply.target] = 0
+            return HttpResponse(create_reply(u"生命之树期待与您再次相会", message=msg))
+
+        url = "http://www.tuling123.com/openapi/api?key=" + os.environ.get('ROBOT_KEY')+ "&info=" + content.encode("utf-8")
+        print url
+        response = urllib.urlopen(url).read()         #调用urllib2向服务器发送get请求url
+        reply_text = json.loads(response)['text'].encode("utf-8")
+        reply_text.replace('图灵机器人','生命之树')
+        print reply_text
+        return HttpResponse(create_reply(reply_text, message=msg))
     if(views.check_band_user(new_uid) == False):
         views.insert_band_user(new_uid)
         return HttpResponse(create_reply(u"太平洋手环保太平，欢迎您使用太平洋手环！", message=msg))
@@ -71,7 +99,8 @@ def sv_handle(msg):
 
 
 # 对事件信息进行处理
-def event_handle(msg):
+def event_handle(request):
+    msg = parse_message(request.body)
     return event_splitter[msg.event](msg)
 
 
@@ -107,13 +136,15 @@ def location_event(msg):
 
 
 # 点击菜单拉取消息事件
-def click_event(msg):
-    if msg.key == 'ranklist':     #排行榜
-        reply = TextReply(message = msg)
+def click_event(request):
+    if request.key == 'ranklist':     #排行榜
+        reply = TextReply(message = request)
         t = get_template('ranklist.xml')
         html = t.render(Context({'to_user': reply.target, 'from_user': reply.source, "create_time": reply.time}))
         return HttpResponse(html, content_type="application/xml")
-    return key_splitter[msg.key](msg)
+    elif request.key == "talk_with_tree":
+        # request.session["talk_flag"] = True
+        return HttpResponse(create_reply(u"你好，我是你粗大的生命之树。能和你聊聊天真好。\n\n回复‘退出’可退出交谈模式", message=request));
 
 
 
@@ -175,7 +206,6 @@ msg_splitter = {
     "link": link_handle,
     "short_video": sv_handle,
     "event": event_handle,
-    "click": click_event
 }
 
 event_splitter = {
@@ -197,5 +227,5 @@ event_splitter = {
 }
 
 key_splitter = {
-    "RANK_LIST": get_rank_list,
+    "ranklist": get_rank_list,
 }
