@@ -9,9 +9,9 @@ module.exports = {
   ],
   devtool: 'eval-source-map', 
   output: {
-    path: path.join(__dirname, 'build'),
+    path: path.join(__dirname, 'static'),
     filename: 'bundle.js',
-    publicPath: '/build/'
+    publicPath: '/static/'
   },
   plugins: [
       new ExtractTextPlugin('spec.css', {allChunks: true}),
@@ -40,7 +40,7 @@ module.exports = {
 	      loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader')
 
 	      // loader: 'style-loader!css-loader!postcss-loader',
-	  }
+	  },
       ]
   },
   postcss: [autoprefixer],

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import ControllerChart from './Line';
 import classNames from 'classnames';
-// import TagList from './TagList'
+
 var $ = jQuery = require('jquery');
+import './Frame.scss';
 
 export default class Frame extends Component {
 	constructor(props){
@@ -29,7 +30,6 @@ export default class Frame extends Component {
 
 
 	render() {
-
 		var btns = [
 			{ label: 'week', id: 0,},
 			{ label: 'doubleWeek', id: 1,},

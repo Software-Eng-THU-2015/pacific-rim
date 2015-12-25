@@ -12,11 +12,8 @@ import Daily from './Daily/daily';
 import TodoApp from './components/TodoApp.react';
 import Tree from './Tree/Tree'
 
-// import TimePicker from 'react-timepicker';
-
 ReactDOM.render((
-    <Router history={browserHistory}>
-		<Router path='/' component={App}>
+    <Router> <Router path='/' component={App}>
 			<Router path='user/:id/stat' component={Stats} />
 			<Router path='user/:id/chart' component={Frame} />
 			<Router path='user/:id/tag' component={Tags} />
