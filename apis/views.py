@@ -130,7 +130,6 @@ def update_database(request):
 
         return HttpResponse("^-^")                     #获取服务器返回的页面信息
 
-'''
 def insert_band_user(request):
     if request.method == 'POST':
         bu = BandUser()
@@ -144,7 +143,6 @@ def insert_band_user(request):
         return HttpResponse('success')
     else:
         return HttpResponse('fail')
-'''
 
 def insert_band_user_test(request):
     if request.method == 'GET':
@@ -161,6 +159,22 @@ def insert_band_user(BU_WechatId):
     bu.bu_openid = BU_WechatId
     bu.save()
     return True
+
+
+def get_steps(request, user):
+    if request.method == 'GET':
+        user = BandUser.objects.get(bu_openid = user)
+        start_time = request.GET.get('start_time', timezone.now().date())
+        end_time = request.GET.get('end_time', timezone.now().date() + timedelta(1))
+        steps = user.steps.filter(st_time__lte=end_time,
+                st_time__gte=start_time)
+        res = {}
+        res['data'] = []
+        for step in steps:
+            res['data'].append(model_to_dict(step))
+        return HttpResponse(json.dumps(res,
+            default=date_handler),content_type='application/json')
+        
 
 
 def insert_step(request):

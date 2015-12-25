@@ -27,12 +27,12 @@ class HistoryPlan(models.Model):
 
 class Step(models.Model):
     st_id = models.AutoField(primary_key=True, unique=True)
-    st_user_id = models.IntegerField(default=0)
-    st_time = models.DateTimeField(default=django.utils.timezone.now)
+    st_user = models.ForeignKey(BandUser, null=True, related_name="steps")
+    st_time = models.DateTimeField(default=django.utils.timezone.now().date())
     st_date = models.IntegerField(default=0)
-    st_step_number = models.IntegerField()
-    st_calorie = models.IntegerField()
-    st_distance = models.IntegerField()
+    st_step_number = models.IntegerField(default=0)
+    st_calorie = models.IntegerField(default=0)
+    st_distance = models.IntegerField(default=0)
 
 
 class TagContent(models.Model):

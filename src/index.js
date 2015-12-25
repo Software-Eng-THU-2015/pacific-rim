@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { browserHistory, Router, Route, Link } from 'react-router';
 import App from './App';
-import Stats from './Stats';
+import Stats from './Home/Stats';
+import Frame from './Home/Frame';
 import About from './About';
 import Tags from './Tag/Tags';
 import Plan from './Plan/Plan';
@@ -17,6 +18,7 @@ ReactDOM.render((
     <Router history={browserHistory}>
 		<Router path='/' component={App}>
 			<Router path='user/:id/stat' component={Stats} />
+			<Router path='user/:id/chart' component={Frame} />
 			<Router path='user/:id/tag' component={Tags} />
 			<Router path='user/:id/plan' component={Plan} />
 			<Router path='user/:id/daily' component={Daily} />
