@@ -7,8 +7,6 @@ import TimePicker from 'react-timepicker';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import Cookie from 'js-cookie';
-var $ = jQuery = require('jquery');
-window.jQuery = $;
 
 import 'react-datepicker/dist/react-datepicker.css';
 import './timepicker.css';
@@ -30,6 +28,7 @@ export default class Tags extends Component{
 	componentDidMount(){
 		const id = this.props.params.id;
 		console.log(id);
+		$('.ui.accordion').accordion();
     }
     render(){
 	return(
@@ -42,8 +41,8 @@ export default class Tags extends Component{
 		    		<input type="text" ref="tag" />
 	    		</div>
 			</div>
-			<div className="row">
-				<div className="title">
+			<div className="ui accordion">
+				<div className="title" style={{"width":"300px"}}>
 		    		<h2><i className="dropdown icon"></i>StartTime :</h2>
 			   		<DatePicker selected={this.state.startDate}
 					onChange={this.handleStartDate} />

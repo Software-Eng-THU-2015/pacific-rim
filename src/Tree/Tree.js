@@ -7,73 +7,71 @@ import moment from 'moment';
 
 
 export default class Tree extends Component{
-
-    render(){
-	let level = 0;
-	let height = 0;
-	let health = 0;
-	let water = 0;
-	let fertilizer = 0;
-	let nowDate = new Date();
-    let level_name = "";
-
-	$.get("/get_tree", function(data){
-			level = data.level;
-			health = data.health;
-			height = data.hetight;
-			water = data.water;
-			fertilizer = data.fertilizer;
-		});
-
-
-	if(nowDate.getHours() < 6 || nowDate.getHours() > 18) {//for night
-		$(".img").attr("src", level+"0.png")
-	}else {//for day
-		$(".img").attr("src", level+"1.png")
+    constructor(props){
+		super(props);
 	}
-
-    $.getJSON("level.json", function(result){
-        $.each(result, function(i, field){
-            if(field.level == level+""){
-                level_name = field.name + "";
-            }
-        })
-    })
-	$(".level").text("lv"+level+":"+level_name);
-	$(".health").text("健康度："+health);
-	$(".height").text("高度："+height);
-	$(".water").text("剩余浇水次数："+water+"次");
-	$(".fertilizer").text("剩余施肥次数："+height+"次");
-
-	$("water").click(function(){
-		if(water <= 0){
-			alert("no more water to pour!");
-		}else{
-			$.post("/care_tree",{
-				water: True,
-				fertilizer: False
-			},
-			function(){
-				alert("pour water successfully!");
-			});
-		}
-	});
-	$("fertilizer").click(function(){
-		if(fertilizer <= 0){
-			alert("no more fertilizer to feed!");
-		}else{
-			$.post("/care_tree",{
-				water: False,
-				fertilizer: True
-			},
-			function(){
-				alert("give fertilizer successfully!");
-			});
-		}
-	});
-
-
-
+	componentDidMount(){
+		var level = 0;
+		var height = 0;
+		var health = 0;
+		var water = 0;
+		var fertilizer = 0;
+		var level_name = "";
+    	var nowDate = new Date();
+    	$.get("trees.json", function(data){
+    		level = data.level;
+    		height = data.height;
+    		health = data.health;
+    		water = data.water;
+    		fertilizer = data.fertilizer;
+			level_name: "";
+			if(nowDate.getHours() < 6 || nowDate.getHours() > 18) {//for night
+				$(".img").attr("src", level+"0.png")
+			}else {//for day
+				$(".img").attr("src", level+"1.png")
+			}
+    		$.getJSON("level.json", function(result){
+    			$.each(result.result, function(i, field){
+    	        	if(this.level == level){
+    	        	    level_name = this.name;
+    	        	}
+    	    	});
+				$(".level").text("lv"+level+": "+level_name+"");
+    		});
+			$(".health").text("健康度: "+health);
+			$(".height").text("高度: "+height);
+			$(".water").text("剩余浇水次数: "+water+"次");
+			$(".fertilizer").text("剩余施肥次数: "+height+"次");
+		});
+	
+		$("#water").click(function(){
+			if(water <= 0){
+				alert("no more water to pour!");
+			}else{
+				$.post("/care_tree",{
+					water: True,
+					fertilizer: False
+				},
+				function(){
+					alert("pour water successfully!");
+				});
+			}
+		});
+		$("#fertilizer").click(function(){
+			if(fertilizer <= 0){
+				alert("no more fertilizer to feed!");
+			}else{
+				$.post("/care_tree",{
+					water: False,
+					fertilizer: True
+				},
+				function(){
+					alert("give fertilizer successfully!");
+				});
+			}
+		});
+    }
+    render(){
 	return(
 		<div className="ui equal width center aligned padded grid">
 	    	<div className="blue row">
@@ -83,8 +81,8 @@ export default class Tree extends Component{
 				<div className="ui img">
 				</div>
 				<div className="ui list">
-                    <div className="item level">
-                    </div>
+                    <h4><div className="item level">
+                    </div></h4>
                     <div className="item health">
                     </div>
                     <div className="item height">
@@ -92,24 +90,26 @@ export default class Tree extends Component{
 				</div>
 			</div>
 			<div className="grey row">
-                <div className="ui list">
+                <div className="column">
                     <div className="item water">
                     </div>
-		 		    <input type="submit" className="ui item button" id="water" />
+		 		    <input type="submit" className="ui button" id="water" />
                 </div>
-			    <div className="ui list">
+			    <div className="column">
                     <div className="item fertilizer">
                     </div>
-		 		    <input type="submit" className="ui item button" id="fertilizer" />
+		 		    <input type="submit" className="ui button" id="fertilizer" />
                 </div>
             </div>
-            <div className="">
+            <div className="black row">
+            <h5>
                 生命之树生长规则：完成每日打卡，奖励浇水机会一次<br/>
                 完成每日挑战任务（每日一个），奖励施肥或浇水机会一次<br/>
                 设健康度为x（0到10，初始为10）<br/>
                 施肥：x大于等于6时，树高度增加2cm;x小于6的时候，树高度增加0.4*x cm;增加一点健康度（上限10）<br/>
                 浇水：x大于等于6时，树高度增加1cm;x小于6的时候，树高度增加0.2*x cm;增加一点健康度（上限10）<br/>
                 每日0点，所有树健康度降低1点，最低到0<br/>
+                </h5>
             </div>
 	    </div>
 	)
