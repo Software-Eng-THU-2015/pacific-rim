@@ -4,6 +4,7 @@ from django.core.exceptions import *
 # from django.http import HttpResponseRedirect, HttpResponse
 from django.http import JsonResponse
 import ujson
+import random
 import json
 from apis.models import *
 from datetime import timedelta, time, datetime
@@ -66,7 +67,6 @@ def get_plan_list(request):
                 res['data'].append(model_to_dict(item))
         except ObjectDoesNotExist:
             res['data'] = []
-
         return HttpResponse(json.dumps(res, default=date_handler),
                 content_type="application/json")
 
@@ -84,6 +84,7 @@ def get_plan(request):
         else:
             return HttpResponse('user not found!')
     return HttpResponse('')
+
 
 def update_database(request):
     if request.method == "GET":
@@ -428,10 +429,11 @@ def select_band_user(request):
 
 def check_band_user(uid):    # 检查是否存在
     try:
-        bu = BandUser.objects.get(bu_openid = uid)
+        bu = BandUser.objects.get(bu_openid=uid)
     except ObjectDoesNotExist:
         return False
-    return True
+    return HttpResponse("f")
+
 
 def select_step(request):
     if request.method == 'GET':
@@ -579,7 +581,7 @@ def check_plan(open_id):
     user = BandUser.objects.get(openid=open_id)
     total = 0
     if user:
-        today = date.today()
+        today = datetime.today()
         entries = user.st_user.filter(st_time__year=today.year, st_time__month=today.month, st_time__day=today.day)
         for x in entries:
             total += x.st_step_number
@@ -595,7 +597,7 @@ def update_plan_history(open_id):
     if user.bu_today_done:
         hp = HistoryPlan()
         hp.hp_user = user
-        hp.hp_date = date.today()
+        hp.hp_date = datetime.today()
         hp.hp_plan = user.bu_plan
         hp.save()
     user.bu_today_done = False
@@ -620,3 +622,143 @@ def tag_main(request):
         openid = get_openid(request)
         # return HttpResponse('xxxx')
         return render(request, 'index.html')
+
+
+def tree_main(request):
+    openid = get_openid(request)
+    request.session["openid"] = openid
+    return HttpResponse(request.session["openid"])
+
+
+def fer_tree(openid):
+    try:
+        user = BandUser.objects.get(openid=openid)
+    except ObjectDoesNotExist:
+        return False
+    finally:
+        user.bu_tree_today_fertilizer -= 1
+        if user.bu_tree_height < 6:
+            user.bu_tree_height = 1.4 * user.bu_tree_height
+        else:
+            user.bu_tree_height += 2
+        if user.bu_tree_health < 10:
+            user.bu_tree_health += 1
+        return True
+
+
+def water_tree(openid):
+    try:
+        user = BandUser.objects.get(openid=openid)
+    except ObjectDoesNotExist:
+        return False
+    finally:
+        user.bu_tree_today_watertime -= 1
+        if user.bu_tree_height < 6:
+            user.bu_tree_height = 1.2 * user.bu_tree_height
+        else:
+            user.bu_tree_height += 1
+        if user.bu_tree_health < 10:
+            user.bu_tree_health += 1
+        return True
+
+
+def tree_care(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        waterFlag = data.get("water")
+        fertilizerFlag = data.get("fertilizer")
+        openid = request.session["openid"]
+        if waterFlag == "True":
+            if water_tree(openid):
+                return HttpResponse(json.dumps({'res':'success'}),
+                content_type="application/json")
+            else:
+                return HttpResponse(json.dumps({'res':'failed'}),
+                content_type="application/json")
+        if fertilizerFlag == "True":
+            if fer_tree(openid):
+                return HttpResponse(json.dumps({'res':'success'}),
+                content_type="application/json")
+            else:
+                return HttpResponse(json.dumps({'res':'failed'}),
+                content_type="application/json")
+    else:
+        return HttpResponse(json.dumps({'res':'failed'}),
+                content_type="application/json")
+
+
+def get_tree(request):
+    if request.method == 'GET':
+        # openid = request.session["openid"]
+        openid = request.GET["openid"]
+        try:
+            user = BandUser.objects.get(bu_openid=openid)
+        except ObjectDoesNotExist:
+            return HttpResponse(json.dumps({'res':'failed'}),
+                content_type="application/json")
+
+        health = user.bu_tree_health
+        height = user.bu_tree_height
+        water = user.bu_tree_today_watertime
+        fertilizer = user.bu_tree_today_watertime
+        if height < 10:
+            level = 0
+        elif height < 30:
+            level = 1
+        elif height < 60:
+            level = 2
+        elif height < 100:
+            level = 3
+        elif height < 150:
+            level = 4
+        elif height < 210:
+            level = 5
+        elif height < 280:
+            level = 6
+        elif height < 360:
+            level = 7
+        elif height < 450:
+            level = 8
+        else:
+            level = 9
+        return HttpResponse(json.dumps({"level":level, "health": health, "height":height, "water": water, "fertilizer": fertilizer}),
+                    content_type="application/json")
+
+    else:
+        return HttpResponse(json.dumps({'res':'failed'}),
+                content_type="application/json")
+
+
+def update_database_randomly(openid):
+    try:
+        bu = BandUser.objects.get(bu_openid=openid)
+    except ObjectDoesNotExist:
+        return False
+    start_datetime = datetime(2015, 11, 30, 0, 0)
+    end_datetime = datetime.now()
+    total_time = (end_datetime - start_datetime).seconds / 60
+    actiontime = start_datetime
+    print "|" + str(start_datetime) + "|" + str(end_datetime) + "|" + str(total_time) + "|" + str(actiontime)
+    i = 0
+    print "total_time: " + str(total_time)
+    while i < int(total_time):
+        actiontime += timedelta(minutes=1)
+        steps = random.uniform(10, 20)
+        calorie = random.uniform(10, 20)
+        distance = random.uniform(10, 20)
+        try:
+            st = Step.objects.get(st_openid=bu, st_start_time=actiontime)
+        except ObjectDoesNotExist:
+            st = Step()
+            st.st_openid = bu  # from 0 to 99
+            st.st_start_time = actiontime
+            st.st_step_number = steps
+            st.st_calorie = calorie
+            st.st_distance = distance
+            st.save()
+    print "i = " + str(i)
+    return True
+
+def test(request):
+    if update_database_randomly(request.GET.get("openid")):
+        return HttpResponse('yes')
