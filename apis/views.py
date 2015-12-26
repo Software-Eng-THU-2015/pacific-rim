@@ -58,11 +58,13 @@ def get_plan_list(request):
         tomorrow = today + timedelta(1)
         today_start = datetime.combine(today, time())
         today_end = datetime.combine(tomorrow, time())
+        start_t = request.GET.get('start', today_start)
+        end_t = request.GET.get('end', today_end)
         res['data'] = []
         try: 
             plans = user.plans.filter(pl_user=user,
-                    pl_time_from__gte=today_start, 
-                    pl_time_to__lte=today_end)
+                    pl_time_from__gte=start_t, 
+                    pl_time_to__lte=end_t)
             for item in plans:
                 res['data'].append(model_to_dict(item))
         except ObjectDoesNotExist:
