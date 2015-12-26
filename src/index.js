@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { browserHistory, Router, Route, Link } from 'react-router';
+import createBrowserHistory from 'history/lib/createBrowserHistory';
+
 import App from './App';
 import Stats from './Home/Stats';
-import Frame from './Home/Frame';
 import About from './About';
 import Tags from './Tag/Tags';
 import Plan from './Plan/Plan';
@@ -12,10 +13,18 @@ import Daily from './Daily/daily';
 import TodoApp from './components/TodoApp.react';
 import Tree from './Tree/Tree'
 
+import SparkLines from './Home/SparkLines';
+
+const history = createBrowserHistory();
+
 ReactDOM.render((
-    <Router> <Router path='/' component={App}>
+    <Router history={history}>
+		<Router path='/' component={App}>
+			<Router path='about' component={About} />
+
+			<Router path='user/:id/chart' component={SparkLines} />
+
 			<Router path='user/:id/stat' component={Stats} />
-			<Router path='user/:id/chart' component={Frame} />
 			<Router path='user/:id/tag' component={Tags} />
 			<Router path='user/:id/plan' component={Plan} />
 			<Router path='user/:id/daily' component={Daily} />

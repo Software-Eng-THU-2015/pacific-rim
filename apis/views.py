@@ -738,9 +738,7 @@ def update_database_randomly(openid):
     end_datetime = datetime.now()
     total_time = (end_datetime - start_datetime).seconds / 60
     actiontime = start_datetime
-    print "|" + str(start_datetime) + "|" + str(end_datetime) + "|" + str(total_time) + "|" + str(actiontime)
     i = 0
-    print "total_time: " + str(total_time)
     while i < int(total_time):
         actiontime += timedelta(minutes=1)
         steps = random.uniform(10, 20)
@@ -756,7 +754,6 @@ def update_database_randomly(openid):
             st.st_calorie = calorie
             st.st_distance = distance
             st.save()
-    print "i = " + str(i)
     return True
 
 def test(request):

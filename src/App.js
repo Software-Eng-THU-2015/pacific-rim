@@ -18,6 +18,7 @@ export default class App extends Component {
 
 		<li><Link to='/user/shit/tag'>Shit</Link></li>
 		<li><Link to='/user/shit/chart'>ShitChart</Link></li>
+		<li><Link to='/user/shit/stat'>ShitStat</Link></li>
 
 		<li><Link to='/user/shit/plan'>ShitPlan</Link></li>
 

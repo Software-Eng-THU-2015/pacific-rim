@@ -14,11 +14,11 @@ class BandUser(models.Model):
     bu_weight = models.IntegerField(default=55)  # kg
     bu_follow = models.ManyToManyField(User, related_name='bu_follow')
     bu_plan = models.IntegerField(default=-1)
-    bu_today_done = models.BooleanField(default=False)
-    bu_tree_height = models.FloatField(default=0)
-    bu_tree_health = models.IntegerField(default=10)
-    bu_tree_today_watertime = models.IntegerField(default=0)
-    bu_tree_today_fertilizer = models.IntegerField(default=0)
+
+class Tree(models.Model):
+    user = models.ForeignKey(BandUser, unique=True)
+    height = models.FloatField(default=10)
+    health = models.IntegerField(default=10)
 
 
 class HistoryPlan(models.Model):
@@ -31,7 +31,7 @@ class HistoryPlan(models.Model):
 class Step(models.Model):
     st_id = models.AutoField(primary_key=True, unique=True)
     st_user = models.ForeignKey(BandUser, null=True, related_name="steps")
-    st_time = models.DateTimeField(default=django.utils.timezone.now().date())
+    st_time = models.DateTimeField(default=django.utils.timezone.now)
     st_date = models.IntegerField(default=0)
     st_step_number = models.IntegerField(default=0)
     st_calorie = models.IntegerField(default=0)
