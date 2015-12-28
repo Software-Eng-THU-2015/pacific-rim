@@ -49,8 +49,8 @@ export default class Tree extends Component{
 				alert("no more water to pour!");
 			}else{
 				$.post("/care_tree",{
-					water: True,
-					fertilizer: False
+					water: "True",
+					fertilizer: "False"
 				},
 				function(){
 					alert("pour water successfully!");
@@ -62,8 +62,8 @@ export default class Tree extends Component{
 				alert("no more fertilizer to feed!");
 			}else{
 				$.post("/care_tree",{
-					water: False,
-					fertilizer: True
+					water: "False",
+					fertilizer: "True"
 				},
 				function(){
 					alert("give fertilizer successfully!");

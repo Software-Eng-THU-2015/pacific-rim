@@ -762,26 +762,3 @@ def test(request):
     if update_database_randomly(request.GET.get("openid")):
         return HttpResponse('yes')
 
-def test2(uid):
-    try:
-        bu = BandUser.objects.get(bu_openid=uid)
-    except ObjectDoesNotExist:
-        return False
-    bu.bu_tree_today_watertime += 2
-    bu.bu_tree_today_fertilizer += 2
-    bu.save()
-    return True
-            st = Step.objects.get(st_openid=bu, st_start_time=actiontime)
-    except ObjectDoesNotExist:
-            st = Step()
-            st.st_openid = bu  # from 0 to 99
-            st.st_start_time = actiontime
-            st.st_step_number = steps
-            st.st_calorie = calorie
-            st.st_distance = distance
-            st.save()
-    return True
-
-def test(request):
-    if update_database_randomly(request.GET.get("openid")):
-        return HttpResponse('yes')
