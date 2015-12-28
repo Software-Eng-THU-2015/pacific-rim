@@ -75,3 +75,6 @@ node_modules/
 envdir/
 .idea/
 apis/migrations/*
+
+static/bundle.js
+static/spec.css
