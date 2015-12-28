@@ -78,8 +78,9 @@ export default class Tree extends Component{
 		    	<h1>Tree</h1>
 		    </div>
 			<div className="row">
-				<div className="ui img">
-				</div>
+				<img className="ui img" style={{"width":"240px", "height":"400px"}}/>
+			</div>
+		<div className="row">
 				<div className="ui list">
                     <h4><div className="item level">
                     </div></h4>

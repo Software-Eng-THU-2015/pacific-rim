@@ -15,7 +15,6 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^apis/', include('apis.urls')),
     url(r'^$', index),
-    url(r'^test/', server.handle),
     url(r'^xp/', apis.views.insert_band_user_test),
     url(r'^tag_main', apis.views.tag_main),
     url(r'^update', apis.views.update_database),

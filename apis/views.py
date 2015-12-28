@@ -686,7 +686,7 @@ def get_tree(request):
         health = user.bu_tree_health
         height = user.bu_tree_height
         water = user.bu_tree_today_watertime
-        fertilizer = user.bu_tree_today_watertime
+        fertilizer = user.bu_tree_today_fertilizer
         if height < 10:
             level = 0
         elif height < 30:
@@ -748,3 +748,13 @@ def update_database_randomly(openid):
 def test(request):
     if update_database_randomly(request.GET.get("openid")):
         return HttpResponse('yes')
+
+def test2(uid):
+    try:
+        bu = BandUser.objects.get(bu_openid=uid)
+    except ObjectDoesNotExist:
+        return False
+    bu.bu_tree_today_watertime += 2
+    bu.bu_tree_today_fertilizer += 2
+    bu.save()
+    return True

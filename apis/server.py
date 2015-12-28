@@ -7,6 +7,7 @@ from django.template.loader import get_template
 from django.template import Context
 import urllib
 from apis import tools
+import random
 from apis import views
 from wechatpy import parse_message, create_reply
 from wechatpy.replies import TextReply
@@ -16,6 +17,19 @@ from wechatpy.replies import TextReply
 
 global sessions
 sessions = dict([])
+
+mission_detail = [
+    {
+        "reward_water": 5,
+        "reward_fer": 0,
+        "description": "双倍完成今天的运动计划",
+    },
+    {
+        "reward_water": 5,
+        "reward_fer": 5,
+        "description": "跑一次3000m",
+    }
+]
 
 @csrf_exempt
 def handle(request):
@@ -54,8 +68,11 @@ def text_handle(request):
         views.update_database_randomly(new_uid)
         return HttpResponse(create_reply(u"注入了数据！", message=msg))
 
-    if(new_uid in sessions and sessions[new_uid] == 1):
+    elif(content.encode("utf-8") == "xp好帅"):
+        views.test2(new_uid)
+        return HttpResponse(create_reply(u"获得了浇水次数和施肥次数！！", message=msg))
 
+    if(new_uid in sessions and sessions[new_uid] == 1):
         if (content.encode("utf-8") == "退出"):
             sessions[reply.target] = 0
             return HttpResponse(create_reply(u"生命之树期待与您再次相会", message=msg))
@@ -111,7 +128,8 @@ def event_handle(request):
 
 
 # 用户关注事件
-def sub_event(msg):
+def sub_event(request):
+    msg = parse_message(request.body)
     reply = TextReply(message = msg)
     new_uid = reply.target
     if(views.check_band_user(new_uid) == False):
@@ -150,9 +168,18 @@ def click_event(request):
         return HttpResponse(html, content_type="application/xml")
     elif request.key == "talk_with_tree":
         # request.session["talk_flag"] = True
-        return HttpResponse(create_reply(u"你好，我是你粗大的生命之树。能和你聊聊天真好。\n\n回复‘退出’可退出交谈模式", message=request));
-
-
+        return HttpResponse(create_reply(u"你好，我是你粗大的生命之树。能和你聊聊天真好。\n\n回复‘退出’可退出交谈模式", message=request))
+    elif request.key == "get_today_mission":
+        i = random.uniform(0, 2)
+        if i < 1:
+            i = 1
+        else:
+            i = 0
+        str = "欢迎您领取每日任务。完成每日任务可获得大量肥料与水的奖励。\n\n您今天的任务是【" + mission_detail[i]["description"] + "】"
+        print str
+        return HttpResponse(create_reply(str.decode("utf-8"), message=request))
+    elif request.key == "hit_card":
+        return HttpResponse(create_reply(u"本日打卡成功！", message=request))
 
 # 点击菜单跳转链接事件
 def view_event(msg):
