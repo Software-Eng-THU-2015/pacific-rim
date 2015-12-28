@@ -58,11 +58,13 @@ def get_plan_list(request):
         tomorrow = today + timedelta(1)
         today_start = datetime.combine(today, time())
         today_end = datetime.combine(tomorrow, time())
+        start_t = request.GET.get('start', today_start)
+        end_t = request.GET.get('end', today_end)
         res['data'] = []
         try: 
             plans = user.plans.filter(pl_user=user,
-                    pl_time_from__gte=today_start, 
-                    pl_time_to__lte=today_end)
+                    pl_time_from__gte=start_t, 
+                    pl_time_to__lte=end_t)
             for item in plans:
                 res['data'].append(model_to_dict(item))
         except ObjectDoesNotExist:
@@ -131,7 +133,6 @@ def update_database(request):
 
         return HttpResponse("^-^")                     #获取服务器返回的页面信息
 
-'''
 def insert_band_user(request):
     if request.method == 'POST':
         bu = BandUser()
@@ -145,7 +146,6 @@ def insert_band_user(request):
         return HttpResponse('success')
     else:
         return HttpResponse('fail')
-'''
 
 def insert_band_user_test(request):
     if request.method == 'GET':
@@ -162,6 +162,22 @@ def insert_band_user(BU_WechatId):
     bu.bu_openid = BU_WechatId
     bu.save()
     return True
+
+
+def get_steps(request, user):
+    if request.method == 'GET':
+        user = BandUser.objects.get(bu_openid = user)
+        start_time = request.GET.get('start_time', timezone.now().date())
+        end_time = request.GET.get('end_time', timezone.now().date() + timedelta(1))
+        steps = user.steps.filter(st_time__lte=end_time,
+                st_time__gte=start_time)
+        res = {}
+        res['data'] = []
+        for step in steps:
+            res['data'].append(model_to_dict(step))
+        return HttpResponse(json.dumps(res,
+            default=date_handler),content_type='application/json')
+        
 
 
 def insert_step(request):
@@ -686,7 +702,7 @@ def get_tree(request):
         health = user.bu_tree_health
         height = user.bu_tree_height
         water = user.bu_tree_today_watertime
-        fertilizer = user.bu_tree_today_fertilizer
+        fertilizer = user.bu_tree_today_watertime
         if height < 10:
             level = 0
         elif height < 30:
@@ -724,9 +740,7 @@ def update_database_randomly(openid):
     end_datetime = datetime.now()
     total_time = (end_datetime - start_datetime).seconds / 60
     actiontime = start_datetime
-    print "|" + str(start_datetime) + "|" + str(end_datetime) + "|" + str(total_time) + "|" + str(actiontime)
     i = 0
-    print "total_time: " + str(total_time)
     while i < int(total_time):
         actiontime += timedelta(minutes=1)
         steps = random.uniform(10, 20)
@@ -742,7 +756,6 @@ def update_database_randomly(openid):
             st.st_calorie = calorie
             st.st_distance = distance
             st.save()
-    print "i = " + str(i)
     return True
 
 def test(request):
@@ -758,3 +771,17 @@ def test2(uid):
     bu.bu_tree_today_fertilizer += 2
     bu.save()
     return True
+            st = Step.objects.get(st_openid=bu, st_start_time=actiontime)
+    except ObjectDoesNotExist:
+            st = Step()
+            st.st_openid = bu  # from 0 to 99
+            st.st_start_time = actiontime
+            st.st_step_number = steps
+            st.st_calorie = calorie
+            st.st_distance = distance
+            st.save()
+    return True
+
+def test(request):
+    if update_database_randomly(request.GET.get("openid")):
+        return HttpResponse('yes')

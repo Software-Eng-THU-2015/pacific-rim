@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { Router, Route, Link } from 'react-router';
 import About from './About';
 import Tags from './Tag/Tags';
-import Stats from './Stats';
 import History from './history/history';
 import Daily from './Daily/daily';
 import TodoApp from './components/TodoApp.react';
@@ -18,6 +17,8 @@ export default class App extends Component {
 		<li><Link to='/about'>About</Link></li>
 
 		<li><Link to='/user/shit/tag'>Shit</Link></li>
+		<li><Link to='/user/shit/chart'>ShitChart</Link></li>
+		<li><Link to='/user/shit/stat'>ShitStat</Link></li>
 
 		<li><Link to='/user/shit/plan'>ShitPlan</Link></li>
 		<li><Link to='/user/shit/tree'>Tree</Link></li>

@@ -33,7 +33,6 @@ mission_detail = [
 
 @csrf_exempt
 def handle(request):
-    print request
     if request.method == "GET":
         if not tools.check_signature(request):
             return HttpResponse("invalid signature")
@@ -51,10 +50,7 @@ def handle(request):
         sessions[reply.target] = 1
 
     if(reply.target in sessions):
-        print sessions[reply.target]
-
-
-    return msg_splitter[msg.type](request)
+        return msg_splitter[msg.type](request)
 
 
 # 对文本信息进行回复
@@ -78,11 +74,9 @@ def text_handle(request):
             return HttpResponse(create_reply(u"生命之树期待与您再次相会", message=msg))
 
         url = "http://www.tuling123.com/openapi/api?key=" + os.environ.get('ROBOT_KEY')+ "&info=" + content.encode("utf-8")
-        print url
         response = urllib.urlopen(url).read()         #调用urllib2向服务器发送get请求url
         reply_text = json.loads(response)['text'].encode("utf-8")
         reply_text.replace('图灵机器人','生命之树')
-        print reply_text
         return HttpResponse(create_reply(reply_text, message=msg))
     if(views.check_band_user(new_uid) == False):
         views.insert_band_user(new_uid)
