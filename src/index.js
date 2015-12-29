@@ -13,6 +13,7 @@ import Daily from './Daily/daily';
 import TodoApp from './components/TodoApp.react';
 import Tree from './Tree/Tree'
 
+import Page from './Page';
 import SparkLines from './Home/SparkLines';
 
 const history = createBrowserHistory();
@@ -23,6 +24,7 @@ ReactDOM.render((
 			<Router path='about' component={About} />
 
 			<Router path='user/:id/chart' component={SparkLines} />
+			<Router path='user/:id/page' component={Page} />
 
 			<Router path='user/:id/stat' component={Stats} />
 			<Router path='user/:id/tag' component={TagWrapper} />

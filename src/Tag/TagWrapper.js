@@ -8,13 +8,13 @@ export default class TagWrapper extends Component{
 		return (
 			<div className="ui two column middle aligned very relaxed stackable grid">
 				<div className="column">
-					<Tags {...this.props} />
+					<TagList {...this.props} />
 				</div>
 				<div className="ui vertical divider">
 					OR
 				</div>
 				<div className="center aligned column">
-					<TagList {...this.props} />
+					<Tags {...this.props} />
 				</div>
 			</div>
 				)
