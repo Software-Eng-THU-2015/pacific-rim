@@ -6,7 +6,7 @@ import createBrowserHistory from 'history/lib/createBrowserHistory';
 import App from './App';
 import Stats from './Home/Stats';
 import About from './About';
-import Tags from './Tag/Tags';
+import TagWrapper from './Tag/TagWrapper';
 import Plan from './Plan/Plan';
 import History from './history/history';
 import Daily from './Daily/daily';
@@ -25,7 +25,7 @@ ReactDOM.render((
 			<Router path='user/:id/chart' component={SparkLines} />
 
 			<Router path='user/:id/stat' component={Stats} />
-			<Router path='user/:id/tag' component={Tags} />
+			<Router path='user/:id/tag' component={TagWrapper} />
 			<Router path='user/:id/plan' component={Plan} />
 			<Router path='user/:id/daily' component={Daily} />
 			<Router path='user/:id/todo' component={TodoApp} />

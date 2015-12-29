@@ -332,6 +332,19 @@ def update_band_user(request):
     else:
         return HttpResponse('')
 
+def get_tag_list(request, user_id):
+    if request.method == 'GET':
+        try: 
+            user = BandUser.objects.get(bu_openid = user_id)
+        except ObjectDoesNotExist:
+            return HttpResponse(json.dumps({'err': 'invaild user'}),
+                    content_type="application/json")
+        tags = Tag.objects.filter(tg_user = user)
+        tag_list = [{'content': i.tg_content.tc_content, 'start_time':
+            i.tg_time_from, 'end_time': i.tg_time_to, 'id': i.tg_id} for i in tags]
+        return HttpResponse(json.dumps({'list': tag_list}, default=date_handler),
+                content_type="application/json")
+
 
 def update_tag_content(request, tagc_id):
     if request.method == 'POST':
