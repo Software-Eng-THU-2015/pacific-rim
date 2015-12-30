@@ -1,10 +1,7 @@
 ﻿import React, { Component } from 'react';
 // import AddPlan from './AddPlan';
 
-
 import moment from 'moment';
-
-
 
 export default class Tree extends Component{
     constructor(props){
@@ -73,15 +70,19 @@ export default class Tree extends Component{
 			$(".water").text("剩余浇水次数: "+water+"次");
 			$(".fertilizer").text("剩余施肥次数: "+height+"次");
 		});
-
+	
+		var self = this;
 		$("#water").click(function(){
 			if(water <= 0){
 				alert("no more water to pour!");
 			}else{
-				$.post("/care_tree",{
-					water: True,
-					fertilizer: False
-				},
+				var params = JSON.stringify({
+					water: true,
+					fertilizer: false
+				});
+				var id = self.props.params.id;
+				var url = '/apis/tree/' + id + '/care_tree';
+				$.post(url, params,
 				function(){
 					alert("pour water successfully!");
 				});
@@ -91,10 +92,13 @@ export default class Tree extends Component{
 			if(fertilizer <= 0){
 				alert("no more fertilizer to feed!");
 			}else{
-				$.post("/care_tree",{
-					water: False,
-					fertilizer: True
-				},
+				var params = JSON.stringify({
+					water: false,
+					fertilizer: true
+				});
+				var id = self.props.params.id;
+				var url = '/apis/tree/' + id + '/care_tree';
+				$.post(url, params,
 				function(){
 					alert("give fertilizer successfully!");
 				});
