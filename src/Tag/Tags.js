@@ -66,6 +66,7 @@ export default class Tags extends Component{
 	    </div>
 	)
     }
+
     handleSubmit = (e) =>{
 		e.preventDefault();
 		let tag = this.refs.tag.value;

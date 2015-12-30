@@ -5,7 +5,10 @@ from django.shortcuts import render_to_response
 from apis.tools import *
 from django.template.loader import get_template
 from django.template import Context
+import json
 import urllib
+import urllib.parse
+import urllib.request
 from apis import tools
 import random
 from apis import views
@@ -38,20 +41,15 @@ def handle(request):
             return HttpResponse("invalid signature")
         else:
             return HttpResponse(request.GET["echostr"])
-    '''
-    menu_file = file("apis/menu.json")
-    menu_json = json.load(menu_file)
-    tools.menu_create(menu_json)
-    '''
-
+    
     msg = parse_message(request.body)
     reply = TextReply(message = msg)
     if msg.type == "event" and msg.key == "talk_with_tree":
         sessions[reply.target] = 1
 
-    if(reply.target in sessions):
-        return msg_splitter[msg.type](request)
-
+    if not (reply.target in sessions):
+        sessions[reply.target] = 0 
+    return msg_splitter[msg.type](request)
 
 # 对文本信息进行回复
 def text_handle(request):
@@ -60,24 +58,27 @@ def text_handle(request):
     content = msg.content
     new_uid = reply.target
 
-    if (content.encode("utf-8") == "来数据"):
+    if (content == "来数据"):
         views.update_database_randomly(new_uid)
-        return HttpResponse(create_reply(u"注入了数据！", message=msg))
+        return HttpResponse(create_reply("注入了数据！", message=msg))
 
-    elif(content.encode("utf-8") == "xp好帅"):
-        views.test2(new_uid)
-        return HttpResponse(create_reply(u"获得了浇水次数和施肥次数！！", message=msg))
+    elif(content == "xp好帅"):
+    #    views.test2(new_uid)
+        return HttpResponse(create_reply("获得了浇水次数和施肥次数！！", message=msg))
 
     if(new_uid in sessions and sessions[new_uid] == 1):
-        if (content.encode("utf-8") == "退出"):
+        if (content == "退出"):
             sessions[reply.target] = 0
-            return HttpResponse(create_reply(u"生命之树期待与您再次相会", message=msg))
-
-        url = "http://www.tuling123.com/openapi/api?key=" + os.environ.get('ROBOT_KEY')+ "&info=" + content.encode("utf-8")
-        response = urllib.urlopen(url).read()         #调用urllib2向服务器发送get请求url
-        reply_text = json.loads(response)['text'].encode("utf-8")
+            return HttpResponse(create_reply("生命之树期待与您再次相会", message=msg))
+        rebot_key = "da0d72f6aacebe4301f685e2c11f22c0"
+        url = "http://www.tuling123.com/openapi/api?key=%s&info=%s" % (rebot_key,urllib.parse.quote(content))
+  #      return HttpResponse(create_reply(u"生命之树期待与您再次相会", message=msg))
+        response = urllib.request.urlopen(url).read()         #调用urllib2向服务器发送get请求url
+        reply_text = json.loads(response.decode("utf-8"))['text']
         reply_text.replace('图灵机器人','生命之树')
+ #       reply_text.replace(u'图灵机器人'.encode('utf-8'),u'生命之树')
         return HttpResponse(create_reply(reply_text, message=msg))
+        
     if(views.check_band_user(new_uid) == False):
         views.insert_band_user(new_uid)
         return HttpResponse(create_reply(u"太平洋手环保太平，欢迎您使用太平洋手环！", message=msg))
@@ -170,7 +171,6 @@ def click_event(request):
         else:
             i = 0
         str = "欢迎您领取每日任务。完成每日任务可获得大量肥料与水的奖励。\n\n您今天的任务是【" + mission_detail[i]["description"] + "】"
-        print str
         return HttpResponse(create_reply(str.decode("utf-8"), message=request))
     elif request.key == "hit_card":
         return HttpResponse(create_reply(u"本日打卡成功！", message=request))
@@ -222,7 +222,6 @@ def select_location_event(msg):
 
 def get_rank_list(msg):
     return render_to_response("ranklist.xml", mimetype="application/xml")
-
 
 msg_splitter = {
     "text": text_handle,

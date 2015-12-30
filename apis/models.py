@@ -16,7 +16,7 @@ class BandUser(models.Model):
     bu_plan = models.IntegerField(default=-1)
 
 class Tree(models.Model):
-    user = models.ForeignKey(BandUser, unique=True)
+    user = models.OneToOneField(BandUser, unique=True)
     height = models.FloatField(default=10)
     health = models.IntegerField(default=10)
 

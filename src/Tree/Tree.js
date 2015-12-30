@@ -9,7 +9,14 @@ import moment from 'moment';
 export default class Tree extends Component{
     constructor(props){
 		super(props);
+		var code;
 	}
+	
+	get(){
+		console.log(1);
+		
+	}
+	
 	componentDidMount(){
 		var level = 0;
 		var height = 0;
@@ -18,6 +25,9 @@ export default class Tree extends Component{
 		var fertilizer = 0;
 		var level_name = "";
     	var nowDate = new Date();
+		
+		this.get();
+		
     	$.get("trees.json", function(data){
     		level = data.level;
     		height = data.height;
@@ -57,6 +67,7 @@ export default class Tree extends Component{
 				});
 			}
 		});
+		
 		$("#fertilizer").click(function(){
 			if(fertilizer <= 0){
 				alert("no more fertilizer to feed!");
@@ -94,12 +105,12 @@ export default class Tree extends Component{
                 <div className="column">
                     <div className="item water">
                     </div>
-		 		    <input type="submit" className="ui button" id="water" />
+		 		    <input value = "浇水" type="submit" className="ui button" id="water" />
                 </div>
 			    <div className="column">
                     <div className="item fertilizer">
                     </div>
-		 		    <input type="submit" className="ui button" id="fertilizer" />
+		 		    <input value = "施肥" type="submit" className="ui button" id="fertilizer" />
                 </div>
             </div>
             <div className="black row">
