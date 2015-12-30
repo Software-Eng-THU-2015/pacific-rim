@@ -3,7 +3,7 @@ import ControllerChart from './Line';
 import classNames from 'classnames';
 
 var $ = jQuery = require('jquery');
-import './Frame.scss';
+import './Frame.css';
 
 export default class SparkLines extends Component {
 	constructor(props){

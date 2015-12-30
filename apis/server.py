@@ -41,7 +41,7 @@ def handle(request):
             return HttpResponse("invalid signature")
         else:
             return HttpResponse(request.GET["echostr"])
-    
+
     msg = parse_message(request.body)
     reply = TextReply(message = msg)
     if msg.type == "event" and msg.key == "talk_with_tree":
@@ -123,15 +123,16 @@ def event_handle(request):
 
 
 # 用户关注事件
-def sub_event(request):
-    msg = parse_message(request.body)
+def sub_event(msg):
+    return HttpResponse(create_reply("1！", message=msg))
     reply = TextReply(message = msg)
     new_uid = reply.target
     if(views.check_band_user(new_uid) == False):
+        return HttpResponse(create_reply("2！", message=msg))
         views.insert_band_user(new_uid)
-        return HttpResponse(create_reply(u"太平洋手环保太平，欢迎您使用太平洋手环！", message=msg))
+        return HttpResponse(create_reply("太平洋手环保太平，欢迎您使用太平洋手环！", message=msg))
     else:
-        return HttpResponse(create_reply(u"欢迎您重归太平洋手环！", message=msg))
+        return HttpResponse(create_reply("欢迎您重归太平洋手环！", message=msg))
 
 
 # 对用户取消关注事件

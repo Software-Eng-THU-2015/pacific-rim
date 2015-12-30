@@ -78,4 +78,9 @@ apis/migrations/*
 
 static/bundle.js
 static/spec.css
+<<<<<<< HEAD
 *.orig
+||||||| merged common ancestors
+=======
+wristBand/settings.py
+>>>>>>> 77bce2424e178a87247b395027100378db83ec2c

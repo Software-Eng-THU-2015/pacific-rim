@@ -451,7 +451,7 @@ def check_band_user(uid):    # 检查是否存在
         bu = BandUser.objects.get(bu_openid=uid)
     except ObjectDoesNotExist:
         return False
-    return HttpResponse("f")
+    return True
 
 
 def select_step(request):
@@ -592,7 +592,6 @@ def get_openid(request):
         response = urllib.request.urlopen(url)         #调用urllib2向服务器发送get请求
         js = json.loads(response.read().decode("utf-8"))
         openid = js["openid"]
-        print(2333)
         jsonfile = json.dumps({"openid": openid})
         return  HttpResponse(jsonfile)                 #获取服务器返回的页面信息
 
@@ -653,52 +652,57 @@ def tree_main(request):
 @csrf_exempt
 def fer_tree(openid):
     try:
-        user = BandUser.objects.get(openid=openid)
+        user = BandUser.objects.get(bu_openid=openid)
     except ObjectDoesNotExist:
         return False
     finally:
+        print(user.bu_openid)
         user.bu_tree_today_fertilizer -= 1
         if user.bu_tree_height < 6:
-            user.bu_tree_height = 1.4 * user.bu_tree_height
+            user.bu_tree_height + 0.4 * user.bu_tree_health
         else:
             user.bu_tree_height += 2
         if user.bu_tree_health < 10:
             user.bu_tree_health += 1
+        print(user.bu_tree_today_fertilizer)
+        user.save()
         return True
 
 
 @csrf_exempt
 def water_tree(openid):
     try:
-        user = BandUser.objects.get(openid=openid)
+        user = BandUser.objects.get(bu_openid=openid)
     except ObjectDoesNotExist:
         return False
     finally:
         user.bu_tree_today_watertime -= 1
         if user.bu_tree_height < 6:
-            user.bu_tree_height = 1.2 * user.bu_tree_height
+            user.bu_tree_height  += 0.2 * user.bu_tree_health
         else:
             user.bu_tree_height += 1
         if user.bu_tree_health < 10:
             user.bu_tree_health += 1
+        user.save()
         return True
 
 
 @csrf_exempt
-def tree_care(request, openid):
+def tree_care(request):
     if request.method == 'POST':
-        data = ujson.loads(request.body)
-        print (data)
-        waterFlag = data.get("water")
-        fertilizerFlag = data.get("fertilizer")
-        if waterFlag:
+        waterFlag = request.REQUEST.get("water")
+        openid = request.REQUEST.get("openid")
+        fertilizerFlag = request.REQUEST.get("fertilizer")
+        print (waterFlag)
+        print (fertilizerFlag)
+        if waterFlag == "true":
             if water_tree(openid):
                 return HttpResponse(json.dumps({'res':'success'}),
                 content_type="application/json")
             else:
                 return HttpResponse(json.dumps({'res':'failed'}),
                 content_type="application/json")
-        if fertilizerFlag:
+        if fertilizerFlag == "true":
             if fer_tree(openid):
                 return HttpResponse(json.dumps({'res':'success'}),
                 content_type="application/json")
@@ -727,7 +731,7 @@ def get_tree(request):
         health = user.bu_tree_health
         height = user.bu_tree_height
         water = user.bu_tree_today_watertime
-        fertilizer = user.bu_tree_today_watertime
+        fertilizer = user.bu_tree_today_fertilizer
         if height < 10:
             level = 0
         elif height < 30:
