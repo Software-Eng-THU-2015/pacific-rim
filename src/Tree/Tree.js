@@ -6,6 +6,7 @@ import moment from 'moment';
 export default class Tree extends Component{
     constructor(props){
 		super(props);
+		var openid;
 	}
 		
 	getOpenid(){
@@ -18,7 +19,7 @@ export default class Tree extends Component{
 		else
 			_code = "";
 		$.getJSON("/apis/getOpenid", {code: _code}, function(data){
-			
+			openid = data.openid;
 		});
 	}
 	

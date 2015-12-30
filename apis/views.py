@@ -592,6 +592,7 @@ def get_openid(request):
         response = urllib.request.urlopen(url)         #调用urllib2向服务器发送get请求
         js = json.loads(response.read().decode("utf-8"))
         openid = js["openid"]
+        print(2333)
         jsonfile = json.dumps({"openid": openid})
         return  HttpResponse(jsonfile)                 #获取服务器返回的页面信息
 
