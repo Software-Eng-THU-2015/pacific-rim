@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import moment from 'moment';
 import _ from 'lodash';
 
 export default class TagList extends Component{
@@ -20,11 +21,21 @@ export default class TagList extends Component{
 	}
 	render(){
 		var list = _.map(this.state.tags, (item)=>{
+			var start_time = moment(item.start_time).format('MM-DD HH:mm');
+			var end_time = moment(item.end_time).format('MM-DD HH:mm');
 			return (
 				<div key={item.id} className="item">
-					<div className="content">
-						<div className="header">
-							{item.content}
+					<div className="ui card">
+						<div className="content">
+							<div className="header">
+								{item.content}
+							</div>
+							<div className="meta">
+								{start_time}
+							</div>
+							<div className="meta">
+								{end_time}
+							</div>
 						</div>
 					</div>
 				</div>

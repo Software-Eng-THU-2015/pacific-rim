@@ -645,6 +645,7 @@ def tree_main(request):
     return HttpResponse(request.session["openid"])
 
 
+@csrf_exempt
 def fer_tree(openid):
     try:
         user = BandUser.objects.get(openid=openid)
@@ -661,6 +662,7 @@ def fer_tree(openid):
         return True
 
 
+@csrf_exempt
 def water_tree(openid):
     try:
         user = BandUser.objects.get(openid=openid)
@@ -677,26 +679,31 @@ def water_tree(openid):
         return True
 
 
-def tree_care(request):
+@csrf_exempt
+def tree_care(request, openid):
     if request.method == 'POST':
-        data = json.loads(request.body)
+        data = ujson.loads(request.body)
+        print (data)
         waterFlag = data.get("water")
         fertilizerFlag = data.get("fertilizer")
-        openid = request.session["openid"]
-        if waterFlag == "True":
+        if waterFlag:
             if water_tree(openid):
                 return HttpResponse(json.dumps({'res':'success'}),
                 content_type="application/json")
             else:
                 return HttpResponse(json.dumps({'res':'failed'}),
                 content_type="application/json")
-        if fertilizerFlag == "True":
+        if fertilizerFlag:
             if fer_tree(openid):
                 return HttpResponse(json.dumps({'res':'success'}),
                 content_type="application/json")
             else:
                 return HttpResponse(json.dumps({'res':'failed'}),
                 content_type="application/json")
+
+        return HttpResponse(json.dumps({'res': 'none'}),
+                content_type='application/json')
+
     else:
         return HttpResponse(json.dumps({'res':'failed'}),
                 content_type="application/json")
