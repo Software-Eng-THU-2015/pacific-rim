@@ -1,6 +1,9 @@
 # coding=utf-8
 from django.shortcuts import render
 from django.core.exceptions import *
+import urllib
+import urllib.parse
+import urllib.request
 # from django.http import HttpResponseRedirect, HttpResponse
 from django.http import JsonResponse
 import ujson
@@ -333,6 +336,19 @@ def update_band_user(request):
     else:
         return HttpResponse('')
 
+def get_tag_list(request, user_id):
+    if request.method == 'GET':
+        try: 
+            user = BandUser.objects.get(bu_openid = user_id)
+        except ObjectDoesNotExist:
+            return HttpResponse(json.dumps({'err': 'invaild user'}),
+                    content_type="application/json")
+        tags = Tag.objects.filter(tg_user = user)
+        tag_list = [{'content': i.tg_content.tc_content, 'start_time':
+            i.tg_time_from, 'end_time': i.tg_time_to, 'id': i.tg_id} for i in tags]
+        return HttpResponse(json.dumps({'list': tag_list}, default=date_handler),
+                content_type="application/json")
+
 
 def update_tag_content(request, tagc_id):
     if request.method == 'POST':
@@ -573,11 +589,11 @@ def get_openid(request):
         code = request.GET["code"]
         url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + os.environ.get('APP_ID')+ "&secret=" + os.environ.get('APP_SECRET') + "&code=" + code + "&grant_type=authorization_code"
         # url = "xp"
-        response = urllib.urlopen(url)         #调用urllib2向服务器发送get请求
-        js = json.loads(response.read())
+        response = urllib.request.urlopen(url)         #调用urllib2向服务器发送get请求
+        js = json.loads(response.read().decode("utf-8"))
         openid = js["openid"]
-        print (openid)
-        return openid                  #获取服务器返回的页面信息
+        jsonfile = json.dumps({"openid": openid})
+        return  HttpResponse(jsonfile)                 #获取服务器返回的页面信息
 
 
 def check_plan(open_id):
@@ -633,6 +649,7 @@ def tree_main(request):
     return HttpResponse(request.session["openid"])
 
 
+@csrf_exempt
 def fer_tree(openid):
     try:
         user = BandUser.objects.get(openid=openid)
@@ -649,6 +666,7 @@ def fer_tree(openid):
         return True
 
 
+@csrf_exempt
 def water_tree(openid):
     try:
         user = BandUser.objects.get(openid=openid)
@@ -665,26 +683,31 @@ def water_tree(openid):
         return True
 
 
-def tree_care(request):
+@csrf_exempt
+def tree_care(request, openid):
     if request.method == 'POST':
-        data = json.loads(request.body)
+        data = ujson.loads(request.body)
+        print (data)
         waterFlag = data.get("water")
         fertilizerFlag = data.get("fertilizer")
-        openid = request.session["openid"]
-        if waterFlag == "True":
+        if waterFlag:
             if water_tree(openid):
                 return HttpResponse(json.dumps({'res':'success'}),
                 content_type="application/json")
             else:
                 return HttpResponse(json.dumps({'res':'failed'}),
                 content_type="application/json")
-        if fertilizerFlag == "True":
+        if fertilizerFlag:
             if fer_tree(openid):
                 return HttpResponse(json.dumps({'res':'success'}),
                 content_type="application/json")
             else:
                 return HttpResponse(json.dumps({'res':'failed'}),
                 content_type="application/json")
+
+        return HttpResponse(json.dumps({'res': 'none'}),
+                content_type='application/json')
+
     else:
         return HttpResponse(json.dumps({'res':'failed'}),
                 content_type="application/json")

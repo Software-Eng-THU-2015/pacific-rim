@@ -59,8 +59,13 @@ class LineChart extends Component{
 			.max()
 			.value();
 
+		var xMax = 4 ;// Math.max(data.series1.length, data.series2.length);
+		if(data.series2){
+			xMax = Math.max(data.series2.length, xMax);
+		}
+
 		var xScale = d3.scale.linear()
-			.domain([0, 6])
+			.domain([0, xMax])
 			.range([0, this.props.width]);
 
 		var yScale = d3.scale.linear()

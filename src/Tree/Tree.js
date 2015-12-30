@@ -1,20 +1,25 @@
 ﻿import React, { Component } from 'react';
 // import AddPlan from './AddPlan';
 
-
 import moment from 'moment';
-
-
 
 export default class Tree extends Component{
     constructor(props){
 		super(props);
-		var code;
 	}
-	
-	get(){
-		console.log(1);
 		
+	getOpenid(){
+		var _code;
+		var reg = new RegExp("(^|&)code=([^&]*)(&|$)");
+		var r = window.location.search.substr(1).match(reg);
+		if(r!=null){
+			_code = unescape(r[2]);
+		} 
+		else
+			_code = "";
+		$.getJSON("/apis/getOpenid", {code: _code}, function(data){
+			
+		});
 	}
 	
 	componentDidMount(){
@@ -26,7 +31,7 @@ export default class Tree extends Component{
 		var level_name = "";
     	var nowDate = new Date();
 		
-		this.get();
+		this.getOpenid();
 		
     	$.get("trees.json", function(data){
     		level = data.level;
@@ -54,15 +59,19 @@ export default class Tree extends Component{
 			$(".fertilizer").text("剩余施肥次数: "+height+"次");
 		});
 	
+		var self = this;
 		$("#water").click(function(){
 			if(water <= 0){
 				alert("no more water to pour!");
 			}else{
-				$.post("/care_tree",{
-					water: "True",
-					fertilizer: "False"
-				},
-				function(){
+				var params = JSON.stringify({
+					water: true,
+					fertilizer: false
+				});
+				var id = self.props.params.id;
+				var url = '/apis/tree/' + id + '/care_tree';
+				$.post(url, params,
+					function(){
 					alert("pour water successfully!");
 				});
 			}
@@ -72,10 +81,13 @@ export default class Tree extends Component{
 			if(fertilizer <= 0){
 				alert("no more fertilizer to feed!");
 			}else{
-				$.post("/care_tree",{
-					water: "False",
-					fertilizer: "True"
-				},
+				var params = JSON.stringify({
+					water: false,
+					fertilizer: true
+				});
+				var id = self.props.params.id;
+				var url = '/apis/tree/' + id + '/care_tree';
+				$.post(url, params,
 				function(){
 					alert("give fertilizer successfully!");
 				});

@@ -8,6 +8,8 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import Cookie from 'js-cookie';
 
+import TagList from './TagList';
+
 import 'react-datepicker/dist/react-datepicker.css';
 import './timepicker.css';
 import './tags.css';
