@@ -34,17 +34,17 @@ export default class Tags extends Component{
     }
     render(){
 	return(
-		<div className="ui equal width center aligned padded grid">
-	    	<div className="blue row">
+		<div>
+	    	<div className="col-xs-12 label label-primary">
 		    	<h1>Tag</h1>
 		    </div>
-		    <div className="blue row">
+		    <div className="col-xs-12 label label-primary">
 		    	<div className="ui input">
 		    		<input type="text" ref="tag" />
 	    		</div>
 			</div>
-			<div className="ui accordion">
-				<div className="title" style={{"width":"300px"}}>
+			<div className="col-xs-12 ui accordion">
+				<div className="title">
 		    		<h2><i className="dropdown icon"></i>StartTime :</h2>
 			   		<DatePicker selected={this.state.startDate}
 					onChange={this.handleStartDate} />
@@ -61,7 +61,7 @@ export default class Tags extends Component{
 		    		<TimePicker onChange={this.handleEndTime} />
 				</div>
 			</div>
-			<div className="grey row">
+			<div className="col-xs-12 label label-default">
 		 		<input ref="submit" type="submit" className="ui button"
 		   		onClick={this.handleSubmit} />
 			</div>

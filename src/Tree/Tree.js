@@ -148,11 +148,11 @@ export default class Tree extends Component{
     }
     render(){
 	return(
-		<div className="ui equal width center aligned padded grid">
-	    	<div className="blue row">
+		<div>
+	    	<div className="col-xs-12 label label-primary">
 		    	<h1>Tree</h1>
 		    </div>
-			<div className="ui">
+			<div className="col-xs-12">
 		<img id="img" className="ui small left floated image" style = {{position:"relative", width: "62%", top: "8px"}}/>
 				<div style = {{position:"relative", top: "50px", fontSize:"120%"}}>
                 	<p className="item level" id = "level">
@@ -164,14 +164,14 @@ export default class Tree extends Component{
 				</div>
 		</div>
 		
-			<div className="grey row">
-                <div className="column">
+			<div className="col-xs-12 label label-default">
+                <div className="col-xs-6">
                     <div className="item water" id = "show_water" style = {{position:"relative", bottom: "8px"}}>
 						
                     </div>
 		 		    <input type="submit" className="ui button" id="water" value="浇水" />
                 </div>
-			    <div className="column">
+			    <div className="cocol-xs-6">
                     <div className="item fertilizer" id = "show_fertilizer" style = {{position:"relative", bottom: "8px"}}>
 						
                     </div>
@@ -179,7 +179,7 @@ export default class Tree extends Component{
 
                 </div>
             </div>
-            <div className="black row">
+            <div className="col-xs-12 label label-success">
             <h5>
                 生命之树生长规则：完成每日打卡，奖励浇水机会一次<br/>
                 完成每日挑战任务（每日一个），奖励施肥或浇水机会一次<br/>

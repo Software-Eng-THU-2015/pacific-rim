@@ -95,7 +95,7 @@ export default class Plan extends Component{
 				)
 		});
 		return (
-			<div className="ui centered grid">
+			<div>
 				<div className="ui horizontal divider"> 
 					<i className="check icon" />
 					Plans of Today

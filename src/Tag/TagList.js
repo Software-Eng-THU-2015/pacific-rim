@@ -42,7 +42,7 @@ export default class TagList extends Component{
 				)
 		});
 		return(
-				<div className="ui middle aligned animated list">
+				<div className="col-xs-12">
 					{list}
 				</div>
 		)
