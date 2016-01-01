@@ -10,6 +10,11 @@ import Tree from './Tree/Tree';
 
 
 export default class App extends Component {
+	constructor(props){
+		super(props);
+
+	}
+	
   render() {
     return (
 	<div>

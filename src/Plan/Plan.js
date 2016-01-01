@@ -15,17 +15,19 @@ var Events = Scroll.Events;
 export default class Plan extends Component{
 	constructor(props){
 		super(props);
+		const id = this.props.params.id;
 		this.state = {
 			planlist: [],
 		}
 	}
+	
 	updateData = () =>{
 		var params = {
 			'openid': this.props.params.id,
 			'start': moment().startOf('d').toISOString(),
 			'end': moment().endOf('d').toISOString(),
 		}
-		var url = '/apis/plans/get_list';
+		var url = '/apis/plans/get_list/';
 
 		$.get(url, params, (data)=>{
 			this.setState({
@@ -34,7 +36,27 @@ export default class Plan extends Component{
 		});
 	}
 	componentDidMount(){
+		var myopenid;
+		function getOpenid(){
+			var _code;
+			var reg = new RegExp("(^|&)code=([^&]*)(&|$)");
+			var r = window.location.search.substr(1).match(reg);
+			if(r!=null){
+				_code = unescape(r[2]);
+			} 
+			else
+				_code = "";
+			$.getJSON("/apis/getOpenid", {code: _code}, function(data){
+				window.location.href = "http://59.66.139.53/user/"+ data.openid +"/plan";
+			});
+		}
+		
+		if(window.location.href.substr(25, 4) == "shit"){
+			getOpenid();
+		}
+		
 		this.updateData();
+		
 		this.scrollEvent.register('begin', () =>{
 			console.log('begin', arguments);
 		});
@@ -46,6 +68,7 @@ export default class Plan extends Component{
 		this.scrollEvent.remove('begin');
 		this.scrollEvent.remove('end');
 	}
+	
 	handleDone = (item)=>{
 		var pid = item.pl_id;
 		console.log(pid);
@@ -110,7 +133,7 @@ export default class Plan extends Component{
 					Add A New Plan
 				</div>
 				<Element name="add_plan">
-					<AddPlan onSubmit={this.updateData} {...this.props} />
+						<AddPlan onSubmit={this.updateData} {...this.props} id = {this.myopenid} />
 				</Element>
 				<div id="add">
 					<Link to="add_plan" spy={true} smooth={true} duration={500} >

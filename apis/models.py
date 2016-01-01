@@ -27,7 +27,7 @@ class Tree(models.Model):
 
 class HistoryPlan(models.Model):
     hp_id = models.AutoField(primary_key=True, unique=True)
-    hp_user = models.ForeignKey(User, related_name='hp_user')
+    hp_user = models.ForeignKey(BandUser, related_name='hp_user')
     hp_date = models.DateField()
     hp_plan = models.IntegerField()
 
@@ -40,7 +40,7 @@ class Step(models.Model):
     st_step_number = models.IntegerField(default=0)
     st_calorie = models.IntegerField(default=0)
     st_distance = models.IntegerField(default=0)
-
+    
 
 class TagContent(models.Model):
     tc_id = models.AutoField(primary_key=True, unique=True)

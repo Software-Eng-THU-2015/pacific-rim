@@ -11,6 +11,7 @@ import './tags.css';
 export default class AddPlan extends Component{
     constructor(props){
 		super(props);
+		var myopenid;
 		this.state = {
 			startHour: 0,
 			startMin: 0,
@@ -23,6 +24,7 @@ export default class AddPlan extends Component{
 	}
 	componentDidMount(){
 		const id = this.props.params.id;
+		this.myopenid = id;
 		console.log(id);
 		$('.ui.accordion').accordion();
     }
@@ -86,7 +88,7 @@ export default class AddPlan extends Component{
 		fetch('/apis/plans/create/',{
 			method: 'post',
 			body: JSON.stringify({
-				openid: this.props.params.id,
+				openid: this.myopenid,
 				PL_TimeFrom:startTime,
 				PL_TimeTo:endTime,
 				PL_Goal:goal,

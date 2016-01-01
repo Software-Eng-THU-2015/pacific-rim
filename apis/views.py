@@ -14,6 +14,7 @@ from datetime import timedelta, time, datetime
 from django.views.decorators.csrf import csrf_exempt
 import codecs
 from django.utils import timezone
+import calendar
 from django.forms.models import model_to_dict
 
 
@@ -168,8 +169,9 @@ def insert_band_user(BU_WechatId):
     return True
 
 
-def get_steps(request, user):
+def get_steps(request):
     if request.method == 'GET':
+        user = request.GET.get('openid')
         user = BandUser.objects.get(bu_openid = user)
         start_time = request.GET.get('start_time', timezone.now().date())
         end_time = request.GET.get('end_time', timezone.now().date() + timedelta(1))
@@ -336,8 +338,9 @@ def update_band_user(request):
     else:
         return HttpResponse('')
 
-def get_tag_list(request, user_id):
+def get_tag_list(request):
     if request.method == 'GET':
+        user_id = request.GET["user_id"]
         try: 
             user = BandUser.objects.get(bu_openid = user_id)
         except ObjectDoesNotExist:
@@ -628,12 +631,20 @@ def get_plan_history(request):
     if request.method == 'GET':
         open_id = request.GET['openid']
         month = request.GET['month']
-        try:
-            user = BandUser.objects.get(openid=open_id)
-            entries = user.hp_user.filter(hp_date__month=month)
-            return JsonResponse({'entries': entries})
-        except ObjectDoesNotExist:
-            return JsonResponse({'entries': {}})
+        year = request.GET['month']
+        monthRange = calendar.monthrange(int(year), int(month))
+        i = 1
+        dict = []
+        while i <= int(monthRange[1]):
+            try:
+                user = BandUser.objects.get(bu_openid=open_id)
+                entries = user.hp_user.get(hp_date__month=month, hp_date__day=i)
+                flag = "true"
+            except ObjectDoesNotExist:
+                flag = "false"
+            dict.append({"day": i, "status": flag})
+            i = i + 1
+        return JsonResponse({'data': dict})
 
 
 def tag_main(request):
@@ -791,3 +802,12 @@ def test(request):
     if update_database_randomly(request.GET.get("openid")):
         return HttpResponse('yes')
 
+def test2(openid):
+    try:
+        bu = BandUser.objects.get(bu_openid=openid)
+    except ObjectDoesNotExist:
+        return False
+    bu.bu_tree_today_fertilizer += 1000
+    bu.bu_tree_today_watertime += 1000
+    bu.save()
+    return True

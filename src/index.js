@@ -22,7 +22,6 @@ ReactDOM.render((
     <Router history={history}>
 		<Router path='/' component={App}>
 			<Router path='about' component={About} />
-
 			<Router path='user/:id/chart' component={SparkLines} />
 			<Router path='user/:id/page' component={Page} />
 			<Router path='user/:id/stat' component={Stats} />

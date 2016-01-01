@@ -11,8 +11,8 @@ export default class TagList extends Component{
 	}
 	componentDidMount(){
 		var user_id = this.props.params.id;
-		var url = '/apis/tags/' + user_id + '/get_tag_list';
-		$.get(url, function(data){
+		var url = '/apis/tags/get_tag_list';
+		$.get(url, {"user_id": user_id}, function(data){
 			console.log(data);
 			this.setState({
 				tags: data.list

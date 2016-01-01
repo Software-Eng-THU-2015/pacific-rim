@@ -50,7 +50,7 @@ export default class Tree extends Component{
 	    		health = data.health;
 	    		water = data.water;
 	    		fertilizer = data.fertilizer;
-				if(nowDate.getHours() < 6 || nowDate.getHours() >1) {//for night
+				if(nowDate.getHours() < 6 && nowDate.getHours() >1) {//for night
 					$("#img").attr("src", "/img/"+level+"0.png")
 				}else {//for day
 					$("#img").attr("src", "/img/"+level+"1.png")

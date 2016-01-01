@@ -94,6 +94,8 @@ export default class Tags extends Component{
 		}).then(res => {
 			if(res.ok){
 				this.refs.submit.classList.add('teal');
+				console.log(2);
+				window.location.reload();
 			}
 		})
     }

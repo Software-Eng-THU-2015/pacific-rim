@@ -44,7 +44,7 @@ def handle(request):
 
     msg = parse_message(request.body)
     reply = TextReply(message = msg)
-    if msg.type == "event" and msg.key == "talk_with_tree":
+    if msg.type == "event" and msg.event == "click" and msg.key == "talk_with_tree":
         sessions[reply.target] = 1
 
     if not (reply.target in sessions):
@@ -63,7 +63,7 @@ def text_handle(request):
         return HttpResponse(create_reply("注入了数据！", message=msg))
 
     elif(content == "xp好帅"):
-    #    views.test2(new_uid)
+        views.test2(new_uid)
         return HttpResponse(create_reply("获得了浇水次数和施肥次数！！", message=msg))
 
     if(new_uid in sessions and sessions[new_uid] == 1):
@@ -123,12 +123,10 @@ def event_handle(request):
 
 
 # 用户关注事件
-def sub_event(msg):
-    return HttpResponse(create_reply("1！", message=msg))
+def sub_event(msg):     
     reply = TextReply(message = msg)
     new_uid = reply.target
     if(views.check_band_user(new_uid) == False):
-        return HttpResponse(create_reply("2！", message=msg))
         views.insert_band_user(new_uid)
         return HttpResponse(create_reply("太平洋手环保太平，欢迎您使用太平洋手环！", message=msg))
     else:

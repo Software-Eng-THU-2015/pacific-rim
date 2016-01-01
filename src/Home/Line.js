@@ -97,14 +97,17 @@ export default class ControllerChart extends Component{
 	    var weekUrl = Url + '?'  + $.param({
 	    	start_time,
 	    	end_time,
+			'openid': this.props.params.id,
 	    });
 	    var doubleWeekUrl = Url + '?'  + $.param({
 	    	'start_time': moment().subtract(14, 'd').toISOString(),
 	    	'end_time': moment().toISOString(),
+			'openid': this.props.params.id,
 	    });
 	    var monthUrl = Url + '?' + $.param({
 	       'start_time': moment().subtract(30, 'd').toISOString(),
 	       'end_time': moment().toISOString(),
+			'openid': this.props.params.id,
 	    });
 	    this.dataUrls = [weekUrl, doubleWeekUrl, monthUrl];
 	}
