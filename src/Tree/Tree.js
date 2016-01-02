@@ -149,10 +149,10 @@ export default class Tree extends Component{
     render(){
 	return(
 		<div>
-	    	<div className="col-xs-12 label label-primary">
+	    	<div className="col-xs-12 label label-primary" style={{"padding":"10px 10px 10px 10px"}}>
 		    	<h1>Tree</h1>
 		    </div>
-			<div className="col-xs-12">
+			<div className="col-xs-12" style={{"padding":"10px 10px 10px 10px"}}>
 		<img id="img" className="ui small left floated image"/>
 				<div>
                 	<p className="item level" id = "level">

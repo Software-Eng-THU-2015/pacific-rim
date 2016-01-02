@@ -37,7 +37,7 @@ export default class SparkLines extends Component {
 		];
 		var Buttons = _.map(btns, (item) => {
 			var BtnClass = classNames({
-				'ui button col-xs-3': true,
+				'ui button col-xs-4': true,
 				'teal': item.id == this.state.currentID,
 			});
 			return (
