@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 
 import { Router, Route, Link } from 'react-router';
-import About from './About';
-import Tags from './Tag/Tags';
-import History from './history/history';
-import Daily from './Daily/daily';
-import TodoApp from './components/TodoApp.react';
-import Tree from './Tree/Tree';
 
+import 'normalize.css';
 
 export default class App extends Component {
   render() {

@@ -95,29 +95,35 @@ export default class Plan extends Component{
 				)
 		});
 		return (
-			<div className="ui centered grid">
-				<div className="ui horizontal divider"> 
-					<i className="check icon" />
-					Plans of Today
-				</div>
-				<div className="ui segment">
-					<div className="ui cards">
-						{plans}
-					</div>
-				</div>
-				<div className="ui horizontal divider"> 
-					<i className="add icon" />
-					Add A New Plan
-				</div>
-				<Element name="add_plan">
-					<AddPlan onSubmit={this.updateData} {...this.props} />
-				</Element>
-				<div id="add">
-					<Link to="add_plan" spy={true} smooth={true} duration={500} >
-						<div className="ui red large tag label">
-							<i className="ui add icon" />
+			<div className="ui container">
+				<div className="ui centered grid">
+					<div className="row">
+						<div className="ui horizontal divider"> 
+							<i className="check icon" />
+							Plans of Today
 						</div>
-					</Link>
+						<div className="ui segment">
+							<div className="ui cards">
+								{plans}
+							</div>
+						</div>
+					</div>
+					<div className="row">
+						<div className="ui horizontal divider"> 
+							<i className="add icon" />
+							Add A New Plan
+						</div>
+						<Element name="add_plan">
+							<AddPlan onSubmit={this.updateData} {...this.props} />
+						</Element>
+					</div>
+					<div id="add">
+						<Link to="add_plan" spy={true} smooth={true} duration={500} >
+							<div className="ui red large tag label">
+								<i className="ui add icon" />
+							</div>
+						</Link>
+					</div>
 				</div>
 			</div>
 		)

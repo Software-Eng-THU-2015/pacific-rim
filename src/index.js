@@ -9,8 +9,6 @@ import About from './About';
 import TagWrapper from './Tag/TagWrapper';
 import Plan from './Plan/Plan';
 import History from './history/history';
-import Daily from './Daily/daily';
-import TodoApp from './components/TodoApp.react';
 import Tree from './Tree/Tree'
 
 import Page from './Page';
@@ -29,8 +27,6 @@ ReactDOM.render((
 			<Router path='user/:id/stat' component={Stats} />
 			<Router path='user/:id/tag' component={TagWrapper} />
 			<Router path='user/:id/plan' component={Plan} />
-			<Router path='user/:id/daily' component={Daily} />
-			<Router path='user/:id/todo' component={TodoApp} />
 			<Router path='user/:id/tree' component={Tree} />
 			<Router path='user/:id/history' component={History} />
 		</Router>
