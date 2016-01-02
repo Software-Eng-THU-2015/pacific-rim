@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 import datetime
 # Create your models here.
 
+
 class BandUser(models.Model):
     bu_user = models.OneToOneField(User, null=True)
     bu_band = models.IntegerField(default=0)

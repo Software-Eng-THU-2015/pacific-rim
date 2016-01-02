@@ -34,6 +34,7 @@ mission_detail = [
     }
 ]
 
+
 @csrf_exempt
 def handle(request):
     if request.method == "GET":
@@ -51,32 +52,33 @@ def handle(request):
         sessions[reply.target] = 0 
     return msg_splitter[msg.type](request)
 
+
 # 对文本信息进行回复
 def text_handle(request):
     msg = parse_message(request.body)
-    reply = TextReply(message = msg)
+    reply = TextReply(message=msg)
     content = msg.content
     new_uid = reply.target
 
-    if (content == "来数据"):
+    if content == "来数据":
         views.update_database_randomly(new_uid)
         return HttpResponse(create_reply("注入了数据！", message=msg))
 
-    elif(content == "xp好帅"):
+    elif content == "xp好帅":
         views.test2(new_uid)
         return HttpResponse(create_reply("获得了浇水次数和施肥次数！！", message=msg))
 
-    if(new_uid in sessions and sessions[new_uid] == 1):
-        if (content == "退出"):
+    if new_uid in sessions and sessions[new_uid] == 1:
+        if content == "退出":
             sessions[reply.target] = 0
             return HttpResponse(create_reply("生命之树期待与您再次相会", message=msg))
         rebot_key = "da0d72f6aacebe4301f685e2c11f22c0"
         url = "http://www.tuling123.com/openapi/api?key=%s&info=%s" % (rebot_key,urllib.parse.quote(content))
-  #      return HttpResponse(create_reply(u"生命之树期待与您再次相会", message=msg))
+#       return HttpResponse(create_reply(u"生命之树期待与您再次相会", message=msg))
         response = urllib.request.urlopen(url).read()         #调用urllib2向服务器发送get请求url
         reply_text = json.loads(response.decode("utf-8"))['text']
         reply_text.replace('图灵机器人','生命之树')
- #       reply_text.replace(u'图灵机器人'.encode('utf-8'),u'生命之树')
+#       reply_text.replace(u'图灵机器人'.encode('utf-8'),u'生命之树')
         return HttpResponse(create_reply(reply_text, message=msg))
         
     if(views.check_band_user(new_uid) == False):
@@ -124,9 +126,9 @@ def event_handle(request):
 
 # 用户关注事件
 def sub_event(msg):     
-    reply = TextReply(message = msg)
+    reply = TextReply(message=msg)
     new_uid = reply.target
-    if(views.check_band_user(new_uid) == False):
+    if views.check_band_user(new_uid) == False:
         views.insert_band_user(new_uid)
         return HttpResponse(create_reply("太平洋手环保太平，欢迎您使用太平洋手环！", message=msg))
     else:
@@ -185,6 +187,7 @@ def click_event(request):
             return HttpResponse(create_reply(u"本日打卡成功！", message=request))
         else:
             return HttpResponse(create_reply(u"您本日的运动计划尚未完成，继续努力吧！", message=request))
+
 
 # 点击菜单跳转链接事件
 def view_event(msg):
