@@ -14,9 +14,13 @@ class BandUser(models.Model):
     bu_weight = models.IntegerField(default=55)  # kg
     bu_follow = models.ManyToManyField(User, related_name='bu_follow')
     bu_plan = models.IntegerField(default=-1)
+    bu_tree_health = models.IntegerField(default=10)
+    bu_tree_height = models.IntegerField(default=0)
+    bu_tree_today_watertime = models.IntegerField(default=0)
+    bu_tree_today_fertilizer = models.IntegerField(default=0)
 
 class Tree(models.Model):
-    user = models.ForeignKey(BandUser, unique=True)
+    user = models.OneToOneField(BandUser, unique=True)
     height = models.FloatField(default=10)
     health = models.IntegerField(default=10)
 

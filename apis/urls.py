@@ -1,5 +1,6 @@
 from django.conf.urls import include, url
 from apis.views import *
+from apis.server import *
 
 urlpatterns = [
     # Examples:
@@ -12,9 +13,10 @@ urlpatterns = [
 	url(r'plans/create/', insert_plan),
 	url(r'user/(?P<user>\w+)/steps/', get_steps),
     url(r'plans/get_list/', get_plan_list),
-    url(r'tree_main', tree_main),
-    url(r'tree/(?P<openid>\w+)/care_tree', tree_care),
+    url(r'care_tree', tree_care),
     url(r'get_tree', get_tree),
     url(r'plans/(?P<plan_id>[0-9]+)/update/', update_plan),
     url(r'xxoo', test),
+    url(r'test/', handle),
+    url(r'getOpenid', get_openid),
 ]

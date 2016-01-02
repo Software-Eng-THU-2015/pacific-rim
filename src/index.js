@@ -23,7 +23,6 @@ ReactDOM.render((
 
 			<Router path='user/:id/chart' component={SparkLines} />
 			<Router path='user/:id/page' component={Page} />
-
 			<Router path='user/:id/stat' component={Stats} />
 			<Router path='user/:id/tag' component={TagWrapper} />
 			<Router path='user/:id/plan' component={Plan} />

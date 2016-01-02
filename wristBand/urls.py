@@ -5,7 +5,7 @@ from apis.views import index
 # from apis import views
 from apis import server
 # from apis import models
-
+import apis.urls
 
 urlpatterns = [
     # Examples:
@@ -13,9 +13,8 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^apis/', include('apis.urls')),
+    url(r'^apis/', include(apis.urls)),
     url(r'^$', index),
-    url(r'^test/', server.handle),
     url(r'^xp/', apis.views.insert_band_user_test),
     url(r'^tag_main', apis.views.tag_main),
     url(r'^update', apis.views.update_database),

@@ -3,7 +3,6 @@ import hashlib
 import httplib2  # for python3
 import os
 
-import httplib2  # for python2
 #import http
 import json
 import os
@@ -26,12 +25,11 @@ def check_signature(request):
         nonce = request.GET["nonce"]
     except KeyError:
         return False
-
     token = TOKEN
     tmp = [timestamp, nonce, token]
     tmp.sort()
     tmp_str = "%s%s%s" % tuple(tmp)
-    tmp_str = hashlib.sha1(tmp_str).hexdigest()
+    tmp_str = hashlib.sha1(tmp_str.encode("utf-8")).hexdigest()
     return tmp_str == sign
 
 
