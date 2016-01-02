@@ -73,15 +73,15 @@ export default class Plan extends Component{
 		var pid = item.pl_id;
 		console.log(pid);
 		var url = '/apis/plans/' + pid + '/update/';
-		fetch(url, {
-			method: 'post',
-			body: JSON.stringify({
-				status: true,
-			})
-		}).then(res => {
-			console.log(res.json())
-		})
-		this.updateData();
+		$.post(url,JSON.stringify({status: true,}), function(data){
+			if(data.res == "notok"){
+				alert("您今天的计划还没完成呢，继续努力吧~~");
+			}
+			else{
+				this.updateData();
+			}
+		});
+
 	}
 	componentDidUpdate(){
 	}
@@ -112,13 +112,13 @@ export default class Plan extends Component{
 						</div>
 					</div>
 					<div className="extra content">
-						<div ref="done" onClick={this.handleDone.bind(this, item)} className={BtnClass} >Done</div>
+						<div ref="计划完成！" onClick={this.handleDone.bind(this, item)} className={BtnClass} >Done</div>
 					</div>
 				</div>
 				)
 		});
 		return (
-			<div className="ui centered grid">
+			<div>
 				<div className="ui horizontal divider"> 
 					<i className="check icon" />
 					Plans of Today

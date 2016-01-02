@@ -30,22 +30,22 @@ export default class AddPlan extends Component{
     }
     render(){
 		return(
-			<div className="ui equal width center aligned padded grid">
-				<div className="blue row">
+			<div>
+				<div className="col-xs-12 label label-primary">
 					<h1>New Plan</h1>
 				</div>
-				<div className="blue row">
+				<div className="col-xs-12 label label-primary">
 					<div className="ui input">
-						<input placeholder="goal" type="text" ref="goal" />
+						<input placeholder="计划每日里程数" type="text" ref="goal" />
 					</div>
 				</div>
-				<div className="grey row">
+				<div className="col-xs-12 label label-default">
 					<div className="ui input">
-						<input placeholder="description" type="text" ref="description" />
+						<input placeholder="起个好听的名字" type="text" ref="description" />
 					</div>
 				</div>
-				<div className="ui accordion">
-					<div className="title" style={{"width":"300px"}}>
+				<div className="col-xs-12 ui accordion">
+					<div className="title">
 						<h2><i className="dropdown icon"></i>StartTime :</h2>
 						<DatePicker selected={this.state.startDate}
 						onChange={this.handleStartDate} />
@@ -62,7 +62,7 @@ export default class AddPlan extends Component{
 						<TimePicker onChange={this.handleEndTime} />
 					</div>
 				</div>
-				<div className="grey row">
+				<div className="col-xs-12 label label-default">
 					<input ref="submit" type="submit" className="ui button"
 					onClick={this.handleSubmit} />
 				</div>
@@ -84,22 +84,25 @@ export default class AddPlan extends Component{
 			hour: this.state.endHour,
 			minute: this.state.endMin,
 		});
-
-		fetch('/apis/plans/create/',{
-			method: 'post',
-			body: JSON.stringify({
+		if(isNaN(goal)){
+			alert("亲，您的计划里程数好像不太对哦~");
+			return;
+		}
+		$.post('/apis/plans/create/',JSON.stringify({
 				openid: this.myopenid,
 				PL_TimeFrom:startTime,
 				PL_TimeTo:endTime,
 				PL_Goal:goal,
 				PL_Description:description,
-			})
-		}).then(res => {
-			if(res.ok){
-				this.refs.submit.classList.add('teal');
-				this.props.onSubmit();
-			}
-		})
+			}), function(data){
+				if(data.res == 'ok'){
+					this.refs.submit.classList.add('teal');
+					this.props.onSubmit();
+				}
+				else{
+					alert("您还有未结束的计划呢~");
+				}
+			}.bind(this));
 	}
     handleEndDate = (date) =>{
 		this.setState({

@@ -9,14 +9,11 @@ export default class TagWrapper extends Component{
 	}
 	render(){
 		return (
-			<div className="ui two column middle aligned very relaxed stackable grid">
-				<div className="column">
+			<div style={{"textAlign":"center"}}>
+				<div className="col-xs-12">
 					<TagList {...this.props} />
 				</div>
-				<div className="ui vertical divider">
-					OR
-				</div>
-				<div className="center aligned column">
+				<div className="col-xs-12">
 					<Tags {...this.props} />
 				</div>
 			</div>

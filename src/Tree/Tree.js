@@ -179,6 +179,7 @@ export default class Tree extends Component{
 
                 </div>
             </div>
+
             <div className="col-xs-12 label label-success">
             	<h5>
                 生命之树生长规则：完成每日打卡，奖励浇水机会一次<br/>

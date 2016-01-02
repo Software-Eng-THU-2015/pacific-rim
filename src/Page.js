@@ -29,7 +29,7 @@ export default class Page extends Component{
 		return(
 			<div className="ui container">
 				<SparkLines {...this.props} />
-				<div className="ui centered grid">
+				<div className="col-xs-12">
 					<div className="row">
 						<div className="ui tag blue label" onClick={this.showTagWrapper}> Show Tags </div>
 					</div>

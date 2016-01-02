@@ -138,6 +138,7 @@ def update_database(request):
 
         return HttpResponse("^-^")                     #获取服务器返回的页面信息
 
+
 def insert_band_user(request):
     if request.method == 'POST':
         bu = BandUser()
@@ -149,15 +150,6 @@ def insert_band_user(request):
         bu.bu_weight = request.POST.get('BU_Weight')
         bu.save()
         return HttpResponse('success')
-    else:
-        return HttpResponse('fail')
-
-def insert_band_user_test(request):
-    if request.method == 'GET':
-        bu = BandUser()
-        bu.bu_openid = request.GET.get('BU_WechatId')
-        bu.save()
-        return HttpResponse('yes')
     else:
         return HttpResponse('fail')
 
@@ -183,7 +175,6 @@ def get_steps(request):
             res['data'].append(model_to_dict(step))
         return HttpResponse(json.dumps(res,
             default=date_handler),content_type='application/json')
-        
 
 
 def insert_step(request):
@@ -233,19 +224,25 @@ def insert_tag(request):
 def insert_plan(request):
     if request.method == 'POST':
         data = ujson.loads(request.body)
-        pl = Plan()
         openid = data.get('openid')
         user = BandUser.objects.get(bu_openid = openid)
-        pl.pl_user = user
-        pl.pl_time_from = data.get('PL_TimeFrom')
-        pl.pl_time_to = data.get('PL_TimeTo')
-        pl.pl_time = data.get('PL_Time')
-        pl.pl_goal = data.get('PL_Goal')
-        pl.pl_description = data.get('PL_Description')
-
-        pl.save()
-        return HttpResponse(ujson.dumps({'res':'ok'}),
+        now_time = timezone.now().date()
+        print (now_time)
+        pl = Plan.objects.filter(pl_time_from__lte =data.get('PL_TimeFrom'), pl_time_to__gte = data.get('PL_TimeTo'), pl_user = user)
+        print (pl.count())
+        if(pl.count() == 0):
+            pl = Plan()
+            pl.pl_user = user
+            pl.pl_time_from = data.get('PL_TimeFrom')
+            pl.pl_time_to = data.get('PL_TimeTo')
+            pl.pl_time = data.get('PL_Time')
+            pl.pl_goal = data.get('PL_Goal')
+            pl.pl_description = data.get('PL_Description')
+            pl.save()
+            return HttpResponse(ujson.dumps({'res':'ok'}),
                 content_type="application/json")
+        return HttpResponse(ujson.dumps({'res':'notok'}),
+            content_type="application/json")
 
 
 def insert_health(request):
@@ -382,16 +379,30 @@ def update_tag(request, tag_id):
 
 @csrf_exempt
 def update_plan(request, plan_id):
-    if request.method == 'POST':
+    if request.method == 'POST' or request.method == 'GET':
         print(plan_id)
-        data = ujson.loads(request.body)
         try:
-            pl = Plan.objects.filter(pl_id = plan_id).update(**data)
-            return HttpResponse(json.dumps({'res':'ok'}),
+            pl = Plan.objects.get(pl_id = plan_id)
+            user = pl.pl_user
+            try:
+                start_time = timezone.now().date()
+                steps = user.steps.filter(st_time__gte=start_time)
+                totalstep = 0
+                for step in steps:
+                    totalstep += step.st_step_number
+                if(totalstep > int(pl.pl_goal)):
+                    return HttpResponse(json.dumps({'res':'ok'}),
+                        content_type='application/json')
+                else:
+                    return HttpResponse(json.dumps({'res':'notok'}),
+                        content_type='application/json')
+            except ObjectDoesNotExist:
+                return HttpResponse(json.dumps({'res': 'notok'}),
                     content_type='application/json')
         except ObjectDoesNotExist:
             return HttpResponse(json.dumps({'err': 'invalid pid'}),
                     content_type='application/json')
+
 
 # def update_plan(request, plan_id):
 #     if request.method == 'POST':
@@ -597,21 +608,6 @@ def get_openid(request):
         openid = js["openid"]
         jsonfile = json.dumps({"openid": openid})
         return  HttpResponse(jsonfile)                 #获取服务器返回的页面信息
-
-
-def check_plan(open_id):
-    user = BandUser.objects.get(openid=open_id)
-    total = 0
-    if user:
-        today = datetime.today()
-        entries = user.st_user.filter(st_time__year=today.year, st_time__month=today.month, st_time__day=today.day)
-        for x in entries:
-            total += x.st_step_number
-        if total >= plan_detail[user.bu_plan]:
-            return True
-        else:
-            return False
-    return False
 
 
 def update_plan_history(open_id):
