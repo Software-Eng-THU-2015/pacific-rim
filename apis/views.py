@@ -62,18 +62,6 @@ def date_handler(obj):
     return obj.isoformat() if hasattr(obj, 'isoformat') else obj
 
 
-def get_plan(request):
-    if request.method == 'GET':
-        openid = request.GET["openid"]
-        user = BandUser.objects.get(bu_openid=openid)
-        planid = request.GET["planid"]
-        if user:
-            return JsonResponse(plan_detail[planid])
-        else:
-            return HttpResponse('user not found!')
-    return HttpResponse('')
-
-
 def update_database(request):
     if request.method == "GET":
         start_year = request.GET["start_year"]  # like 2015
