@@ -52,8 +52,7 @@ export default class AddPlan extends Component{
 
 		<div className="title">
 			<h2>EndDate :</h2>
-			<DatePicker selected={this.state.endDate}
-			onChange={this.handleEndDate} />
+			<DatePicker selected={this.state.endDate} onChange={this.handleEndDate} />
 		</div>
 	</div>
 	<div className="col-xs-12 label label-default">
