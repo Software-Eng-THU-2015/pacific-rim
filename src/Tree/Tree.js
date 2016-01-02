@@ -153,8 +153,8 @@ export default class Tree extends Component{
 		    	<h1>Tree</h1>
 		    </div>
 			<div className="col-xs-12">
-		<img id="img" className="ui small left floated image" style = {{position:"relative", width: "62%", top: "8px"}}/>
-				<div style = {{position:"relative", top: "50px", fontSize:"120%"}}>
+		<img id="img" className="ui small left floated image"/>
+				<div>
                 	<p className="item level" id = "level">
                 	</p>
                 	<p className="item health" id = "health">
@@ -164,15 +164,15 @@ export default class Tree extends Component{
 				</div>
 		</div>
 		
-			<div className="col-xs-12 label label-default">
+			<div className="col-xs-12 label label-default" style={{"padding":"10px 10px 10px 10px"}}>
                 <div className="col-xs-6">
-                    <div className="item water" id = "show_water" style = {{position:"relative", bottom: "8px"}}>
+                    <div className="item water" id = "show_water">
 						
                     </div>
 		 		    <input type="submit" className="ui button" id="water" value="浇水" />
                 </div>
 			    <div className="cocol-xs-6">
-                    <div className="item fertilizer" id = "show_fertilizer" style = {{position:"relative", bottom: "8px"}}>
+                    <div className="item fertilizer" id = "show_fertilizer">
 						
                     </div>
 		 		    <input type="submit" className="ui button" id="fertilizer" value="施肥" />
@@ -180,13 +180,13 @@ export default class Tree extends Component{
                 </div>
             </div>
 
-            <div className="col-xs-12 label label-success">
+            <div className="col-xs-12 label label-success" style={{"padding":"10px 10px 10px 10px"}}>
             	<h5>
-                生命之树生长规则：完成每日打卡，奖励浇水机会一次<br/>
-                完成每日挑战任务（每日一个），奖励施肥或浇水机会一次<br/>
+                生命之树生长规则：完成每日打卡，奖浇水机会一次<br/>
+                完成每日挑战任务（每日一个），奖施肥或浇水机会一次<br/>
                 设健康度为x（0到10，初始为10）<br/>
-                施肥：x大于等于6时，树高度增加2cm;x小于6的时候，树高度增加0.4*x cm;增加一点健康度（上限10）<br/>
-                浇水：x大于等于6时，树高度增加1cm;x小于6的时候，树高度增加0.2*x cm;增加一点健康度（上限10）<br/>
+                施肥：x大于等于6时，树高度增加2cm;<br/>x小于6的时候，树高度增加0.4*x cm;<br/>增加一点健康度（上限10）<br/>
+                浇水：x大于等于6时，树高度增加1cm;<br/>x小于6的时候，树高度增加0.2*x cm;<br/>增加一点健康度（上限10）<br/>
                 每日0点，所有树健康度降低1点，最低到0<br/>
                 </h5>
             </div>

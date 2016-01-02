@@ -35,17 +35,17 @@ export default class Tags extends Component{
     render(){
 	return(
 		<div>
-	    	<div className="col-xs-12 label label-primary">
+	    	<div className="col-xs-12 label label-primary" style={{"padding":"10px 10px 10px 10px"}}>
 		    	<h1>Tag</h1>
 		    </div>
-		    <div className="col-xs-12 label label-primary">
+		    <div className="col-xs-12 label label-primary" style={{"padding":"10px 10px 10px 10px"}}>
 		    	<div className="ui input">
 		    		<input type="text" ref="tag" />
 	    		</div>
 			</div>
-			<div className="col-xs-12 ui accordion">
+			<div className="col-xs-12 ui accordion" style={{"padding":"10px 10px 10px 10px"}}>
 				<div className="title">
-		    		<h2><i className="dropdown icon"></i>StartTime :</h2>
+		    		<h3><i className="dropdown icon"></i>StartTime:</h3>
 			   		<DatePicker selected={this.state.startDate}
 					onChange={this.handleStartDate} />
 				</div>
@@ -53,7 +53,7 @@ export default class Tags extends Component{
 		    		<TimePicker onChange={this.handleStartTime} />
 				</div>
 				<div className="title">
-		    		<h2><i className="dropdown icon"></i>EndTime :</h2>
+		    		<h3><i className="dropdown icon"></i>EndTime:</h3>
 		    		<DatePicker selected={this.state.endDate}
 					onChange={this.handleEndDate} />
 				</div>
@@ -61,7 +61,7 @@ export default class Tags extends Component{
 		    		<TimePicker onChange={this.handleEndTime} />
 				</div>
 			</div>
-			<div className="col-xs-12 label label-default">
+			<div className="col-xs-12 label label-default" style={{"padding":"10px 10px 10px 10px"}}>
 		 		<input ref="submit" type="submit" className="ui button"
 		   		onClick={this.handleSubmit} />
 			</div>
