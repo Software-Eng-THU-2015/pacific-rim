@@ -42,3 +42,7 @@
 	bottom: 30px;
 	right: 10px;
 }
+
+.ui.container{
+	max-width: 600px;
+}

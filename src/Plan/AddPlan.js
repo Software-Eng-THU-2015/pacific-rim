@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import TimePicker from 'react-timepicker';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
@@ -30,43 +29,38 @@ export default class AddPlan extends Component{
     }
     render(){
 		return(
-			<div>
-				<div className="col-xs-12 label label-primary">
-					<h1>New Plan</h1>
-				</div>
-				<div className="col-xs-12 label label-primary">
-					<div className="ui input">
-						<input placeholder="计划每日里程数" type="text" ref="goal" />
-					</div>
-				</div>
-				<div className="col-xs-12 label label-default">
-					<div className="ui input">
-						<input placeholder="起个好听的名字" type="text" ref="description" />
-					</div>
-				</div>
-				<div className="col-xs-12 ui accordion">
-					<div className="title">
-						<h2><i className="dropdown icon"></i>StartTime :</h2>
-						<DatePicker selected={this.state.startDate}
-						onChange={this.handleStartDate} />
-					</div>
-					<div className="content">
-						<TimePicker onChange={this.handleStartTime} />
-					</div>
-					<div className="title">
-						<h2><i className="dropdown icon"></i>EndTime :</h2>
-						<DatePicker selected={this.state.endDate}
-						onChange={this.handleEndDate} />
-					</div>
-					<div className="content">
-						<TimePicker onChange={this.handleEndTime} />
-					</div>
-				</div>
-				<div className="col-xs-12 label label-default">
-					<input ref="submit" type="submit" className="ui button"
-					onClick={this.handleSubmit} />
-				</div>
-			</div>
+<div>
+	<div className="col-xs-12 label label-primary">
+		<h1>New Plan</h1>
+	</div>
+	<div className="col-xs-12 label label-primary">
+		<div className="ui input">
+			<input placeholder="计划每日里程数" type="text" ref="goal" />
+		</div>
+	</div>
+	<div className="col-xs-12 label label-default">
+		<div className="ui input">
+			<input placeholder="起个好听的名字" type="text" ref="description" />
+		</div>
+	</div>
+	<div className="col-xs-12 ui accordion">
+		<div className="title">
+			<h2>StartDate:</h2>
+			<DatePicker selected={this.state.startDate}
+			onChange={this.handleStartDate} />
+		</div>
+
+		<div className="title">
+			<h2>EndDate :</h2>
+			<DatePicker selected={this.state.endDate}
+			onChange={this.handleEndDate} />
+		</div>
+	</div>
+	<div className="col-xs-12 label label-default">
+		<input ref="submit" type="submit" className="ui button"
+		onClick={this.handleSubmit} />
+	</div>
+</div>
 		)
     }
 
@@ -76,13 +70,13 @@ export default class AddPlan extends Component{
 		let description = this.refs.description.value;
 		let startTime = this.state.startDate;
 		startTime = startTime.set({
-			hour: this.state.startHour,
-			minute: this.state.startMin,
+			hour: 0,
+			minute: 0,
 		});
 		let endTime = this.state.endDate;
 		endTime = endTime.set({
-			hour: this.state.endHour,
-			minute: this.state.endMin,
+			hour: 23,
+			minute: 59,
 		});
 		if(isNaN(goal)){
 			alert("亲，您的计划里程数好像不太对哦~");

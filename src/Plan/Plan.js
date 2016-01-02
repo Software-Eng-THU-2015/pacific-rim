@@ -86,65 +86,65 @@ export default class Plan extends Component{
 	componentDidUpdate(){
 	}
 	render(){
-		var plans = _.map(this.state.plans, (item, idx)=>{
-			var BtnClass = classNames({
-				'ui right floated button': true,
-				'basic green': !item.status,
-				'teal': item.status,
-			})
-			var start_time = moment(item.pl_time_from).format("YYYY-MM-DD HH:mm");
-			var end_time = moment(item.pl_time_to).format( "YYYY-MM-DD HH:mm");
-			console.log(start_time, end_time);
-			return(
-				<div key={idx} className="ui card">
-					<div className="content">
-						<div className="header">
-							{item.pl_goal}
+			var plans = _.map(this.state.plans, (item, idx)=>{
+				var BtnClass = classNames({
+					'ui right floated button': true,
+					'basic green': !item.status,
+					'teal': item.status,
+				})
+				var start_time = moment(item.pl_time_from).format("YYYY-MM-DD HH:mm");
+				var end_time = moment(item.pl_time_to).format( "YYYY-MM-DD HH:mm");
+				console.log(start_time, end_time);
+				return(
+					<div key={idx} className="ui card">
+						<div className="content">
+							<div className="header">
+								{item.pl_goal}
+							</div>
+							<div className="meta">
+								{item.pl_description}
+							</div>
+							<div className="description">
+								{start_time}
+							</div>
+							<div className="description">
+								{end_time}
+							</div>
 						</div>
-						<div className="meta">
-							{item.pl_description}
-						</div>
-						<div className="description">
-							{start_time}
-						</div>
-						<div className="description">
-							{end_time}
+						<div className="extra content">
+							<div ref="done" onClick={this.handleDone.bind(this, item)} className={BtnClass} >Done</div>
 						</div>
 					</div>
-					<div className="extra content">
-						<div ref="计划完成！" onClick={this.handleDone.bind(this, item)} className={BtnClass} >Done</div>
+					)
+			});
+			return (
+				<div>
+					<div className="ui horizontal divider"> 
+						<i className="check icon" />
+						Plans of Today
 					</div>
-				</div>
-				)
-		});
-		return (
-			<div>
-				<div className="ui horizontal divider"> 
-					<i className="check icon" />
-					Plans of Today
-				</div>
-				<div className="ui segment">
-					<div className="ui cards">
-						{plans}
-					</div>
-				</div>
-				<div className="ui horizontal divider"> 
-					<i className="add icon" />
-					Add A New Plan
-				</div>
-				<Element name="add_plan">
-						<AddPlan onSubmit={this.updateData} {...this.props} id = {this.myopenid} />
-				</Element>
-				<div id="add">
-					<Link to="add_plan" spy={true} smooth={true} duration={500} >
-						<div className="ui red large tag label">
-							<i className="ui add icon" />
+					<div className="ui segment">
+						<div className="ui cards">
+							{plans}
 						</div>
-					</Link>
+					</div>
+					<div className="ui horizontal divider"> 
+						<i className="add icon" />
+						Add A New Plan
+					</div>
+					<Element name="add_plan">
+						<AddPlan onSubmit={this.updateData} {...this.props} />
+					</Element>
+					<div id="add">
+						<Link to="add_plan" spy={true} smooth={true} duration={500} >
+							<div className="ui red large tag label">
+								<i className="ui add icon" />
+							</div>
+						</Link>
+					</div>
 				</div>
-			</div>
-		)
+			)
+		}
 	}
-}
 
-reactMixin(Plan.prototype, Events);
+	reactMixin(Plan.prototype, Events);

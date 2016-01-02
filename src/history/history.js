@@ -138,7 +138,7 @@
 		return(
 			<div>
 				<div>
-					<div className = "col-xs-12 label label-primary"><h1>History</h1></div>
+					<div className = "col-xs-12 label label-primary"><h1>Hssistory</h1></div>
 					<div className = "col-xs-6 label-info"><h2>{this.state.currentMon}</h2></div>
 					<div className = "col-xs-6 label-info"><h2>{this.state.currentYear}</h2></div>
 					<div className = "col-xs-12">

@@ -7,7 +7,6 @@ module.exports = {
   entry: [
     './src/index'
   ],
-  devtool: 'eval-source-map', 
   output: {
     path: path.join(__dirname, 'static'),
     filename: 'bundle.js',
@@ -17,7 +16,9 @@ module.exports = {
       new ExtractTextPlugin('spec.css', {allChunks: true}),
 	  new webpack.ProvidePlugin({
 		  'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-	  })
+	  }),
+	  new webpack.optimize.UglifyJsPlugin(),
+	  new webpack.optimize.DedupePlugin()
   ],
   resolve: {
       extensions: ['', '.jsx', '.scss', '.js', '.json']

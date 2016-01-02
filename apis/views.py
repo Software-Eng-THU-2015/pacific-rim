@@ -228,7 +228,7 @@ def insert_plan(request):
         user = BandUser.objects.get(bu_openid = openid)
         now_time = timezone.now().date()
         print (now_time)
-        pl = Plan.objects.filter(pl_time_from__lte =data.get('PL_TimeFrom'), pl_time_to__gte = data.get('PL_TimeTo'), pl_user = user)
+        pl = Plan.objects.filter(pl_user = user)
         print (pl.count())
         if(pl.count() == 0):
             pl = Plan()
@@ -390,7 +390,8 @@ def update_plan(request, plan_id):
                 totalstep = 0
                 for step in steps:
                     totalstep += step.st_step_number
-                if(totalstep > int(pl.pl_goal)):
+                if(totalstep >= int(pl.pl_goal)):
+                    update_plan_history(user.bu_openid)
                     return HttpResponse(json.dumps({'res':'ok'}),
                         content_type='application/json')
                 else:
@@ -403,6 +404,7 @@ def update_plan(request, plan_id):
             return HttpResponse(json.dumps({'err': 'invalid pid'}),
                     content_type='application/json')
 
+    
 
 # def update_plan(request, plan_id):
 #     if request.method == 'POST':
@@ -611,15 +613,12 @@ def get_openid(request):
 
 
 def update_plan_history(open_id):
-    user = BandUser.objects.get(openid=open_id)
-    if user.bu_today_done:
-        hp = HistoryPlan()
-        hp.hp_user = user
-        hp.hp_date = datetime.today()
-        hp.hp_plan = user.bu_plan
-        hp.save()
-    user.bu_today_done = False
-    user.save()
+    user = BandUser.objects.get(bu_openid=open_id)
+    hp = HistoryPlan()
+    hp.hp_user = user
+    hp.hp_date = datetime.today()
+    hp.hp_plan = user.bu_plan
+    hp.save()
     return
 
 
