@@ -25,38 +25,35 @@ export default class AddPlan extends Component{
 		const id = this.props.params.id;
 		this.myopenid = id;
 		console.log(id);
-		$('.ui.accordion').accordion();
     }
     render(){
 		return(
 <div>
-	<div className="col-xs-12 label label-primary">
+	<div className="col-xs-12 label label-primary" style={{"padding":"10px 10px 10px 10px"}}>
 		<h1>New Plan</h1>
 	</div>
-	<div className="col-xs-12 label label-primary">
+	<div className="col-xs-12 label label-primary" style={{"padding":"10px 10px 10px 10px"}}>
 		<div className="ui input">
 			<input placeholder="计划每日里程数" type="text" ref="goal" />
 		</div>
 	</div>
-	<div className="col-xs-12 label label-default">
+	<div className="col-xs-12 label label-default" style={{"padding":"10px 10px 10px 10px"}}>
 		<div className="ui input">
 			<input placeholder="起个好听的名字" type="text" ref="description" />
 		</div>
 	</div>
-	<div className="col-xs-12 ui accordion">
-		<div className="title">
-			<h2>StartDate:</h2>
+	<div className="col-xs-12" style={{"padding":"10px 10px 10px 10px"}}>
+			<h3>StartDate:</h3>
 			<DatePicker selected={this.state.startDate}
 			onChange={this.handleStartDate} />
 		</div>
-
 		<div className="title">
-			<h2>EndDate :</h2>
-			<DatePicker selected={this.state.endDate} onChange={this.handleEndDate} />
-		</div>
+			<h3>EndDate:</h3>
+			<DatePicker selected={this.state.endDate}
+			onChange={this.handleEndDate} /><br/>
 	</div>
-	<div className="col-xs-12 label label-default">
-		<input ref="submit" type="submit" className="ui button"
+	<div className="col-xs-12 label label-default" style={{"padding":"10px 10px 10px 10px"}}>
+		<input value = "创建计划" ref="submit" type="submit" className="ui button"
 		onClick={this.handleSubmit} />
 	</div>
 </div>
@@ -77,7 +74,7 @@ export default class AddPlan extends Component{
 			hour: 23,
 			minute: 59,
 		});
-		if(isNaN(goal)){
+		if(typeof(goal) == "undefined" || isNaN(goal)){
 			alert("亲，您的计划里程数好像不太对哦~");
 			return;
 		}

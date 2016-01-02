@@ -16,7 +16,6 @@ urlpatterns = [
     url(r'care_tree', tree_care),
     url(r'get_tree', get_tree),
     url(r'plans/(?P<plan_id>[0-9]+)/update/', update_plan),
-    url(r'xxoo', test),
     url(r'test/', handle),
     url(r'getOpenid', get_openid),
     url(r'getHistory', get_plan_history),

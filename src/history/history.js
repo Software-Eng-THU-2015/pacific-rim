@@ -38,7 +38,7 @@
 					else
 						_code = "";
 					$.getJSON("/apis/getOpenid", {code: _code}, function(data){
-						window.location.href = "http://59.66.139.53/user/"+ data.openid +"/history";
+						window.location.href = "http://162.243.136.148/user/"+ data.openid +"/history";
 					});
 				}
 		
@@ -138,9 +138,9 @@
 		return(
 			<div>
 				<div>
-					<div className = "col-xs-12 label label-primary"><h1>Hssistory</h1></div>
-					<div className = "col-xs-6 label-info"><h2>{this.state.currentMon}</h2></div>
-					<div className = "col-xs-6 label-info"><h2>{this.state.currentYear}</h2></div>
+					<div className = "col-xs-12 label label-primary" style={{"padding":"10px 10px 10px 10px"}}><h1>History</h1></div>
+					<div className = "col-xs-6 label-info" style={{"padding":"10px 10px 10px 10px"}}><h2>{this.state.currentMon}</h2></div>
+					<div className = "col-xs-6 label-info" style={{"padding":"10px 10px 10px 10px"}}><h2>{this.state.currentYear}</h2></div>
 					<div className = "col-xs-12">
 						<table className = "table table-condensed">
 						<thead><tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
@@ -155,7 +155,7 @@
 						</table>
 					</div>
 					<div className = "col-xs-12"></div>
-					<div className = "col-xs-12 label label-default"><div className="col-xs-6"><button onClick = {this.last} className="ui teal button"> Last </button></div>
+					<div className = "col-xs-12 label label-default" style={{"padding":"10px 10px 10px 10px"}}><div className="col-xs-6"><button onClick = {this.last} className="ui teal button"> Last </button></div>
 					<div className = "col-xs-6"><button onClick = {this.next} className="ui teal button"> Next </button></div></div>
 				</div>
 			</div>

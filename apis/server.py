@@ -155,8 +155,8 @@ def location_event(msg):
 
 # 点击菜单拉取消息事件
 def click_event(request):
+    reply = TextReply(message = request)
     if request.key == 'ranklist':     #排行榜
-        reply = TextReply(message = request)
         t = get_template('ranklist.xml')
         html = t.render(Context({'to_user': reply.target, 'from_user': reply.source, "create_time": reply.time}))
         return HttpResponse(html, content_type="application/xml")
@@ -169,10 +169,22 @@ def click_event(request):
             i = 1
         else:
             i = 0
+        
         str = "欢迎您领取每日任务。完成每日任务可获得大量肥料与水的奖励。\n\n您今天的任务是【" + mission_detail[i]["description"] + "】"
-        return HttpResponse(create_reply(str.decode("utf-8"), message=request))
+        print (str)
+        return HttpResponse(create_reply(str, message=request))
+    
+    elif request.key == "set_today_mission":
+        print (views.check_today_mission(reply.target))
+        if views.check_today_mission(reply.target):
+             return HttpResponse(create_reply(u"恭喜您完成了今天的每日任务！您的奖励已到账！", message=request))
+        else:
+             return HttpResponse(create_reply(u"您的每日任务尚未完成，继续努力吧~", message=request))
     elif request.key == "hit_card":
-        return HttpResponse(create_reply(u"本日打卡成功！", message=request))
+        if views.check_today_plan(reply.target):
+            return HttpResponse(create_reply(u"本日打卡成功！", message=request))
+        else:
+            return HttpResponse(create_reply(u"您本日的运动计划尚未完成，继续努力吧！", message=request))
 
 # 点击菜单跳转链接事件
 def view_event(msg):

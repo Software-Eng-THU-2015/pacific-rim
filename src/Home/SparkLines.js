@@ -37,7 +37,7 @@ export default class SparkLines extends Component {
 		];
 		var Buttons = _.map(btns, (item) => {
 			var BtnClass = classNames({
-				'ui button': true,
+				'ui button col-xs-3': true,
 				'teal': item.id == this.state.currentID,
 			});
 			return (
@@ -46,7 +46,7 @@ export default class SparkLines extends Component {
 		});
 		return (
 		  <div>
-			  <div className = "ui three top attached buttons">
+			  <div className = "ui three top attached buttons" style={{"padding":"10px 10px 10px 10px"}}>
 				{Buttons}
 			  </div>
 			  <div className = "ui attached segment">

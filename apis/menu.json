@@ -6,7 +6,7 @@
           {
               "type":"view",
               "name":"运动信息",
-              "url":"http://59.66.139.53/user/shit/chart"
+              "url":"http://162.243.136.148/user/shit/page"
            },
            {
               "type":"click",
@@ -25,12 +25,12 @@
            {
               "type":"view",
               "name":"设置计划",
-              "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx63b566ec8e63b140&redirect_uri=http%3a%2f%2f59.66.139.53%2fuser%2fshit%2fplan&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
+              "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx63b566ec8e63b140&redirect_uri=http%3a%2f%2f162.243.136.148%2fuser%2fshit%2fplan&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
            },
            {
               "type":"view",
               "name":"查看历史",
-              "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx63b566ec8e63b140&redirect_uri=http%3a%2f%2f59.66.139.53%2fuser%2fshit%2fhistory&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
+              "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx63b566ec8e63b140&redirect_uri=http%3a%2f%2f162.243.136.148%2fuser%2fshit%2fhistory&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
            }]
      },
      {
@@ -39,17 +39,22 @@
           {
               "type":"view",
               "name":"我的生命树",
-              "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx63b566ec8e63b140&redirect_uri=http%3a%2f%2f59.66.139.53%2ftag_main.html&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
+              "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx63b566ec8e63b140&redirect_uri=http%3a%2f%2f162.243.136.148%2fuser%2fshit%2ftree&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
            },
            {
-              "type":"view",
+              "type":"click",
               "name":"领取每日任务",
-              "url":"http://v.qq.com/"
+              "url":"get_today_mission"
            },
            {
-              "type":"view",
+              "type":"click",
+              "name":"交付每日任务",
+              "url":"set_today_mission"
+           },
+           {
+              "type":"click",
               "name":"与树聊天",
-              "url":"http://v.qq.com/"
+              "key":"talk_with_tree"
            }]
       }]
 }

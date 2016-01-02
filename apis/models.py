@@ -66,14 +66,6 @@ class Plan(models.Model):
     status = models.BooleanField(default=False)
 
 
-class Health(models.Model):
-    he_id = models.AutoField(primary_key=True, unique=True)
-    he_user = models.ForeignKey(User, related_name='he_user')
-    he_time = models.DateTimeField()
-    he_pressure = models.IntegerField()
-    he_heart_rate = models.IntegerField()
-
-
 class Sleep(models.Model):
     sl_id = models.AutoField(primary_key=True, unique=True)
     sl_user = models.ForeignKey(User, related_name='sl_user')
