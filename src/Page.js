@@ -9,6 +9,24 @@ export default class Page extends Component{
 		this.state = {
 			displayTag: false,
 		}
+		
+		function getOpenid(){
+			var _code;
+			var reg = new RegExp("(^|&)code=([^&]*)(&|$)");
+			var r = window.location.search.substr(1).match(reg);
+			if(r!=null){
+				_code = unescape(r[2]);
+			} 
+			else
+				_code = "";
+			$.getJSON("/apis/getOpenid", {code: _code}, function(data){
+				window.location.href = "http://162.243.136.148/user/"+ data.openid +"/page";
+			});
+		}
+		
+		if(window.location.href.substr(25, 4) == "shit"){
+			getOpenid();
+		}
 	}
 
 	showTagWrapper = (e) => {

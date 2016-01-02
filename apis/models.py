@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 import datetime
 # Create your models here.
 
+
 class BandUser(models.Model):
     bu_user = models.OneToOneField(User, null=True)
     bu_band = models.IntegerField(default=0)
@@ -64,14 +65,6 @@ class Plan(models.Model):
     pl_goal = models.CharField(max_length=128)
     pl_description = models.TextField(max_length=256)
     status = models.BooleanField(default=False)
-
-
-class Health(models.Model):
-    he_id = models.AutoField(primary_key=True, unique=True)
-    he_user = models.ForeignKey(User, related_name='he_user')
-    he_time = models.DateTimeField()
-    he_pressure = models.IntegerField()
-    he_heart_rate = models.IntegerField()
 
 
 class Sleep(models.Model):

@@ -47,7 +47,7 @@ export default class Plan extends Component{
 			else
 				_code = "";
 			$.getJSON("/apis/getOpenid", {code: _code}, function(data){
-				window.location.href = "http://59.66.139.53/user/"+ data.openid +"/plan";
+				window.location.href = "http://162.243.136.148/user/"+ data.openid +"/plan";
 			});
 		}
 		

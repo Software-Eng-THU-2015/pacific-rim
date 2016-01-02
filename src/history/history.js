@@ -38,7 +38,7 @@
 					else
 						_code = "";
 					$.getJSON("/apis/getOpenid", {code: _code}, function(data){
-						window.location.href = "http://59.66.139.53/user/"+ data.openid +"/history";
+						window.location.href = "http://162.243.136.148/user/"+ data.openid +"/history";
 					});
 				}
 		
@@ -138,7 +138,7 @@
 		return(
 			<div>
 				<div>
-					<div className = "col-xs-12 label label-primary" style={{"padding":"10px 10px 10px 10px"}}><h1>Hssistory</h1></div>
+					<div className = "col-xs-12 label label-primary" style={{"padding":"10px 10px 10px 10px"}}><h1>History</h1></div>
 					<div className = "col-xs-6 label-info" style={{"padding":"10px 10px 10px 10px"}}><h2>{this.state.currentMon}</h2></div>
 					<div className = "col-xs-6 label-info" style={{"padding":"10px 10px 10px 10px"}}><h2>{this.state.currentYear}</h2></div>
 					<div className = "col-xs-12">

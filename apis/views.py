@@ -16,21 +16,9 @@ import codecs
 from django.utils import timezone
 import calendar
 from django.forms.models import model_to_dict
-
-
-# Create your views here.
-# from xml.etree import ElementTree
-# import json
-
-# from django.utils.encoding import smart_str
-# from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-# from django.contrib.auth.models import User
-# import wechatpy
-# import hashlib
 import urllib
 import os
-
 
 plan_detail = [
     {
@@ -45,9 +33,6 @@ plan_detail = [
     }
 ]
 
-def index(request):
-    if request.method == 'GET':
-        return render(request, 'index.html')
 
 def get_plan_list(request):
     if request.method == 'GET':
@@ -57,25 +42,18 @@ def get_plan_list(request):
             user = BandUser.objects.get(bu_openid=openid)
         except ObjectDoesNotExist:
             res['error'] = "invalid user"
-            return HttpResponse(ujson.dumps(res),
-                    content_type="application/json")
+            return HttpResponse(ujson.dumps(res), content_type="application/json")
         today = django.utils.timezone.now().date()
         tomorrow = today + timedelta(1)
-        today_start = datetime.combine(today, time())
-        today_end = datetime.combine(tomorrow, time())
-        start_t = request.GET.get('start', today_start)
-        end_t = request.GET.get('end', today_end)
         res['data'] = []
-        try: 
-            plans = user.plans.filter(pl_user=user,
-                    pl_time_from__gte=start_t, 
-                    pl_time_to__lte=end_t)
+        try:
+            plans = user.plans.filter(pl_user=user)
             for item in plans:
                 res['data'].append(model_to_dict(item))
         except ObjectDoesNotExist:
             res['data'] = []
-        return HttpResponse(json.dumps(res, default=date_handler),
-                content_type="application/json")
+        return HttpResponse(json.dumps(res, default=date_handler), content_type="application/json")
+
 
 def date_handler(obj):
     return obj.isoformat() if hasattr(obj, 'isoformat') else obj
@@ -105,9 +83,10 @@ def update_database(request):
         end_time = request.GET["end_time"]
         openid = request.GET["openid"]
         user = int(openid) % 100  # from 0 to 99
-        url = "http://wrist.ssast2015.com/bongdata/?startTime="+ start_year +"-"+ start_month +"-"+ start_day +"%20"+ start_time +"&endTime="+ end_year +"-"+ end_month +"-"+ end_day +"%20"+ end_time +"&user=" + str(user)
+        url = "http://wrist.ssast2015.com/bongdata/?startTime=" + start_year + "-" + start_month + "-" + start_day + "%20" + start_time + "&endTime=" + end_year + "-" + end_month + "-" + end_day + "%20" + end_time + "&user=" + str(
+            user)
         print(url)
-        response = urllib.urlopen(url)         #调用urllib2向服务器发送get请求
+        response = urllib.urlopen(url)  # 调用urllib2向服务器发送get请求
         js = json.loads(response.read())
 
         for element in js:
@@ -136,7 +115,7 @@ def update_database(request):
             else:  # for other situations
                 continue
 
-        return HttpResponse("^-^")                     #获取服务器返回的页面信息
+        return HttpResponse("^-^")  # 获取服务器返回的页面信息
 
 
 def insert_band_user(request):
@@ -164,17 +143,17 @@ def insert_band_user(BU_WechatId):
 def get_steps(request):
     if request.method == 'GET':
         user = request.GET.get('openid')
-        user = BandUser.objects.get(bu_openid = user)
+        user = BandUser.objects.get(bu_openid=user)
         start_time = request.GET.get('start_time', timezone.now().date())
         end_time = request.GET.get('end_time', timezone.now().date() + timedelta(1))
         steps = user.steps.filter(st_time__lte=end_time,
-                st_time__gte=start_time)
+                                  st_time__gte=start_time)
         res = {}
         res['data'] = []
         for step in steps:
             res['data'].append(model_to_dict(step))
         return HttpResponse(json.dumps(res,
-            default=date_handler),content_type='application/json')
+                                       default=date_handler), content_type='application/json')
 
 
 def insert_step(request):
@@ -202,35 +181,37 @@ def insert_tag_content(request):
     else:
         return HttpResponse('')
 
+
 @csrf_exempt
 def insert_tag(request):
     if request.method == 'POST':
         data = ujson.loads(request.body)
         tg = Tag()
         openid = data.get('openid')
-        user = BandUser.objects.get(bu_openid = openid)
+        user = BandUser.objects.get(bu_openid=openid)
         tg.tg_user = user
         tg.tg_time_from = data.get('TG_TimeFrom')
         tg.tg_time_to = data.get('TG_TimeTo')
         content = data.get('TG_Content')
-        tg_content = TagContent(tc_user = user, tc_content=content)
+        tg_content = TagContent(tc_user=user, tc_content=content)
         tg_content.save()
         tg.tg_content = tg_content
         tg.save()
-        return HttpResponse(ujson.dumps({'res':'ok'}),
-                content_type="application/json")
+        return HttpResponse(ujson.dumps({'res': 'ok'}),
+                            content_type="application/json")
+
 
 @csrf_exempt
 def insert_plan(request):
     if request.method == 'POST':
         data = ujson.loads(request.body)
         openid = data.get('openid')
-        user = BandUser.objects.get(bu_openid = openid)
+        user = BandUser.objects.get(bu_openid=openid)
         now_time = timezone.now().date()
-        print (now_time)
-        pl = Plan.objects.filter(pl_user = user)
-        print (pl.count())
-        if(pl.count() == 0):
+        print(now_time)
+        pl = Plan.objects.filter(pl_user=user)
+        print(pl.count())
+        if pl.count() == 0:
             pl = Plan()
             pl.pl_user = user
             pl.pl_time_from = data.get('PL_TimeFrom')
@@ -239,24 +220,8 @@ def insert_plan(request):
             pl.pl_goal = data.get('PL_Goal')
             pl.pl_description = data.get('PL_Description')
             pl.save()
-            return HttpResponse(ujson.dumps({'res':'ok'}),
-                content_type="application/json")
-        return HttpResponse(ujson.dumps({'res':'notok'}),
-            content_type="application/json")
-
-
-def insert_health(request):
-    if request.method == 'POST':
-        he = Step()
-        he.he_user = request.POST.get('openid')
-        he.he_time = request.POST.get('HE_Time')
-        he.he_pressure = request.POST.get('HE_Pressure')
-        he.he_heart_rate = request.POST.get('HE_HeartRate')
-
-        he.save()
-        return HttpResponse('')
-    else:
-        return HttpResponse('')
+            return HttpResponse(ujson.dumps({'res': 'ok'}), content_type="application/json")
+        return HttpResponse(ujson.dumps({'res': 'notok'}), content_type="application/json")
 
 
 def insert_sleep(request):
@@ -305,17 +270,10 @@ def delete_plan(request, plan_id):
     return HttpResponse('delete successfully')
 
 
-def delete_health(request, health_id):
-    he = Health.objects.get(he_id=health_id)
-    he.delete()
-    return HttpResponse('delete successfully')
-
-
 def delete_sleep(request, sleep_id):
     sl = Sleep.objects.get(sl_id=sleep_id)
     sl.delete()
     return HttpResponse('delete successfully')
-
 
 
 def update_band_user(request):
@@ -335,19 +293,20 @@ def update_band_user(request):
     else:
         return HttpResponse('')
 
+
 def get_tag_list(request):
     if request.method == 'GET':
         user_id = request.GET["user_id"]
-        try: 
-            user = BandUser.objects.get(bu_openid = user_id)
+        try:
+            user = BandUser.objects.get(bu_openid=user_id)
         except ObjectDoesNotExist:
             return HttpResponse(json.dumps({'err': 'invaild user'}),
-                    content_type="application/json")
-        tags = Tag.objects.filter(tg_user = user)
+                                content_type="application/json")
+        tags = Tag.objects.filter(tg_user=user)
         tag_list = [{'content': i.tg_content.tc_content, 'start_time':
             i.tg_time_from, 'end_time': i.tg_time_to, 'id': i.tg_id} for i in tags]
         return HttpResponse(json.dumps({'list': tag_list}, default=date_handler),
-                content_type="application/json")
+                            content_type="application/json")
 
 
 def update_tag_content(request, tagc_id):
@@ -377,12 +336,13 @@ def update_tag(request, tag_id):
     else:
         return HttpResponse('')
 
+
 @csrf_exempt
 def update_plan(request, plan_id):
     if request.method == 'POST' or request.method == 'GET':
         print(plan_id)
         try:
-            pl = Plan.objects.get(pl_id = plan_id)
+            pl = Plan.objects.get(pl_id=plan_id)
             user = pl.pl_user
             try:
                 start_time = timezone.now().date()
@@ -390,21 +350,16 @@ def update_plan(request, plan_id):
                 totalstep = 0
                 for step in steps:
                     totalstep += step.st_step_number
-                if(totalstep >= int(pl.pl_goal)):
+                if totalstep >= int(pl.pl_goal):
                     update_plan_history(user.bu_openid)
-                    return HttpResponse(json.dumps({'res':'ok'}),
-                        content_type='application/json')
+                    return HttpResponse(json.dumps({'res': 'ok'}), content_type='application/json')
                 else:
-                    return HttpResponse(json.dumps({'res':'notok'}),
-                        content_type='application/json')
+                    return HttpResponse(json.dumps({'res': 'notok'}), content_type='application/json')
             except ObjectDoesNotExist:
-                return HttpResponse(json.dumps({'res': 'notok'}),
-                    content_type='application/json')
+                return HttpResponse(json.dumps({'res': 'notok'}), content_type='application/json')
         except ObjectDoesNotExist:
-            return HttpResponse(json.dumps({'err': 'invalid pid'}),
-                    content_type='application/json')
+            return HttpResponse(json.dumps({'err': 'invalid pid'}), content_type='application/json')
 
-    
 
 # def update_plan(request, plan_id):
 #     if request.method == 'POST':
@@ -462,7 +417,8 @@ def select_band_user(request):
             return HttpResponse('')
 '''
 
-def check_band_user(uid):    # 检查是否存在
+
+def check_band_user(uid):  # 检查是否存在
     try:
         bu = BandUser.objects.get(bu_openid=uid)
     except ObjectDoesNotExist:
@@ -513,7 +469,6 @@ def select_tag_content(request):
                 context = list({})
                 context['TC_User'] = tc.tc_user
                 context['TC_Content'] = tc.tc_content
-
                 return HttpResponse('')
             else:
                 return HttpResponse('')
@@ -561,25 +516,6 @@ def select_plan(request):
             return HttpResponse('')
 
 
-def select_health(request):
-    if request.method == 'GET':
-        health_id = request.POST.get('HE_ID')
-        if health_id:
-            he = BandUser.objects.get(he_id=health_id)
-            if he:
-                context = list({})
-                context['HE_User'] = he.he_user
-                context['HE_Time'] = he.he_time
-                context['HE_Pressure'] = he.he_pressure
-                context['HE_HeartRate'] = he.he_heart_rate
-
-                return HttpResponse('')
-            else:
-                return HttpResponse('')
-        else:
-            return HttpResponse('')
-
-
 def select_sleep(request):
     if request.method == 'GET':
         sleep_id = request.POST.get('SL_ID')
@@ -603,22 +539,26 @@ def select_sleep(request):
 def get_openid(request):
     if request.method == "GET":
         code = request.GET["code"]
-        url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + os.environ.get('APP_ID')+ "&secret=" + os.environ.get('APP_SECRET') + "&code=" + code + "&grant_type=authorization_code"
+        url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + os.environ.get(
+            'APP_ID') + "&secret=" + os.environ.get('APP_SECRET') + "&code=" + code + "&grant_type=authorization_code"
         # url = "xp"
-        response = urllib.request.urlopen(url)         #调用urllib2向服务器发送get请求
+        response = urllib.request.urlopen(url)  # 调用urllib向服务器发送get请求
         js = json.loads(response.read().decode("utf-8"))
         openid = js["openid"]
         jsonfile = json.dumps({"openid": openid})
-        return  HttpResponse(jsonfile)                 #获取服务器返回的页面信息
+        return HttpResponse(jsonfile)  # 获取服务器返回的页面信息
 
 
-def update_plan_history(open_id):
+def update_plan_history(open_id):  # 当天完成了计划 存储
     user = BandUser.objects.get(bu_openid=open_id)
     hp = HistoryPlan()
     hp.hp_user = user
     hp.hp_date = datetime.today()
     hp.hp_plan = user.bu_plan
+    user.bu_tree_today_watertime += 1
+    user.bu_tree_today_fertilizer += 1
     hp.save()
+    user.save()
     return
 
 
@@ -647,12 +587,6 @@ def tag_main(request):
         openid = get_openid(request)
         # return HttpResponse('xxxx')
         return render(request, 'index.html')
-
-
-def tree_main(request):
-    openid = get_openid(request)
-    request.session["openid"] = openid
-    return HttpResponse(request.session["openid"])
 
 
 @csrf_exempt
@@ -684,7 +618,7 @@ def water_tree(openid):
     finally:
         user.bu_tree_today_watertime -= 1
         if user.bu_tree_height < 6:
-            user.bu_tree_height  += 0.2 * user.bu_tree_health
+            user.bu_tree_height += 0.2 * user.bu_tree_health
         else:
             user.bu_tree_height += 1
         if user.bu_tree_health < 10:
@@ -699,29 +633,29 @@ def tree_care(request):
         waterFlag = request.REQUEST.get("water")
         openid = request.REQUEST.get("openid")
         fertilizerFlag = request.REQUEST.get("fertilizer")
-        print (waterFlag)
-        print (fertilizerFlag)
+        print(waterFlag)
+        print(fertilizerFlag)
         if waterFlag == "true":
             if water_tree(openid):
-                return HttpResponse(json.dumps({'res':'success'}),
-                content_type="application/json")
+                return HttpResponse(json.dumps({'res': 'success'}),
+                                    content_type="application/json")
             else:
-                return HttpResponse(json.dumps({'res':'failed'}),
-                content_type="application/json")
+                return HttpResponse(json.dumps({'res': 'failed'}),
+                                    content_type="application/json")
         if fertilizerFlag == "true":
             if fer_tree(openid):
-                return HttpResponse(json.dumps({'res':'success'}),
-                content_type="application/json")
+                return HttpResponse(json.dumps({'res': 'success'}),
+                                    content_type="application/json")
             else:
-                return HttpResponse(json.dumps({'res':'failed'}),
-                content_type="application/json")
+                return HttpResponse(json.dumps({'res': 'failed'}),
+                                    content_type="application/json")
 
         return HttpResponse(json.dumps({'res': 'none'}),
-                content_type='application/json')
+                            content_type='application/json')
 
     else:
-        return HttpResponse(json.dumps({'res':'failed'}),
-                content_type="application/json")
+        return HttpResponse(json.dumps({'res': 'failed'}),
+                            content_type="application/json")
 
 
 def get_tree(request):
@@ -731,8 +665,8 @@ def get_tree(request):
         try:
             user = BandUser.objects.get(bu_openid=openid)
         except ObjectDoesNotExist:
-            return HttpResponse(json.dumps({'res':'failed'}),
-                content_type="application/json")
+            return HttpResponse(json.dumps({'res': 'failed'}),
+                                content_type="application/json")
 
         health = user.bu_tree_health
         height = user.bu_tree_height
@@ -758,12 +692,13 @@ def get_tree(request):
             level = 8
         else:
             level = 9
-        return HttpResponse(json.dumps({"level":level, "health": health, "height":height, "water": water, "fertilizer": fertilizer}),
-                    content_type="application/json")
+        return HttpResponse(
+            json.dumps({"level": level, "health": health, "height": height, "water": water, "fertilizer": fertilizer}),
+            content_type="application/json")
 
     else:
-        return HttpResponse(json.dumps({'res':'failed'}),
-                content_type="application/json")
+        return HttpResponse(json.dumps({'res': 'failed'}),
+                            content_type="application/json")
 
 
 def update_database_randomly(openid):
@@ -793,16 +728,55 @@ def update_database_randomly(openid):
             st.save()
     return True
 
-def test(request):
-    if update_database_randomly(request.GET.get("openid")):
-        return HttpResponse('yes')
 
-def test2(openid):
+def daily_update():
+    users = BandUser.objects.all
+    for user in users:
+        user.bu_bu_tree_health -= 1
+        user.save()
+
+
+def check_today_plan(openid):
     try:
         bu = BandUser.objects.get(bu_openid=openid)
+        plan = Plan.objects.get(pl_user=bu)
     except ObjectDoesNotExist:
         return False
-    bu.bu_tree_today_fertilizer += 1000
-    bu.bu_tree_today_watertime += 1000
-    bu.save()
-    return True
+    start_time = timezone.now().date()
+    steps = bu.steps.filter(st_time__gte=start_time)
+    totalstep = 0
+    for step in steps:
+        totalstep += step.st_step_number
+    if (totalstep >= int(plan.pl_goal)):
+        update_plan_history(user.bu_openid)
+        return True
+    else:
+        return False
+
+
+def check_today_mission(openid):
+    try:
+        bu = BandUser.objects.get(bu_openid=openid)
+        plan = Plan.objects.get(pl_user=bu)
+    except ObjectDoesNotExist:
+        return False
+    start_time = timezone.now().date()
+    steps = bu.steps.filter(st_time__gte=start_time)
+    totalstep = 0
+    for step in steps:
+        totalstep += step.st_step_number
+    if (totalstep >= int(plan.pl_goal)):
+        return True
+    else:
+        return False
+
+        # def test2(openid):
+        #     try:
+        #         bu = BandUser.objects.get(bu_openid=openid)
+        #     except ObjectDoesNotExist:
+        #         return False
+        #     bu.bu_tree_today_fertilizer += 1000
+        #     bu.bu_tree_today_watertime += 1000
+        #     bu.save()
+        #     return True
+        #

@@ -124,7 +124,7 @@ export default class Tree extends Component{
 					water: true,
 					fertilizer: false},
 					function(){
-					alert("pour water successfully!");
+					alert("浇水成功！");
 					getTree();
 				});
 			}
@@ -140,7 +140,7 @@ export default class Tree extends Component{
 					water: false,
 					fertilizer: true},
 					function(){
-					alert("give fertilizer successfully!");
+					alert("施肥成功！");
 					getTree();
 				});
 			}
@@ -152,8 +152,13 @@ export default class Tree extends Component{
 	    	<div className="col-xs-12 label label-primary" style={{"padding":"10px 10px 10px 10px"}}>
 		    	<h1>Tree</h1>
 		    </div>
+<<<<<<< HEAD
 			<div className="col-xs-12" style={{"padding":"10px 10px 10px 10px"}}>
 		<img id="img" className="ui small left floated image"/>
+=======
+			<div className="col-xs-12">
+		<img id="img" className="ui small left floated image" style = {{"width": "45%"}}/>
+>>>>>>> f34bb463c491691431c2f0e4cd28e21bfc432ae0
 				<div>
                 	<p className="item level" id = "level">
                 	</p>

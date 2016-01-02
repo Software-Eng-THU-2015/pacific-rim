@@ -46,12 +46,14 @@ export default class AddPlan extends Component{
 			<h3>StartDate:</h3>
 			<DatePicker selected={this.state.startDate}
 			onChange={this.handleStartDate} />
+		</div>
+		<div className="title">
 			<h3>EndDate:</h3>
 			<DatePicker selected={this.state.endDate}
 			onChange={this.handleEndDate} /><br/>
 	</div>
 	<div className="col-xs-12 label label-default" style={{"padding":"10px 10px 10px 10px"}}>
-		<input ref="submit" type="submit" className="ui button"
+		<input value = "创建计划" ref="submit" type="submit" className="ui button"
 		onClick={this.handleSubmit} />
 	</div>
 </div>
@@ -72,7 +74,7 @@ export default class AddPlan extends Component{
 			hour: 23,
 			minute: 59,
 		});
-		if(isNaN(goal)){
+		if(typeof(goal) == "undefined" || isNaN(goal)){
 			alert("亲，您的计划里程数好像不太对哦~");
 			return;
 		}
