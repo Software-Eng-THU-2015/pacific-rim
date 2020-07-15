@@ -54,7 +54,7 @@
     "imports-loader": "^0.6.5",
     "jquery": "^2.1.4",
     "js-cookie": "^2.0.4",
-    "lodash": "^3.10.1",
+    "lodash": "^4.17.19",
     "moment": "^2.10.6",
     "node-sass": "^3.4.2",
     "normalize.css": "^3.0.3",
